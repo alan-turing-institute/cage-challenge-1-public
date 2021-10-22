@@ -5,6 +5,9 @@
 
 This repository contains agents for winning the CybORG-CAGE [Challenge(s)](https://github\.com/cage\-challenge/cage\-challenge\-1/tree/main/CybORG).
 
+# Results
+
+Results are summarised in the [results table](results.MD).
 
 # Instructions for submitting responses
 
