@@ -32,7 +32,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--run",
     type=str,
-    default="IMPALA",
+    default="PPO",
     help="The RLlib-registered algorithm to use.")
 parser.add_argument(
     "--framework",
@@ -115,18 +115,24 @@ class CybORG_blue_vs_blineAgent(gym.Env):
         self.agent = B_lineAgent()
 
         self.results = self.env.reset('Blue')
-        self.observation_space = Box(-1.0, 1.0, (11293,), np.float32)
+        self.observation_space = self.env.observation_space
         self.action_space = self.env.action_space
+
+        self.seed(config.worker_index * config.num_workers)
 
     def reset(self):
         self.agent = B_lineAgent()
         self.results = self.env.reset('Blue')
+        print(len(self.results))
         return self.results
 
     def step(self, action):
         #self.action = self.agent.get_action(self.observation_space, self.action_space)
         self.results = self.env.step(action=action,agent='Blue')
-        return self.results
+        print(len(self.results))
+        reward = self.env.get_rewards()
+        print(reward)
+        return self.results, 0, False, {}
 
 
 if __name__ == "__main__":
