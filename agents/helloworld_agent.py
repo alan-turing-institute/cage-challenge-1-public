@@ -32,7 +32,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--run",
     type=str,
-    default="PPO",
+    default="IMPALA",
     help="The RLlib-registered algorithm to use.")
 parser.add_argument(
     "--framework",
@@ -115,24 +115,16 @@ class CybORG_blue_vs_blineAgent(gym.Env):
         self.agent = B_lineAgent()
 
         self.results = self.env.reset('Blue')
-        self.observation_space = self.env.observation_space
+        self.observation_space = Box(-1.0, 1.0, (11293,), np.float64)
         self.action_space = self.env.action_space
 
         self.seed(config.worker_index * config.num_workers)
 
     def reset(self):
-        self.agent = B_lineAgent()
-        self.results = self.env.reset('Blue')
-        print(len(self.results))
-        return self.results
+        return self.env.reset('Blue')
 
     def step(self, action):
-        #self.action = self.agent.get_action(self.observation_space, self.action_space)
-        self.results = self.env.step(action=action,agent='Blue')
-        print(len(self.results))
-        reward = self.env.get_rewards()
-        print(reward)
-        return self.results, 0, False, {}
+        return self.env.step(action=action) #agent='Blue'
 
 
 if __name__ == "__main__":
@@ -156,7 +148,7 @@ if __name__ == "__main__":
             "custom_model": "my_model",
             "vf_share_layers": True,
         },
-        "lr": grid_search([1e-2, 1e-4, 1e-6]),  # try different lrs
+        "lr": grid_search([1e-4]),  # try different lrs: 1e-2, 1e-4, 1e-6
         "num_workers": 1,  # parallelism
         "framework": args.framework,
     }

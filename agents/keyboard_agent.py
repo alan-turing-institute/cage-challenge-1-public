@@ -10,12 +10,13 @@ from CybORG.Agents.Wrappers import *
 path = str(inspect.getfile(CybORG))
 path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
-cyborg = CybORG(path, 'sim',agents={'Blue':BlueMonitorAgent})
-env = RedTableWrapper(env=cyborg, output_mode='table')
+cyborg = CybORG(path, 'sim',agents={'Red':B_lineAgent})
+env = FixedFlatWrapper(env=cyborg, output_mode='table')
+
 
 agent = KeyboardAgent()
 
-results = env.reset('Red')
+results = env.reset('Blue')
 obs = results.observation
 action_space = results.action_space
 
