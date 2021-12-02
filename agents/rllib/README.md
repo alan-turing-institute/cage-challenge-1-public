@@ -4,6 +4,8 @@
 
 ```https://colab.research.google.com/drive/1hwfvsD3zDC2GY0K8z0t8Muvs4c79WMR2?usp=sharing```
 
+For colab to work out of the box, you will need to pull the RLlib branch in your Google Drive, let it sync, and then mount the drive.
+
 # Additional dependencies to install
 
 ```
