@@ -14,17 +14,17 @@ from ray.rllib.agents import ppo
 from ray.tune.registry import register_env
 from ray.tune.logger import pretty_print
 
+from RLlibWrapper import *
+
+import sys
+sys.path.append('cage-challenge-1/CybORG/')
 
 
-# import pybullet_envs
-import inspect
 from CybORG import CybORG
 from CybORG.Agents.Wrappers import *
 from CybORG.Agents import B_lineAgent, SleepAgent
 from CybORG.Agents.SimpleAgents.Meander import RedMeanderAgent
 from CybORG.Agents import B_lineAgent, GreenAgent, BlueMonitorAgent
-from RLlibWrapper import *
-
 
 
 ################################### Training ###################################
@@ -35,7 +35,7 @@ def train():
 
     env_name = "CybORG"
     print("Training environment name : " + env_name, flush=True)
-    path = '/content/drive/MyDrive/CAGE/cage-challenge-1/agents/rllib/CybORG/Shared/Scenarios/Scenario1b.yaml'
+    path = 'cage-challenge-1/CybORG/CybORG/Shared/Scenarios/Scenario1b.yaml'
     cyborg = CybORG(path, 'sim', agents={'Red': RedMeanderAgent, 'Green': GreenAgent})
     env = RLlibWrapper(ChallengeWrapper(env=cyborg, agent_name='Blue'))
     

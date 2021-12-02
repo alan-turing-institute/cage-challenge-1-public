@@ -3,6 +3,9 @@ from gym import spaces, Env
 from typing import Union, List
 from prettytable import PrettyTable
 
+import sys
+sys.path.append('cage-challenge-1/CybORG/')
+
 from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
 from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
 
