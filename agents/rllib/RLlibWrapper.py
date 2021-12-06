@@ -3,8 +3,11 @@ from gym import spaces, Env
 from typing import Union, List
 from prettytable import PrettyTable
 
-import sys
+import sys,os
+print(os.getcwd())
 sys.path.append('cage-challenge-1/CybORG/')
+sys.path.append('/content/drive/MyDrive/cage-challenge-1/cage-challenge-1/CybORG/')
+
 
 from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
 from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
