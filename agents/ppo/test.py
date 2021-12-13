@@ -108,7 +108,7 @@ if __name__ == "__main__":
     run_num_pretrained = 0      #### set this to load a particular checkpoint num
 
 
-    agent.load('/homes/mlf20/git/agnet_cage/saved_models/PPO_CybORG_0_0.pth')
+    agent.load('./PPO_preTrained/CybORG/PPO_CybORG_0_0.pth')
 
     print(f'Using agent {agent.__class__.__name__}, if this is incorrect please update the code to load in your agent')
 

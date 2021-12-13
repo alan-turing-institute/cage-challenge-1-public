@@ -70,9 +70,13 @@ def train():
     print("training environment name : " + env_name)
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
-    cyborg = CybORG(path, 'sim',agents={'Red': RedMeanderAgent})
-    wrappers = FixedFlatWrapper(EnumActionWrapper(cyborg))
-    env = OpenAIGymWrapper(env=wrappers, agent_name='Blue')
+    cyborg = CybORG(path, 'sim')
+    #cyborg = BlueTableWrapper(cyborg)
+
+    #wrappers = FixedFlatWrapper(EnumActionWrapper(cyborg))
+    env = OpenAIGymWrapper('Blue', EnumActionWrapper(FixedFlatWrapper(ReduceActionSpaceWrapper(cyborg))))
+
+    #env = OpenAIGymWrapper(env=wrappers, agent_name='Blue')
     #env = gym.make(env_name)
 
     # state space dimension

@@ -1,12 +1,11 @@
 import time
 from matplotlib import pyplot as plt
 import numpy as np
-from collections import deque
 from env_utils import make_envs_as_vec
 from a2c.a2c_agent import Agent
 from a2c.rollout import RolloutStorage
 from a2c.rnd.rnd import RunningMeanStd
-from config import Config
+from a2c.config import Config
 import torch
 from CybORG import CybORG
 from CybORG.Agents import *
@@ -23,9 +22,10 @@ if __name__ == "__main__":
                       'episode_length'  : 100,
                       'learning_rate'   : 0.005,
                       'training_length' : 4000,
-                      'priority'        : True,
+                      'priority'        : False,
                       'exploring_steps' : 100,
-                      'rnd'             : True,
+                      'rnd'             : False,
+                      'attention'       : False,
                       'pre_obs_norm'    : 10}
     config = Config(config_dict=config_defaults)
 
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
 
     environments.close()
-    agent.save_model('a2c with rnd')
+    agent.save_model('a2c')
 
     if show_train_curve:
         plt.plot(total_episodes, total_rewards, color='orange')
