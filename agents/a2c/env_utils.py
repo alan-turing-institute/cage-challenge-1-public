@@ -12,7 +12,8 @@ def list_to_tensor(list):
 def make_env(rank, environ, seed=0):
     def _thunk():
         environment = environ
-        wrappers = FixedFlatWrapper(EnumActionWrapper(environment))
+        #OpenAIGymWrapper('Blue', EnumActionWrapper(FixedFlatWrapper(ReduceActionSpaceWrapper(environment))))
+        wrappers = EnumActionWrapper(FixedFlatWrapper(ReduceActionSpaceWrapper(environment)))
         env = OpenAIGymWrapper(env=wrappers, agent_name='Blue')
         env.seed(seed+rank)
         return env
@@ -132,3 +133,6 @@ class VecNormalise(VecNormalise_):
 
     def eval(self):
         self.training = False
+
+def extract_obvs_from_wrapper(wrapped_table):
+    pass
