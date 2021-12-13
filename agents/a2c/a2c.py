@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from a2c.distributions import Categorical
+from agents.a2c.distributions import Categorical
 
 
 

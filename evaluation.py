@@ -17,9 +17,9 @@ from CybORG.Agents.Wrappers.ReduceActionSpaceWrapper import ReduceActionSpaceWra
 from CybORG.Agents.Wrappers import ChallengeWrapper
 
 from agents.helloworld_agent import TorchCustomModel as BasicAgent # Example
-from agents.a2c.a2c.a2c_agent import Agent as A2CAgent
-from agents.a2c.a2c.rollout import RolloutStorage
-from agents.a2c.a2c.rnd.rnd import RunningMeanStd
+from agents.a2c.a2c_agent import Agent as A2CAgent
+from agents.a2c.rollout import RolloutStorage
+from agents.a2c.rnd import RunningMeanStd
 from agents.ppo.PPO import PPO as PPOAgent
 from agents_list import AGENTS
 from config import configure
@@ -35,13 +35,6 @@ def wrap(env):
 if __name__ == "__main__":
     cyborg_version = '1.2'
     args = configure()
-
-    # ask for a name
-    name = input('Name: ')
-    # ask for a team
-    team = input("Team: ")
-    # ask for a name for the agent
-    name_of_agent = input("Name of technique: ")
 
     # FIXME what is this for?
     lines = inspect.getsource(wrap)

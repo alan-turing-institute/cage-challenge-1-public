@@ -1,7 +1,7 @@
 import torch
-from a2c.a2c import PolicyNetwork
+from agents.a2c.a2c import PolicyNetwork
 import os
-from a2c.rnd.rnd import RNDAgentA2c
+from agents.a2c.rnd import RNDAgentA2c
 
 class Agent:
     def __init__(self, action_space, input_space=1, val_loss_coef=0.5,
