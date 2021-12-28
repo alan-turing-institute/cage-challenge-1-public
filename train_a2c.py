@@ -1,11 +1,11 @@
 import time
 from matplotlib import pyplot as plt
 import numpy as np
-from env_utils import make_envs_as_vec
-from a2c.a2c_agent import Agent
-from a2c.rollout import RolloutStorage
-from a2c.rnd.rnd import RunningMeanStd
-from a2c.config import Config
+from agents.a2c.env_utils import make_envs_as_vec
+from agents.a2c.a2c_agent import Agent
+from agents.a2c.rollout import RolloutStorage
+from agents.a2c.rnd import RunningMeanStd
+from agents.a2c.config import Config
 import torch
 from CybORG import CybORG
 from CybORG.Agents import *
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     show_train_curve = not track
 
     agent_name = 'Blue'
-    agnets = {'Red': B_lineAgent}
+    agents = {'Red': B_lineAgent}
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
     cyborg = CybORG(path, 'sim')

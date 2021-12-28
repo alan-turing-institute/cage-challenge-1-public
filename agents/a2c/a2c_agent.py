@@ -3,7 +3,7 @@ from agents.a2c.a2c import PolicyNetwork
 import os
 from agents.a2c.rnd import RNDAgentA2c
 
-class Agent:
+class A2CAgent:
     def __init__(self, action_space, input_space=1, val_loss_coef=0.5,
                  entropy_coef=0.01, lr=0.0001, epsilon=0.001, max_grad_norm=0.5, alpha=0.99,
                  rnd=False, update_prop=0.25, processes=1):

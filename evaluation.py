@@ -16,12 +16,10 @@ from CybORG.Agents.Wrappers.OpenAIGymWrapper import OpenAIGymWrapper
 from CybORG.Agents.Wrappers.ReduceActionSpaceWrapper import ReduceActionSpaceWrapper
 from CybORG.Agents.Wrappers import ChallengeWrapper
 
+from agents_list import AGENTS
 from agents.helloworld_agent import TorchCustomModel as BasicAgent # Example
-from agents.a2c.a2c_agent import Agent as A2CAgent
 from agents.a2c.rollout import RolloutStorage
 from agents.a2c.rnd import RunningMeanStd
-from agents.ppo.PPO import PPO as PPOAgent
-from agents_list import AGENTS
 from config import configure
 
 MAX_EPS = 10
@@ -68,9 +66,12 @@ if __name__ == "__main__":
             action_space = wrapped_cyborg.get_action_space(agent_name)
             # action_space = cyborg.get_action_space(agent_name)
                     
+            agent = AGENTS[args.name_of_agent](args)
+
             if 'a2c' in args.name_of_agent:
                 rollouts = RolloutStorage(steps=num_steps, processes=1, output_dimensions=action_space, 
                                             input_dimensions=wrapped_cyborg.observation_space.shape[0])
+
 
             total_reward = []
             actions = []

@@ -1,0 +1,163 @@
+- config: shared-flags
+  flags: 
+    name:
+      description: Name of person running this
+      default: ATI
+      type: string
+    team: 
+      description: Team name...
+      default: Turing Inst
+      type: string
+    name-of-agent:
+      description: Name of the agent
+      default: a2c
+      choice:
+        - rnd
+        - a2c-rnd
+        - a2c
+        - ppo
+      type: string
+    scenario:
+      description: Selected scenario
+      default: Scenario1b
+      choice:
+        - Scenario1
+        - Scenario1b
+      type: string
+    seed: 
+      description: Random seed
+      default: 0
+      type: int
+    continuous-action-space:
+      description: continuous action space; else discrete
+      default: False
+      type: bool
+    batch-size: 
+      description: Minibatch size
+      default: 128
+      type: int
+    update-step:
+      description: Update step
+      default: 50
+      type: int
+    episode-length:
+      description: Episode length
+      default: 100
+      type: int
+    training-length:
+      description: Training length
+      default: 4000
+      type: int
+- model: a2c
+  operations: 
+    eval: 
+      description: Evaluation script for A2C agent
+      main: evaluation
+      sourcecode: 
+        include: 
+          dir: results/saved_models/a2c
+        exclude: 
+          dir: tutorial_code
+        dest: results/saved_models/a2c
+        select: 
+          - "agents/a2c/a2c_agent.py"
+          - "agents/a2c/a2c.py"
+          - "agents/a2c/distributions.py"
+          - "agents/a2c/rnd.py"
+          - "agents/a2c/env_utils.py"
+          - "agents/a2c/rollout.py"
+          - "agents_list.py"
+          - "config.py"
+          - "evaluation.py"
+      flags: 
+        $include: shared-flags
+        gamma: 
+          description: See MF A2C agent docs...
+          default: 0.9
+          type: float
+        epsilon: 
+          description: See MF A2C agent docs...
+          default: 1.0
+          type: float
+        learning-rate: 
+          description: See MF A2C agent docs...
+          default: 0.005
+          type: float
+        priority: 
+          description: See MF A2C agent docs...
+          default: False
+          type: boolean
+        exploring-steps:
+          description: See MF A2C agent docs...
+          default: 100
+          type: int
+        rnd: 
+          description: See MF A2C agent docs...
+          default: False
+          type: boolean
+        attention: 
+          description: See MF A2C agent docs...
+          default: False
+          type: boolean
+        pre-obs-norm:
+          description: See MF A2C agent docs...
+          default: 10
+          type: int
+      output-scalars: 
+        - run_time: 'Total run time: \n(\value)'
+- model: ppo
+  operations: 
+    eval: 
+      description: Evaluation script for PPO agent
+      main: evalutation
+      sourcecode: 
+        include: 
+          dir: results/saved_models/a2c
+        exclude: 
+          dir: tutorial_code
+        dest: results/saved_models/a2c
+        select: 
+          - "agents/ppo/PPO.py"
+          - "agents_list.py"
+          - "config.py"
+          - "evaluation.py"
+      flags: 
+        $include: shared-flags
+        gamma: 
+          description: discount factor
+          default: 0.99
+          type: float
+        action-std:
+          description: starting std for action distribution (Multivariate Normal)
+          default: 0.6
+          type: float
+        action-std-decay-rate:
+          description: linearly decay action_std (action_std = action_std - action_std_decay_rate)
+          default: 0.05
+          type: float
+        min-action-std:
+          description: minimum action_std (stop decay after action_std <= min_action_std)
+          default: 0.1  
+          type: float
+        action-std-decay-freq:
+          description: action_std decay frequency (in num timesteps)
+          default: 250000
+          type: int
+        k-epochs:
+          description: update policy for K epochs in one PPO update
+          default: 80
+          type: int
+        eps-clip:
+          description: clip parameter for PPO
+          default: 0.2
+          type: float
+        lr-actor:
+          description: learning rate for actor network
+          default: 0.0003
+          type: float
+        lr-critic:
+          description: learning rate for critic network
+          default: 0.001
+          type: float
+      output-scalars: 
+        - run_time: 'Total run time: \n(\value)'
