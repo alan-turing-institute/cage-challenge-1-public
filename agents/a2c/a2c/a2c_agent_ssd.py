@@ -1,7 +1,7 @@
 import torch
-from a2c.a2c import PolicyNetwork
+from a2c.a2c.a2c import PolicyNetwork
 import os
-from a2c.rnd.rnd import RNDAgentA2c
+from a2c.a2c.rnd.rnd import RNDAgentA2c
 
 class AgentA2C:
     def __init__(self, action_space, input_space=1, val_loss_coef=0.5,
@@ -29,11 +29,6 @@ class AgentA2C:
             rollouts.rnn_states[0].view(-1, 1),
             rollouts.masks[:-1].view(-1, 1),
             rollouts.actions.view(-1, action_shape))
-        if self.rnd:
-            predict_state_feature, target_state_feature = self.rnd.forward(rollouts.observations[:-1].squeeze(-1).squeeze(-1))
-            predict_state_feature = predict_state_feature.reshape(predict_state_feature.shape[0]*predict_state_feature.shape[1]*predict_state_feature.shape[2], 1)
-            target_state_feature = target_state_feature.reshape(target_state_feature.shape[0]*target_state_feature.shape[1]*target_state_feature.shape[2], 1)
-            forward_loss = torch.nn.MSELoss()(predict_state_feature.squeeze(-1), target_state_feature.detach().squeeze(-1))
 
 
 

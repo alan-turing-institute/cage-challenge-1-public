@@ -8,6 +8,7 @@ def _flatten_helper(T, N, _tensor):
 class RolloutStorage:
     def __init__(self, steps=10, input_dimensions=2, output_dimensions=27,
                  rnn_state_size=1, processes=2):
+
         self.observations       = torch.zeros(steps + 1, processes, input_dimensions)
         self.rnn_states         = torch.zeros(steps + 1, processes, rnn_state_size)
         self.rewards            = torch.zeros(steps, processes, 1)

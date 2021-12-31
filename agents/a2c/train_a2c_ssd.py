@@ -5,7 +5,7 @@ from env_utils import make_envs_as_vec
 from a2c.a2c_agent import AgentA2C
 from a2c.rollout import RolloutStorage
 from a2c.rnd.rnd import RunningMeanStd
-from a2c.config import Config
+from config import Config
 import torch
 from CybORG import CybORG
 from CybORG.Agents import *
@@ -40,6 +40,8 @@ if __name__ == "__main__":
     cyborg = CybORG(path, 'sim')
     processes = 4
     environments = make_envs_as_vec(seed=0, processes=processes, gamma=0.95, env=cyborg)
+    state_space_decompositions = [1, 2823, 2823, 2823, 2823]
+    slices = [[0], [1, 2824], [2824, 5647], [5647, 8470], [8470, 11293]]
 
     print('Environment Initalised...')
 
@@ -81,6 +83,7 @@ if __name__ == "__main__":
         episode_rewards = []
         episode_disc_rewards = 0
         observations = environments.reset()
+
         for step in range(0, config.episode_length):
             with torch.no_grad():
                 value, continuous_action, action_log_prob, rnn_states = agent.actor_critic.act(
@@ -88,6 +91,9 @@ if __name__ == "__main__":
                     rollouts.masks[step])
 
             observation, reward, done, infos = environments.step(continuous_action)
+
+
+
             if config.rnd:
                 intrinsic_reward = agent.rnd.compute_intrinsic_reward((observation - obs_rms.mean) / np.sqrt(obs_rms.var)).detach().numpy()
                 mean, std, count = np.mean(intrinsic_reward), np.std(intrinsic_reward), len(intrinsic_reward)
