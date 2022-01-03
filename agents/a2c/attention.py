@@ -13,9 +13,10 @@ class TemporalAttn(nn.Module):
         # (batch_size, time_steps, hidden_size)
         score_first_part = self.fc1(hidden_states)
         # (batch_size, hidden_size)
-        h_t = hidden_states.unsqueeze(0)
+        #h_t = hidden_states.unsqueeze(0)
+        h_t = hidden_states
         # (batch_size, time_steps)
-        score = torch.mm(score_first_part.unsqueeze(-1), h_t)
+        score = torch.mm(score_first_part.T, h_t)
         attention_weights = F.softmax(score, dim=1)
         # (batch_size, hidden_size)
         context_vector = torch.mm(h_t, attention_weights)
