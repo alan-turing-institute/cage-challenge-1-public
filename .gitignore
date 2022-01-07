@@ -29,4 +29,4 @@ share/python-wheels/
 MANIFEST
 
 #Saved_Models
-a2c/saved_models/*
+a2c/saved_models/**
