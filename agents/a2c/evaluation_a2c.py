@@ -121,7 +121,7 @@ def evaluate(r_mean, obs_rms, agent=BlueLoadAgent()):
                     data.write(f'actions: {act}, total reward: {sum_rew}\n')
 
 
-
+"""
 path = str(inspect.getfile(CybORG))
 path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 cyborg = CybORG(path, 'sim')
@@ -139,4 +139,4 @@ for step in range(10 * 100):
 agent = AgentA2C(rnd=False, action_space=action_space, processes=1, input_space=obs_space)
 agent.load_model()
 
-evaluate(agent=agent, obs_rms=obs_rms, r_mean=r_mean)
+evaluate(agent=agent, obs_rms=obs_rms, r_mean=r_mean)"""

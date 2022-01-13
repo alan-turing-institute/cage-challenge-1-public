@@ -3,32 +3,39 @@ from matplotlib import pyplot as plt
 import numpy as np
 from env_utils import make_envs_as_vec
 from a2c.a2c_agent import AgentA2C
+from a2c.a2c_agent_ssd import AgentA2CSSD
 from a2c.rollout import RolloutStorage
 from a2c.rnd.rnd import RunningMeanStd
 from config import Config
 import torch
 from CybORG import CybORG
+from evaluation_a2c import *
 from CybORG.Agents import *
 import inspect
+import wandb
 
 
 # Main entry point
 if __name__ == "__main__":
     track = False
     config_defaults ={'gamma'           : 0.9,
-                      'epsilon'         : 1.0,
+                      'epsilon'         : 0.001,
                       'batch_size'      : 100,
                       'update_step'     : 50,
                       'episode_length'  : 100,
-                      'learning_rate'   : 0.005,
+                      'learning_rate'   : 0.04392,
                       'training_length' : 4000,
                       'priority'        : False,
                       'exploring_steps' : 100,
                       'rnd'             : False,
                       'attention'       : False,
-                      'pre_obs_norm'    : 10}
-    config = Config(config_dict=config_defaults)
+                      'pre_obs_norm'    : 10,
+                      'alpha'           : 0.99}
 
+    config = Config(config_dict=config_defaults)
+    wandb.login()
+    wandb.init(project='cage-ssd', config=config_defaults)
+    config = wandb.config
 
 
     show_train_curve = not track
@@ -49,12 +56,12 @@ if __name__ == "__main__":
     action_space = environments.action_space.n
     obs_space    = environments.observation_space.shape[0]
     rollouts = RolloutStorage(steps=config.episode_length, processes=processes, output_dimensions=int(action_space), input_dimensions=obs_space)
-    agent = AgentA2C(rnd=config.rnd, action_space=action_space, processes=processes, input_space=obs_space)
+    agent = AgentA2CSSD(rnd=config.rnd, action_space=action_space, processes=processes, input_space=obs_space, epsilon=config.epsilon)
     print('Agent Created...')
     observation = environments.reset()
     r_mean = RunningMeanStd()
     obs_rms = RunningMeanStd(shape=(processes, obs_space))
-
+    wandb.watch(agent.actor_critic, log=all, log_freq=1)
     total_episodes = []
     total_losses = []
     total_rewards = []
@@ -134,6 +141,7 @@ if __name__ == "__main__":
                                ' ACTION: ' + str(infos[i]['action'])
                 ))
             print('\n')
+            wandb.log({'Loss': sum(ep_loss)/step if ep_loss else 0, 'Reward': sum(sum(episode_rewards))/processes})
             total_successful_episodes.append(processes - len(np.where(np.mean(episode_rewards, axis=0) < 0)[0]))
             total_losses.append(sum(ep_loss)/step if ep_loss else 0)
             total_episodes.append(episode)
@@ -148,6 +156,9 @@ if __name__ == "__main__":
 
     environments.close()
     agent.save_model('a2c')
+    agent = AgentA2CSSD(rnd=False, action_space=action_space, processes=1, input_space=obs_space)
+    agent.load_model()
+    evaluate(agent=agent, obs_rms=obs_rms, r_mean=r_mean)
 
     if show_train_curve:
         plt.plot(total_episodes, total_rewards, color='orange')

@@ -49,7 +49,7 @@ if __name__ == "__main__":
     action_space = environments.action_space.n
     obs_space    = environments.observation_space.shape[0]
     attention = TemporalAttn(obs_space)
-    obs_space = int(obs_space/10)
+    #obs_space = int(obs_space/10)
     rollouts = RolloutStorage(steps=config.episode_length, processes=processes, output_dimensions=int(action_space), input_dimensions=obs_space)
     agent = AgentA2C(rnd=config.rnd, action_space=action_space, processes=processes, input_space=obs_space)
     print('Agent Created...')
@@ -101,7 +101,6 @@ if __name__ == "__main__":
     rolling_ep_len_avg = []
     total_successful_episodes = []
     print('Initialise observation standardisation...')
-    att_obs = np.ndarray((processes, obs_space))
     for step in range(config.pre_obs_norm * config.episode_length):
         actions = np.array([np.random.randint(0, action_space) for i in range(processes)])
         obs, _, _, _ = environments.step(actions)
@@ -110,6 +109,8 @@ if __name__ == "__main__":
             important_idx = sorted(range(len(observation_att[0][idx])), key=lambda i: observation_att[0][idx][i],
                                    reverse=True)[:obs_space]
             important_idx_sorted = sorted(important_idx)
+            #mask the observations instead of only using the 'important' ones
+            att_obs = np.zeros((processes, obs_space))
             att_obs[idx] = obs[idx][important_idx_sorted]
 
         obs_rms.update(att_obs)
@@ -147,6 +148,7 @@ if __name__ == "__main__":
                 important_idx = sorted(range(len(observation_att[0][idx])), key=lambda i: observation_att[0][idx][i],
                                        reverse=True)[:obs_space]
                 important_idx_sorted = sorted(important_idx)
+                att_obs = np.zeros((processes, obs_space))
                 att_obs[idx] = obs[idx][important_idx_sorted]
             if config.rnd:
                 intrinsic_reward = agent.rnd.compute_intrinsic_reward((observation - obs_rms.mean) / np.sqrt(obs_rms.var)).detach().numpy()
