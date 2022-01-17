@@ -1,18 +1,13 @@
 import torch
-from a2c.a2c import PolicyNetwork
+from agents.a2c.a2c import PolicyNetwork
 import os
-from a2c.rnd.rnd import RNDAgentA2c
+from agents.a2c.a2c.rnd.rnd import RNDAgentA2c
 
-class AgentA2CSSD:
+class AgentA2C:
     def __init__(self, action_space, input_space=1, val_loss_coef=0.5,
                  entropy_coef=0.01, lr=0.0001, epsilon=0.001, max_grad_norm=0.5, alpha=0.99,
                  rnd=False, update_prop=0.25, processes=1):
         self.actor_critic       = PolicyNetwork(input_space, action_space)
-        if torch.cuda.is_available():
-            dev = 'cuda:0'
-        else:
-            dev = 'cpu'
-        self.device = torch.device(dev)
         self.val_loss_coef      = val_loss_coef
         self.entropy_coef       = entropy_coef
         self.max_grad_norm      = max_grad_norm
@@ -22,7 +17,11 @@ class AgentA2CSSD:
         else:
             self.rnd            = None
         self.optimiser          = torch.optim.RMSprop(self.actor_critic.parameters(), lr, eps=epsilon, alpha=alpha)
-
+        if torch.cuda.is_available():
+            dev = 'cuda:0'
+        else:
+            dev = 'cpu'
+        self.device = torch.device(dev)          
 
     def update(self, rollouts):
         obs_shape = rollouts.observations.size()[2:]
@@ -34,6 +33,11 @@ class AgentA2CSSD:
             rollouts.rnn_states[0].view(-1, 1),
             rollouts.masks[:-1].view(-1, 1),
             rollouts.actions.view(-1, action_shape))
+        if self.rnd:
+            predict_state_feature, target_state_feature = self.rnd.forward(rollouts.observations[:-1].squeeze(-1).squeeze(-1))
+            predict_state_feature = predict_state_feature.reshape(predict_state_feature.shape[0]*predict_state_feature.shape[1]*predict_state_feature.shape[2], 1)
+            target_state_feature = target_state_feature.reshape(target_state_feature.shape[0]*target_state_feature.shape[1]*target_state_feature.shape[2], 1)
+            forward_loss = torch.nn.MSELoss()(predict_state_feature.squeeze(-1), target_state_feature.detach().squeeze(-1))
 
 
 
@@ -85,4 +89,3 @@ class AgentA2CSSD:
         if self.rnd:
             self.rnd.rnd_predictor.train()
         print('Loaded model: '+str(check_point['agent']))
-

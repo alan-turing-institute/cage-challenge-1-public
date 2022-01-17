@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from a2c.distributions import Categorical
+from agents.a2c.distributions import Categorical
 
 
 
@@ -13,6 +13,9 @@ class PolicyNetwork(torch.nn.Module):
             dev = 'cpu'
         self.device = torch.device(dev)
         self.output_space = output_dimension
+                                                                            
+                   
+                                       
 
         self.network = NeuralNetwork(input_dimension, device=self.device)
         self.dist = Categorical(self.network.output_size, self.output_space, device=self.device)
@@ -105,6 +108,7 @@ class NeuralNetwork(MLPBase):
             init_(torch.nn.Linear(hidden_size, hidden_size)), torch.nn.Tanh()).to(device)
 
         self.critic_linear = init_(torch.nn.Linear(hidden_size, 1)).to(device)
+
         self.train()
 
     def forward(self, inputs, rnn_hxs, masks):
