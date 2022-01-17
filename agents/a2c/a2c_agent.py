@@ -1,9 +1,9 @@
 import torch
 from agents.a2c.a2c import PolicyNetwork
 import os
-from agents.a2c.rnd import RNDAgentA2c
+from agents.a2c.a2c.rnd.rnd import RNDAgentA2c
 
-class A2CAgent:
+class AgentA2C:
     def __init__(self, action_space, input_space=1, val_loss_coef=0.5,
                  entropy_coef=0.01, lr=0.0001, epsilon=0.001, max_grad_norm=0.5, alpha=0.99,
                  rnd=False, update_prop=0.25, processes=1):
@@ -17,7 +17,11 @@ class A2CAgent:
         else:
             self.rnd            = None
         self.optimiser          = torch.optim.RMSprop(self.actor_critic.parameters(), lr, eps=epsilon, alpha=alpha)
-
+        if torch.cuda.is_available():
+            dev = 'cuda:0'
+        else:
+            dev = 'cpu'
+        self.device = torch.device(dev)          
 
     def update(self, rollouts):
         obs_shape = rollouts.observations.size()[2:]
@@ -40,7 +44,7 @@ class A2CAgent:
         values = values.view(num_steps, num_processes, 1)
         action_log_probs = action_log_probs.view(num_steps, num_processes, 1)
 
-        advantages = rollouts.returns[:-1] - values
+        advantages = rollouts.returns[:-1].to(self.device) - values.to(self.device)
         value_loss = advantages.pow(2).mean()
 
         action_loss = -(advantages.detach() * action_log_probs).mean()

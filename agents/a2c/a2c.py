@@ -7,14 +7,18 @@ from agents.a2c.distributions import Categorical
 class PolicyNetwork(torch.nn.Module):
     def __init__(self, input_dimension, output_dimension):
         super(PolicyNetwork, self).__init__()
-
-
-        self.network = NeuralNetwork(input_dimension)
-        self.output_space = output_dimension
-        self.dist = Categorical(self.network.output_size, self.output_space)
-        dev = 'cpu'
+        if torch.cuda.is_available():
+            dev = 'cuda:0'
+        else:
+            dev = 'cpu'
         self.device = torch.device(dev)
+        self.output_space = output_dimension
+                                                                            
+                   
+                                       
 
+        self.network = NeuralNetwork(input_dimension, device=self.device)
+        self.dist = Categorical(self.network.output_size, self.output_space, device=self.device)
     @property
     def is_recurrent(self):
         return self.network.is_recurrent
@@ -41,14 +45,14 @@ class PolicyNetwork(torch.nn.Module):
         return value, action, action_log_probs, rnn_hxs
 
     def get_value(self, inputs, rnn_hxs, masks):
-        value, _, _ = self.network(inputs, rnn_hxs, masks)
+        value, _, _ = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
         return value
 
     def evaluate_actions(self, inputs, rnn_hxs, masks, action):
         value, actor_features, rnn_hxs = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
-        dist = self.dist(actor_features)
+        dist = self.dist(actor_features.to(self.device))
 
-        action_log_probs = dist.log_probs(action)
+        action_log_probs = dist.log_probs(action.to(self.device))
         dist_entropy = dist.entropy().mean()
 
         return value, action_log_probs, dist_entropy, rnn_hxs
@@ -86,7 +90,7 @@ class MLPBase(torch.nn.Module):
 
 
 class NeuralNetwork(MLPBase):
-    def __init__(self, input_dimension, recurrent=False, hidden_size=64):
+    def __init__(self, input_dimension, device, recurrent=False, hidden_size=64):
         super(NeuralNetwork, self).__init__(recurrent, input_dimension, hidden_size)
 
         if recurrent:
@@ -97,13 +101,13 @@ class NeuralNetwork(MLPBase):
 
         self.actor = torch.nn.Sequential(
             init_(torch.nn.Linear(input_dimension, hidden_size)), torch.nn.Tanh(),
-            init_(torch.nn.Linear(hidden_size, hidden_size)), torch.nn.Tanh())
+            init_(torch.nn.Linear(hidden_size, hidden_size)), torch.nn.Tanh()).to(device)
 
         self.critic = torch.nn.Sequential(
             init_(torch.nn.Linear(input_dimension, hidden_size)), torch.nn.Tanh(),
-            init_(torch.nn.Linear(hidden_size, hidden_size)), torch.nn.Tanh())
+            init_(torch.nn.Linear(hidden_size, hidden_size)), torch.nn.Tanh()).to(device)
 
-        self.critic_linear = init_(torch.nn.Linear(hidden_size, 1))
+        self.critic_linear = init_(torch.nn.Linear(hidden_size, 1)).to(device)
 
         self.train()
 
