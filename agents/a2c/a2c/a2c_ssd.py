@@ -7,11 +7,15 @@ from a2c.a2c.distributions import Categorical
 class PolicyNetwork(torch.nn.Module):
     def __init__(self, input_dimension, output_dimension):
         super(PolicyNetwork, self).__init__()
+        if torch.cuda.is_available():
+            dev = 'cuda:0'
+        else:
+            dev = 'cpu'
+        self.device = torch.device(dev)
 
-
-        self.network = NeuralNetwork(input_dimension)
+        self.network = NeuralNetwork(input_dimension, device=self.device)
         self.output_space = output_dimension
-        self.dist = Categorical(self.network.output_size, self.output_space)
+        self.dist = Categorical(self.network.output_size, self.output_space, device=self.device)
         dev = 'cpu'
         self.device = torch.device(dev)
 
@@ -52,15 +56,15 @@ class PolicyNetwork(torch.nn.Module):
     def get_value(self, inputs, rnn_hxs, masks):
         inputs = self.return_as_slices(inputs)
 
-        value, _, _ = self.network(inputs, rnn_hxs, masks)
+        value, _, _ = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
         return value
 
     def evaluate_actions(self, inputs, rnn_hxs, masks, action):
         inputs = self.return_as_slices(inputs)
         value, actor_features, rnn_hxs = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
-        dist = self.dist(actor_features)
+        dist = self.dist(actor_features.to(self.device))
 
-        action_log_probs = dist.log_probs(action)
+        action_log_probs = dist.log_probs(action.to(self.device))
         dist_entropy = dist.entropy().mean()
 
         return value, action_log_probs, dist_entropy, rnn_hxs
@@ -100,7 +104,7 @@ class MLPBase(torch.nn.Module):
 class SSDNeuralNetwork(torch.nn.Module):
 
     # The class initialisation function. This takes as arguments the dimension of the network's input (i.e. the dimension of the state), and the dimension of the network's output (i.e. the dimension of the action).
-    def __init__(self, layer_seps, output_dimension=64):
+    def __init__(self, layer_seps, device, output_dimension=64):
         # Call the initialisation function of the parent class.
         super(SSDNeuralNetwork, self).__init__()
         # Define the network layers.
@@ -108,26 +112,26 @@ class SSDNeuralNetwork(torch.nn.Module):
         for seperation in layer_seps:
             layers.append(torch.nn.Linear(in_features=seperation, out_features=128))
 
-        self.sep_1_layer_1 = torch.nn.Linear(in_features=layer_seps[0], out_features=256)
+        self.sep_1_layer_1 = torch.nn.Linear(in_features=layer_seps[0], out_features=256).to(device)
         #self.sep_1_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.sep_2_layer_1 = torch.nn.Linear(in_features=layer_seps[1], out_features=256)
+        self.sep_2_layer_1 = torch.nn.Linear(in_features=layer_seps[1], out_features=256).to(device)
         #self.sep_2_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.sep_3_layer_1 = torch.nn.Linear(in_features=layer_seps[2], out_features=256)
+        self.sep_3_layer_1 = torch.nn.Linear(in_features=layer_seps[2], out_features=256).to(device)
         #self.sep_3_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.sep_4_layer_1 = torch.nn.Linear(in_features=layer_seps[3], out_features=256)
+        self.sep_4_layer_1 = torch.nn.Linear(in_features=layer_seps[3], out_features=256).to(device)
         #self.sep_4_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.sep_5_layer_1 = torch.nn.Linear(in_features=layer_seps[4], out_features=256)
+        self.sep_5_layer_1 = torch.nn.Linear(in_features=layer_seps[4], out_features=256).to(device)
         #self.sep_5_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.comb_layer_1 = torch.nn.Linear(in_features=128*5, out_features=128)
+        self.comb_layer_1 = torch.nn.Linear(in_features=128*5, out_features=128).to(device)
         #torch.nn.init.xavier_normal_(self.layer_1.weight)
         #self.comb_layer_2 = torch.nn.Linear(in_features=128, out_features=96)
 
-        self.output_layer = torch.nn.Linear(in_features=96, out_features=output_dimension)
+        self.output_layer = torch.nn.Linear(in_features=96, out_features=output_dimension).to(device)
         #torch.nn.init.xavier_normal_(self.output_layer.weight)
 
 
@@ -180,4 +184,5 @@ def init(module, weight_init, bias_init, gain=1):
     weight_init(module.weight.data, gain=gain)
     bias_init(module.bias.data)
     return module
+
 

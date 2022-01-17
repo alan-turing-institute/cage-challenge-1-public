@@ -8,6 +8,11 @@ class AgentA2CSSD:
                  entropy_coef=0.01, lr=0.0001, epsilon=0.001, max_grad_norm=0.5, alpha=0.99,
                  rnd=False, update_prop=0.25, processes=1):
         self.actor_critic       = PolicyNetwork(input_space, action_space)
+        if torch.cuda.is_available():
+            dev = 'cuda:0'
+        else:
+            dev = 'cpu'
+        self.device = torch.device(dev)
         self.val_loss_coef      = val_loss_coef
         self.entropy_coef       = entropy_coef
         self.max_grad_norm      = max_grad_norm
@@ -35,7 +40,7 @@ class AgentA2CSSD:
         values = values.view(num_steps, num_processes, 1)
         action_log_probs = action_log_probs.view(num_steps, num_processes, 1)
 
-        advantages = rollouts.returns[:-1] - values
+        advantages = rollouts.returns[:-1].to(self.device) - values.to(self.device)
         value_loss = advantages.pow(2).mean()
 
         action_loss = -(advantages.detach() * action_log_probs).mean()
@@ -80,3 +85,4 @@ class AgentA2CSSD:
         if self.rnd:
             self.rnd.rnd_predictor.train()
         print('Loaded model: '+str(check_point['agent']))
+

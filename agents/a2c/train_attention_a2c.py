@@ -23,12 +23,13 @@ if __name__ == "__main__":
                       'update_step'     : 50,
                       'episode_length'  : 100,
                       'learning_rate'   : 0.005,
-                      'training_length' : 4000,
+                      'training_length' : 3000,
                       'priority'        : False,
                       'exploring_steps' : 100,
                       'rnd'             : False,
                       'attention'       : False,
-                      'pre_obs_norm'    : 10}
+                      'pre_obs_norm'    : 5,
+                      'alpha'           : 0.99}
     config = Config(config_dict=config_defaults)
 
 
@@ -44,7 +45,11 @@ if __name__ == "__main__":
     environments = make_envs_as_vec(seed=0, processes=processes, gamma=0.95, env=cyborg)
 
     print('Environment Initalised...')
-
+    if torch.cuda.is_available():
+        dev = 'cuda:0'
+    else:
+        dev = 'cpu'
+    device = torch.device(dev)
     #initalise the state and agent
     action_space = environments.action_space.n
     obs_space    = environments.observation_space.shape[0]
@@ -59,14 +64,14 @@ if __name__ == "__main__":
     criterion = torch.nn.MSELoss()
     optimizer = torch.optim.Adam(attention.parameters(), lr=config.learning_rate, weight_decay=1e-4)
     attention_loss = []
-    for attention_train_step in range(50):
+    """for attention_train_step in range(100):
         observation = environments.reset()
         for step in range(config.episode_length):
             action = np.array([np.random.randint(0, action_space) for i in range(processes)])
             optimizer.zero_grad()
-            pred, _ = attention.forward(torch.tensor(observation, dtype=torch.float32))
+            pred, _ = attention.forward(observation)
             next_obs, reward, done, _ = environments.step(action)
-            loss = criterion(pred, torch.tensor(next_obs, dtype=torch.float32))
+            loss = criterion(pred, torch.tensor(next_obs, dtype=torch.float32).to(device))
             loss.backward()
             optimizer.step()
             attention_loss.append(loss.item())
@@ -91,7 +96,7 @@ if __name__ == "__main__":
     attention.fc1.load_state_dict(check_point['fc1'])
     attention.fc2.load_state_dict(check_point['fc2'])
     optimizer.load_state_dict(check_point['opt_state_dict'])
-    attention.train()"""
+    attention.train()
 
 
     total_episodes = []
@@ -104,7 +109,7 @@ if __name__ == "__main__":
     for step in range(config.pre_obs_norm * config.episode_length):
         actions = np.array([np.random.randint(0, action_space) for i in range(processes)])
         obs, _, _, _ = environments.step(actions)
-        observation_att = attention.forward(torch.tensor(obs, dtype=torch.float32))
+        observation_att = attention.forward(obs)
         for idx in range(processes):
             important_idx = sorted(range(len(observation_att[0][idx])), key=lambda i: observation_att[0][idx][i],
                                    reverse=True)[:obs_space]
@@ -130,7 +135,7 @@ if __name__ == "__main__":
         episode_rewards = []
         episode_disc_rewards = 0
         observations = environments.reset()
-        observation_att = attention.forward(torch.tensor(observations, dtype=torch.float32))
+        observation_att = attention.forward(observations)
         for idx in range(processes):
             important_idx = sorted(range(len(observation_att[0][idx])), key=lambda i: observation_att[0][idx][i],
                                    reverse=True)[:obs_space]
@@ -143,7 +148,7 @@ if __name__ == "__main__":
                     rollouts.masks[step])
 
             observation, reward, done, infos = environments.step(continuous_action)
-            observation_att = attention.forward(torch.tensor(observations, dtype=torch.float32))
+            observation_att = attention.forward(observations)
             for idx in range(processes):
                 important_idx = sorted(range(len(observation_att[0][idx])), key=lambda i: observation_att[0][idx][i],
                                        reverse=True)[:obs_space]
