@@ -5,11 +5,13 @@ from env_utils import make_envs_as_vec
 from a2c.a2c_agent import AgentA2C
 from a2c.rollout import RolloutStorage
 from a2c.rnd.rnd import RunningMeanStd
-from a2c.config import Config
+from config import Config
+from attention import TemporalAttn
 import torch
 from CybORG import CybORG
 from CybORG.Agents import *
 import inspect
+import os
 
 
 # Main entry point
@@ -21,12 +23,13 @@ if __name__ == "__main__":
                       'update_step'     : 50,
                       'episode_length'  : 100,
                       'learning_rate'   : 0.005,
-                      'training_length' : 4000,
+                      'training_length' : 3000,
                       'priority'        : False,
                       'exploring_steps' : 100,
                       'rnd'             : False,
                       'attention'       : False,
-                      'pre_obs_norm'    : 10}
+                      'pre_obs_norm'    : 5,
+                      'alpha'           : 0.99}
     config = Config(config_dict=config_defaults)
 
 
@@ -34,24 +37,67 @@ if __name__ == "__main__":
     show_train_curve = not track
 
     agent_name = 'Blue'
-    agnets = {'Red': B_lineAgent}
+    agents = {'Red': B_lineAgent}
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
-    cyborg = CybORG(path, 'sim')
+    cyborg = CybORG(path, 'sim', agents=agents)
     processes = 4
     environments = make_envs_as_vec(seed=0, processes=processes, gamma=0.95, env=cyborg)
 
     print('Environment Initalised...')
-
+    if torch.cuda.is_available():
+        dev = 'cuda:0'
+    else:
+        dev = 'cpu'
+    device = torch.device(dev)
     #initalise the state and agent
     action_space = environments.action_space.n
     obs_space    = environments.observation_space.shape[0]
+    attention = TemporalAttn(obs_space)
+    #obs_space = int(obs_space/10)
     rollouts = RolloutStorage(steps=config.episode_length, processes=processes, output_dimensions=int(action_space), input_dimensions=obs_space)
     agent = AgentA2C(rnd=config.rnd, action_space=action_space, processes=processes, input_space=obs_space)
     print('Agent Created...')
     observation = environments.reset()
     r_mean = RunningMeanStd()
     obs_rms = RunningMeanStd(shape=(processes, obs_space))
+    criterion = torch.nn.MSELoss()
+    optimizer = torch.optim.Adam(attention.parameters(), lr=config.learning_rate, weight_decay=1e-4)
+    attention_loss = []
+    """for attention_train_step in range(100):
+        observation = environments.reset()
+        for step in range(config.episode_length):
+            action = np.array([np.random.randint(0, action_space) for i in range(processes)])
+            optimizer.zero_grad()
+            pred, _ = attention.forward(observation)
+            next_obs, reward, done, _ = environments.step(action)
+            loss = criterion(pred, torch.tensor(next_obs, dtype=torch.float32).to(device))
+            loss.backward()
+            optimizer.step()
+            attention_loss.append(loss.item())
+            observation = next_obs
+
+    path = os.path.abspath(os.getcwd())
+    model_to_save = {'agent': agent, 'fc1': attention.fc1.state_dict(),
+                     'fc2': attention.fc2.state_dict(),
+                     'opt_state_dict': optimizer.state_dict()}
+    torch.save(model_to_save, path + '/attention.pt')
+
+    plt.plot(range(len(attention_loss)), attention_loss)
+    plt.title('Attention Loss')
+    plt.grid()
+    plt.xlabel('Step')
+    plt.ylabel('Loss MSE ')
+    plt.savefig('./attention_loss.png')
+    plt.show()
+    """
+    path = os.path.abspath(os.getcwd())
+    check_point = torch.load(path + '/attention.pt')
+    attention.fc1.load_state_dict(check_point['fc1'])
+    attention.fc2.load_state_dict(check_point['fc2'])
+    optimizer.load_state_dict(check_point['opt_state_dict'])
+    attention.train()
+
 
     total_episodes = []
     total_losses = []
@@ -63,8 +109,16 @@ if __name__ == "__main__":
     for step in range(config.pre_obs_norm * config.episode_length):
         actions = np.array([np.random.randint(0, action_space) for i in range(processes)])
         obs, _, _, _ = environments.step(actions)
+        observation_att = attention.forward(obs)
+        for idx in range(processes):
+            important_idx = sorted(range(len(observation_att[0][idx])), key=lambda i: observation_att[0][idx][i],
+                                   reverse=True)[:obs_space]
+            important_idx_sorted = sorted(important_idx)
+            #mask the observations instead of only using the 'important' ones
+            att_obs = np.zeros((processes, obs_space))
+            att_obs[idx] = obs[idx][important_idx_sorted]
 
-        obs_rms.update(obs)
+        obs_rms.update(att_obs)
     print('Finish observation standardisation')
 
 
@@ -81,6 +135,12 @@ if __name__ == "__main__":
         episode_rewards = []
         episode_disc_rewards = 0
         observations = environments.reset()
+        observation_att = attention.forward(observations)
+        for idx in range(processes):
+            important_idx = sorted(range(len(observation_att[0][idx])), key=lambda i: observation_att[0][idx][i],
+                                   reverse=True)[:obs_space]
+            important_idx_sorted = sorted(important_idx)
+            att_obs[idx] = obs[idx][important_idx_sorted]
         for step in range(0, config.episode_length):
             with torch.no_grad():
                 value, continuous_action, action_log_prob, rnn_states = agent.actor_critic.act(
@@ -88,6 +148,13 @@ if __name__ == "__main__":
                     rollouts.masks[step])
 
             observation, reward, done, infos = environments.step(continuous_action)
+            observation_att = attention.forward(observations)
+            for idx in range(processes):
+                important_idx = sorted(range(len(observation_att[0][idx])), key=lambda i: observation_att[0][idx][i],
+                                       reverse=True)[:obs_space]
+                important_idx_sorted = sorted(important_idx)
+                att_obs = np.zeros((processes, obs_space))
+                att_obs[idx] = obs[idx][important_idx_sorted]
             if config.rnd:
                 intrinsic_reward = agent.rnd.compute_intrinsic_reward((observation - obs_rms.mean) / np.sqrt(obs_rms.var)).detach().numpy()
                 mean, std, count = np.mean(intrinsic_reward), np.std(intrinsic_reward), len(intrinsic_reward)
@@ -102,7 +169,7 @@ if __name__ == "__main__":
 
             masks = torch.FloatTensor([[0.0] if done_ else [1.0] for done_ in done])
             bad_masks = torch.FloatTensor( [[0.0] if 'bad_transition' in info.keys() else [1.0] for info in infos])
-            rollouts.insert(observation, rnn_states, continuous_action, action_log_prob, value, total_reward, masks, bad_masks)
+            rollouts.insert(att_obs, rnn_states, continuous_action, action_log_prob, value, total_reward, masks, bad_masks)
         with torch.no_grad():
             next_value = agent.actor_critic.get_value(rollouts.observations[-1],
                                                       rollouts.rnn_states[-1],

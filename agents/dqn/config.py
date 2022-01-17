@@ -12,5 +12,4 @@ class Config:
         self.priority                   = config_dict['priority']
         self.rnd                        = config_dict['rnd']
         self.pre_obs_norm               = config_dict['pre_obs_norm']
-        self.alpha                      = config_dict['alpha']
 
