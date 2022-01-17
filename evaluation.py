@@ -1,8 +1,12 @@
 # Adapted from https://raw.githubusercontent.com/cage-challenge/cage-challenge-1/main/CybORG/CybORG/Evaluation/evaluation.py
 
 import inspect
-import time
+import time, sys
 from statistics import mean, stdev
+
+sys.path.append("cage-challenge-1/CybORG")
+
+
 
 from CybORG import CybORG
 from CybORG.Agents import B_lineAgent, SleepAgent
