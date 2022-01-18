@@ -3,6 +3,8 @@ from stable_baselines3.common.vec_env import (DummyVecEnv, SubprocVecEnv, VecEnv
 import torch
 import gym
 import numpy as np
+import sys
+sys.path.append("../../cage-challenge-1/CybORG")
 from CybORG import CybORG
 from CybORG.Agents.Wrappers import *
 

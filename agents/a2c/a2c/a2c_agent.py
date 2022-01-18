@@ -1,9 +1,9 @@
 import torch
-from agents.a2c.a2c import PolicyNetwork
 import os
+from agents.a2c.a2c.a2c import PolicyNetwork
 from agents.a2c.a2c.rnd.rnd import RNDAgentA2c
 
-class AgentA2C:
+class A2CAgent:
     def __init__(self, action_space, input_space=1, val_loss_coef=0.5,
                  entropy_coef=0.01, lr=0.0001, epsilon=0.001, max_grad_norm=0.5, alpha=0.99,
                  rnd=False, update_prop=0.25, processes=1):
@@ -21,7 +21,7 @@ class AgentA2C:
             dev = 'cuda:0'
         else:
             dev = 'cpu'
-        self.device = torch.device(dev)          
+        self.device = torch.device(dev)
 
     def update(self, rollouts):
         obs_shape = rollouts.observations.size()[2:]

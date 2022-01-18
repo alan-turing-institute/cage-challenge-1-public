@@ -7,7 +7,6 @@ from statistics import mean, stdev
 sys.path.append("cage-challenge-1/CybORG")
 
 
-
 from CybORG import CybORG
 from CybORG.Agents import B_lineAgent, SleepAgent
 from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
@@ -22,8 +21,8 @@ from CybORG.Agents.Wrappers import ChallengeWrapper
 
 from agents_list import AGENTS
 from agents.helloworld_agent import TorchCustomModel as BasicAgent # Example
-from agents.a2c.rollout import RolloutStorage
-from agents.a2c.rnd import RunningMeanStd
+from agents.a2c.a2c.rollout import RolloutStorage
+from agents.a2c.a2c.rnd.rnd import RunningMeanStd
 from config import configure
 
 MAX_EPS = 10
@@ -37,7 +36,6 @@ def wrap(env):
 if __name__ == "__main__":
     cyborg_version = '1.2'
     args = configure()
-
     # FIXME what is this for?
     lines = inspect.getsource(wrap)
     wrap_line = lines.split('\n')[1].split('return ')[1]
@@ -69,8 +67,15 @@ if __name__ == "__main__":
 
             action_space = wrapped_cyborg.get_action_space(agent_name)
             # action_space = cyborg.get_action_space(agent_name)
-                    
-            agent = AGENTS[args.name_of_agent](args)
+            
+            agent_args = args
+            name_of_agent = args.name_of_agent
+            del agent_args.name
+            del agent_args.team
+            del agent_args.name_of_agent
+
+            print("agent_args", agent_args)
+            agent = AGENTS[name_of_agent](**vars(args))
 
             if 'a2c' in args.name_of_agent:
                 rollouts = RolloutStorage(steps=num_steps, processes=1, output_dimensions=action_space, 

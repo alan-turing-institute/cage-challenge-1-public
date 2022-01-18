@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import difflib
 import re
-from dqn import DQN, DuelingDQN, AverageDQN
+from agents.dqn.dqn import DQN, DuelingDQN, AverageDQN
 import torch
 import os
 import numpy as np
