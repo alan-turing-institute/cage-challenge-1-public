@@ -2,7 +2,6 @@
 
 You can visualize experiment results in ~/ray_results using TensorBoard.
 """
-import argparse
 import gym
 from gym.spaces import Discrete, Box
 import numpy as np
@@ -14,12 +13,14 @@ import inspect
 import ray
 from ray import tune
 from ray.tune import grid_search
+from ray.tune.schedulers import ASHAScheduler # https://openreview.net/forum?id=S1Y7OOlRZ algo for early stopping
 from ray.rllib.env.env_context import EnvContext
 from ray.rllib.models import ModelCatalog
 from ray.rllib.models.tf.tf_modelv2 import TFModelV2
 from ray.rllib.models.tf.fcnet import FullyConnectedNetwork
 from ray.rllib.models.torch.torch_modelv2 import TorchModelV2
 from ray.rllib.models.torch.fcnet import FullyConnectedNetwork as TorchFC
+import ray.rllib.agents.ppo as ppo
 from ray.rllib.utils.framework import try_import_tf, try_import_torch
 from ray.rllib.utils.test_utils import check_learning_achieved
 
@@ -30,28 +31,6 @@ from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
 from CybORG.Agents.Wrappers import ChallengeWrapper
 
 tf1, tf, tfv = try_import_tf()
-torch, nn = try_import_torch()
-
-parser = argparse.ArgumentParser()
-
-parser.add_argument("--run", type=str, default="PPO",
-    help="The RLlib-registered algorithm to use.")
-
-parser.add_argument("--framework", choices=["tf", "tf2", "tfe", "torch"], default="tf",
-    help="The DL framework specifier.")
-
-parser.add_argument("--as-test", action="store_true",
-    help="Whether this script should be run as a test: --stop-reward must "
-    "be achieved within --stop-timesteps AND --stop-iters.")
-    
-parser.add_argument("--stop-iters", type=int, default=50,
-    help="Number of iterations to train.")
-
-parser.add_argument("--stop-timesteps", type=int, default=100,
-    help="Number of timesteps to train.")
-
-parser.add_argument("--stop-reward", type=float, default=0.1,
-    help="Reward at which we stop training.")
 
 
 class CybORGAgent(gym.Env):
@@ -60,7 +39,7 @@ class CybORGAgent(gym.Env):
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
     agents = {
-            'Red': B_lineAgent,
+            'Red': B_lineAgent, #RedMeanderAgent,
             'Green': GreenAgent
     }
 
@@ -92,38 +71,6 @@ class CybORGAgent(gym.Env):
         random.seed(seed)
 
 
-class SimpleCorridor(gym.Env):
-    """Example of a custom env in which you have to walk down a corridor.
-
-    You can configure the length of the corridor via the env config."""
-
-    def __init__(self, config: EnvContext):
-        self.end_pos = config["corridor_length"]
-        self.cur_pos = 0
-        self.action_space = Discrete(2)
-        self.observation_space = Box(0.0, self.end_pos, shape=(1, ), dtype=np.float32)
-        # Set the seed. This is only used for the final (reach goal) reward.
-        self.seed(config.worker_index * config.num_workers)
-
-    def reset(self):
-        self.cur_pos = 0
-        return [self.cur_pos]
-
-    def step(self, action):
-        assert action in [0, 1], action
-        if action == 0 and self.cur_pos > 0:
-            self.cur_pos -= 1
-        elif action == 1:
-            self.cur_pos += 1
-        done = self.cur_pos >= self.end_pos
-        # Produce a random reward when we reach the goal.
-        return [self.cur_pos], \
-            random.random() * 2 if done else -0.1, done, {}
-
-    def seed(self, seed=None):
-        random.seed(seed)
-
-
 class CustomModel(TFModelV2):
     """Example of a keras custom model that just delegates to an fc-net."""
 
@@ -142,19 +89,18 @@ class CustomModel(TFModelV2):
 
 
 if __name__ == "__main__":
-    args = parser.parse_args()
     ray.init()
 
+    checkpoint_pointer = open("checkpoint_pointer.txt", "w")
+
     # Can also register the env creator function explicitly with:
-    # register_env("corridor", lambda config: SimpleCorridor(config))
-    ModelCatalog.register_custom_model(
-        "my_model", CustomModel
-        if args.framework == "tf" else exit())
+    # register_env("env name", lambda config: EnvClass(config))
+    ModelCatalog.register_custom_model("my_model", CustomModel)
 
     config = {
-        "env": CybORGAgent,  # or "corridor" if registered above
+        "env": CybORGAgent,  
         "env_config": {
-            "corridor_length": 5,
+            "null": 0,
         },
         # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
         "num_gpus": int(os.environ.get("RLLIB_NUM_GPUS", "0")),
@@ -162,19 +108,38 @@ if __name__ == "__main__":
             "custom_model": "my_model",
             "vf_share_layers": True,
         },
-        "lr": grid_search([1e-2, 1e-4, 1e-6]),  # try different lrs
-        "num_workers": 1,  # parallelism
-        "framework": args.framework,
+        "lr": grid_search([1e-4]),  
+        #"momentum": tune.uniform(0, 1),
+        "num_workers": 4,  # parallelism
+        "framework": "tf", # May also use "tf2", "tfe" or "torch" if supported
     }
 
     stop = {
-        "training_iteration": args.stop_iters,
-        "timesteps_total": args.stop_timesteps,
-        "episode_reward_mean": args.stop_reward,
+        "training_iteration": 100,   # The number of times tune.report() has been called
+        "timesteps_total":1000000,   # Total number of timesteps
+        "episode_reward_mean": 0.1, # When to stop
     }
 
-    results = tune.run(args.run, config=config, stop=stop)
+    log_dir = 'log_dir/'
 
-    if args.as_test:
-        check_learning_achieved(results, args.stop_reward)
+    analysis = tune.run(ppo.PPOTrainer, # Algo to use
+                        config=config, 
+                        local_dir=log_dir,
+                        stop=stop,
+                        checkpoint_at_end=True)
+
+    last_checkpoint = analysis.get_last_checkpoint(
+        metric="episode_reward_mean", mode="max"
+    )
+
+    checkpoint_pointer.write(last_checkpoint)
+    print("Best model checkpoint written to: {}".format(last_checkpoint))
+
+    # If you want to throw an error
+    #if True:
+    #    check_learning_achieved(analysis, 0.1)
+
+    checkpoint_pointer.close()
     ray.shutdown()
+
+    # You can run tensorboard --logdir=log_dir/PPO... to visualise the learning processs during and after training

@@ -44,7 +44,7 @@ if __name__ == "__main__":
     true_state = env.cyborg.get_agent_state('True')
     true_table = true_obs_to_table(true_state,env.cyborg)
     print(true_table)
-
+    
     while not done:
         action = agent.compute_action(obs)
         obs, reward, done, info = env.step(action)
