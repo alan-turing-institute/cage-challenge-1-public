@@ -27,8 +27,8 @@ class PolicyNetwork(torch.nn.Module):
     def forward(self, inputs, rnn_hxs, masks):
         raise NotImplementedError
 
-    def act(self, inputs, rnn_hxs, masks, deterministic=False):
-        value, actor_features, rnn_hxs = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
+    def act(self, inputs, deterministic=False):
+        value, actor_features = self.network(inputs.to(self.device))
         dist = self.dist(actor_features)
 
         if deterministic:
@@ -39,20 +39,20 @@ class PolicyNetwork(torch.nn.Module):
         action_log_probs = dist.log_probs(action)
         dist_entropy = dist.entropy().mean()
 
-        return value, action, action_log_probs, rnn_hxs
+        return value, action, action_log_probs
 
-    def get_value(self, inputs, rnn_hxs, masks):
-        value, _, _ = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
+    def get_value(self, inputs):
+        value, _ = self.network(inputs.to(self.device))
         return value
 
-    def evaluate_actions(self, inputs, rnn_hxs, masks, action):
-        value, actor_features, rnn_hxs = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
+    def evaluate_actions(self, inputs, masks, action):
+        value, actor_features = self.network(inputs.to(self.device))
         dist = self.dist(actor_features.to(self.device))
 
         action_log_probs = dist.log_probs(action.to(self.device))
         dist_entropy = dist.entropy().mean()
 
-        return value, action_log_probs, dist_entropy, rnn_hxs
+        return value, action_log_probs, dist_entropy
 
 
 class MLPBase(torch.nn.Module):
@@ -107,13 +107,13 @@ class NeuralNetwork(MLPBase):
         self.critic_linear = init_(torch.nn.Linear(hidden_size, 1)).to(device)
         self.train()
 
-    def forward(self, inputs, rnn_hxs, masks):
+    def forward(self, inputs):
         x = inputs
 
         hidden_critic = self.critic(x)
         hidden_actor = self.actor(x)
 
-        return self.critic_linear(hidden_critic), hidden_actor, rnn_hxs
+        return self.critic_linear(hidden_critic), hidden_actor
 
 
 def init(module, weight_init, bias_init, gain=1):

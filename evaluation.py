@@ -21,9 +21,8 @@ from CybORG.Agents.Wrappers import ChallengeWrapper
 
 from agents_list import AGENTS
 from agents.helloworld_agent import TorchCustomModel as BasicAgent # Example
-from agents.a2c.a2c.rollout import RolloutStorage
-from agents.a2c.a2c.rnd.rnd import RunningMeanStd
 from config import configure
+import os
 
 MAX_EPS = 10
 agent_name = 'Blue'
@@ -41,7 +40,8 @@ if __name__ == "__main__":
     wrap_line = lines.split('\n')[1].split('return ')[1]
 
     # # Change this line to load your agent
-    # agent = AGENTS[args.name_of_agent](rnd=args.rnd, ) # BlueLoadAgent()
+    agent = AGENTS[args.name_of_agent](args)
+    agent.load(os.path.abspath(os.getcwd())+'/agents/a2c/saved_models/a2c/actor_critic.pt') # BlueLoadAgent()
 
     print(f'Using agent {args.name_of_agent}, if this is incorrect please update the code to load in your agent')
 
@@ -54,6 +54,14 @@ if __name__ == "__main__":
 
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + f'/Shared/Scenarios/{args.scenario}.yaml'
+
+    agent_args = args
+    name_of_agent = args.name_of_agent
+    del agent_args.name
+    del agent_args.team
+    del agent_args.name_of_agent
+
+    print("agent_args", agent_args)
 
     print(f'using CybORG v{cyborg_version}, {args.scenario}\n')
     for num_steps in [30, 50, 100]:
@@ -68,19 +76,8 @@ if __name__ == "__main__":
             action_space = wrapped_cyborg.get_action_space(agent_name)
             # action_space = cyborg.get_action_space(agent_name)
             
-            agent_args = args
-            name_of_agent = args.name_of_agent
-            del agent_args.name
-            del agent_args.team
-            del agent_args.name_of_agent
 
-            print("agent_args", agent_args)
-            agent = AGENTS[name_of_agent](**vars(args))
-
-            if 'a2c' in args.name_of_agent:
-                rollouts = RolloutStorage(steps=num_steps, processes=1, output_dimensions=action_space, 
-                                            input_dimensions=wrapped_cyborg.observation_space.shape[0])
-
+            #agent = AGENTS[args.name_of_agent](args).load(os.path.abspath(os.getcwd())+'/agents/a2c/saved_models/a2c/actor_critic.pt')
 
             total_reward = []
             actions = []
@@ -97,20 +94,7 @@ if __name__ == "__main__":
                     # r.append(result.reward)
                     a.append((str(cyborg.get_last_action('Blue')), str(cyborg.get_last_action('Red'))))
 
-                    if 'a2c' in args.name_of_agent:
-                        int_reward = rew
-                        masks = torch.FloatTensor([[0.0] if done else [1.0]])
-                        bad_masks = torch.FloatTensor( [[0.0] if 'bad_transition' in info.keys() else [1.0]])
-                        rollouts.insert(observation, rnn_states, action, action_log_prob, value, int_reward, masks, bad_masks)
                 
-                if 'a2c' in args.name_of_agent:
-                    with torch.no_grad():
-                        next_value = agent.actor_critic.get_value(rollouts.observations[-1],
-                                                          rollouts.rnn_states[-1],
-                                                          rollouts.masks[-1]).detach()
-                    rollouts.compute_returns(next_value, gamma=0.99)
-                    value_loss, action_loss, dist_entropy = agent.update(rollouts)
-                    rollouts.after_update()
 
                 total_reward.append(sum(r))
                 actions.append(a)

@@ -2,14 +2,15 @@ import time
 from matplotlib import pyplot as plt
 import numpy as np
 from agents.a2c.env_utils import make_envs_as_vec
-from agents.a2c.a2c_agent import Agent
-from agents.a2c.rollout import RolloutStorage
-from agents.a2c.rnd import RunningMeanStd
-from agents.a2c.config import Config
+from agents.a2c.a2c.a2c_agent import A2CAgent
+from agents.a2c.a2c.rollout import RolloutStorage
+from agents.a2c.a2c.rnd.rnd import RunningMeanStd
+from agents.a2c.a2c.config import Config
 import torch
 from CybORG import CybORG
 from CybORG.Agents import *
 import inspect
+from config import configure
 
 
 # Main entry point
@@ -26,7 +27,8 @@ if __name__ == "__main__":
                       'exploring_steps' : 100,
                       'rnd'             : False,
                       'attention'       : False,
-                      'pre_obs_norm'    : 10}
+                      'pre_obs_norm'    : 10,
+                      'alpha'           : 0.99}
     config = Config(config_dict=config_defaults)
 
 
@@ -44,12 +46,13 @@ if __name__ == "__main__":
     print('Environment Initalised...')
 
     #initalise the state and agent
+    args = configure()
     action_space = environments.action_space.n
     obs_space    = environments.observation_space.shape[0]
-    rollouts = RolloutStorage(steps=config.episode_length, processes=processes, output_dimensions=int(action_space), input_dimensions=obs_space)
-    agent = Agent(rnd=config.rnd, action_space=action_space, processes=processes, input_space=obs_space)
+    agent = A2CAgent(args)
     print('Agent Created...')
     observation = environments.reset()
+    agent.step = 0
     r_mean = RunningMeanStd()
     obs_rms = RunningMeanStd(shape=(processes, obs_space))
 
@@ -76,16 +79,15 @@ if __name__ == "__main__":
 
     episode = 0
     start_time = time.time()
-    while episode < config.training_length:
+    while any(succ_eps != 4 for succ_eps in total_successful_episodes[:50]):
         ep_loss = []
         episode_rewards = []
         episode_disc_rewards = 0
         observations = environments.reset()
+        agent.step = 0
         for step in range(0, config.episode_length):
             with torch.no_grad():
-                value, continuous_action, action_log_prob, rnn_states = agent.actor_critic.act(
-                    rollouts.observations[step], rollouts.rnn_states[step],
-                    rollouts.masks[step])
+                value, continuous_action, action_log_prob = agent.actor_critic.act(agent.rollouts.observations[step])
 
             observation, reward, done, infos = environments.step(continuous_action)
             if config.rnd:
@@ -100,16 +102,16 @@ if __name__ == "__main__":
                 total_reward = reward
             episode_rewards.append(reward)
 
+
             masks = torch.FloatTensor([[0.0] if done_ else [1.0] for done_ in done])
             bad_masks = torch.FloatTensor( [[0.0] if 'bad_transition' in info.keys() else [1.0] for info in infos])
-            rollouts.insert(observation, rnn_states, continuous_action, action_log_prob, value, total_reward, masks, bad_masks)
+            agent.rollouts.insert(observation, continuous_action, action_log_prob, value, total_reward, masks, bad_masks)
         with torch.no_grad():
-            next_value = agent.actor_critic.get_value(rollouts.observations[-1],
-                                                      rollouts.rnn_states[-1],
-                                                      rollouts.masks[-1]).detach()
-        rollouts.compute_returns(next_value, gamma=0.99)
-        value_loss, action_loss, dist_entropy = agent.update(rollouts)
-        rollouts.after_update()
+            next_value = agent.actor_critic.get_value(agent.rollouts.observations[-1]).detach()
+        agent.rollouts.compute_returns(next_value, gamma=0.99)
+
+        value_loss, action_loss, dist_entropy = agent.update()
+        agent.rollouts.after_update()
         ep_loss.append(value_loss)
         num_eps_this_form += 1
 

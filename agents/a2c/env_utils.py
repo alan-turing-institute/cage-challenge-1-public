@@ -15,8 +15,9 @@ def make_env(rank, environ, seed=0):
     def _thunk():
         environment = environ
         #OpenAIGymWrapper('Blue', EnumActionWrapper(FixedFlatWrapper(ReduceActionSpaceWrapper(environment))))
-        wrappers = EnumActionWrapper(FixedFlatWrapper(ReduceActionSpaceWrapper(environment)))
-        env = OpenAIGymWrapper(env=wrappers, agent_name='Blue')
+        #wrappers = EnumActionWrapper(FixedFlatWrapper(ReduceActionSpaceWrapper(environment)))
+        env = ChallengeWrapper(env=environment, agent_name='Blue')
+        #env = OpenAIGymWrapper(env=wrappers, agent_name='Blue')
         env.seed(seed+rank)
         return env
     return _thunk()
@@ -101,8 +102,8 @@ class VecPyTorchSingle(VecEnvWrapper):
     def __init__(self, venv):
         super(VecPyTorchSingle, self).__init__(venv)
 
-    def reset(self, agent):
-        observation = self.venv.reset(agent=agent)
+    def reset(self):
+        observation = self.venv.reset()
         return observation
 
     def step_async(self, actions):

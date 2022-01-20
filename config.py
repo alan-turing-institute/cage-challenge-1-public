@@ -11,7 +11,7 @@ def configure():
     # General flags
     parser.add_argument('--name', type=str, default='ATI', help='Name of person running this')
     parser.add_argument('--team', type=str, default='ATI',  help='Team name...')
-    parser.add_argument('--name-of-agent', type=str, default='rnd', choices=list(AGENTS.keys()), help='Name of the agent')
+    parser.add_argument('--name-of-agent', type=str, default='a2c', choices=list(AGENTS.keys()), help='Name of the agent')
     parser.add_argument('--scenario', type=str, default='Scenario1b', choices=['Scenario1', 'Scenario1b'], metavar='s', help='Selected Scenario')
     parser.add_argument('--seed', type=int, default=1, metavar='S', help='Random seed')
     parser.add_argument('--has_continuous_action_space', action='store_false', help='continuous action space; else discrete')
@@ -27,13 +27,21 @@ def configure():
     # Agent flags
     parser.add_argument('--gamma', type=float, default=0.9, help='See MF A2C agent docs...')
     # # A2C Agent
-    parser.add_argument('--epsilon', type=float, default=1.0, help='See MF A2C agent docs...')
-    parser.add_argument('--learning-rate', type=float, default=0.005, help='See MF A2C agent docs...')
+    parser.add_argument('--epsilon', type=float, default=0.001, help='See MF A2C agent docs...')
+    parser.add_argument('--learning-rate', type=float, default=7e-4, help='See MF A2C agent docs...')
     parser.add_argument('--priority', action='store_true', help='See MF A2C agent docs...')
     parser.add_argument('--exploring-steps', type=int, default=100, help='See MF A2C agent docs')
-    parser.add_argument('--rnd', action='store_true', help='See MF A2C agent docs...')
+    parser.add_argument('--rnd', action='store_true',help='See MF A2C agent docs...')
     parser.add_argument('--attention', action='store_true', help='See MF A2C agent docs...')
     parser.add_argument('--pre-obs-norm', type=int, default=10, help='See MF A2C agent docs...')
+    parser.add_argument('--action-space', type=int, default=54, help='See MF A2C agent docs...')
+    parser.add_argument('--obs-space', type=int, default=52,help='See MF A2C agent docs...')
+    parser.add_argument('--val-loss-coef', type=float, default=0.5,help='See MF A2C agent docs...')
+    parser.add_argument('--entropy-coef', type=float, default=0.0,help='See MF A2C agent docs...')
+    parser.add_argument('--max-grad-norm', type=float, default=0.5,help='See MF A2C agent docs...')
+    parser.add_argument('--alpha', type=float, default=0.99,help='See MF A2C agent docs...')
+    parser.add_argument('--update_prop', type=float, default=0.25,help='See MF A2C agent docs...')
+    parser.add_argument('--processes', type=int, default=4,help='See MF A2C agent docs...')
 
     # # PPO Agent
     parser.add_argument('--action-std', type=float, default=0.6, help='starting std for action distribution (Multivariate Normal)')
