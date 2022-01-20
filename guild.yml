@@ -1,4 +1,4 @@
-- config: shared-flags
+- config: general-flags
   flags: 
     name:
       description: Name of person running this
@@ -6,7 +6,7 @@
       type: string
     team: 
       description: Team name...
-      default: Turing Inst
+      default: Mindrake
       type: string
     name-of-agent:
       description: Name of the agent
@@ -28,10 +28,11 @@
       description: Random seed
       default: 0
       type: int
+- config: train-test-flags
+  flags: 
     continuous-action-space:
       description: continuous action space; else discrete
-      default: False
-      type: bool
+      arg-switch: no
     batch-size: 
       description: Minibatch size
       default: 128
@@ -48,85 +49,209 @@
       description: Training length
       default: 4000
       type: int
+    max-eps:
+      description: Maximum episodes (MAX_EPS)
+      default: 10
+      type: int
+    red-agent:
+      description: Selected Red agent
+      default: 'B_lineAgent'
+      choices:
+        - 'B_lineAgent'
+        - 'RedMeanderAgent'
+        - 'SleepAgent'
+
+- config: agent-flags
+  flags:
+    gamma: 
+      description: discount factor
+      default: 0.9
+      type: float
+    checkpoint-path:
+      description: Relative path to checkpoint/saved model
+
 - model: a2c
+  description: A2C Agent
+  sourcecode:
+    select: 
+      - "agents/a2c/a2c/a2c_agent.py"
+      - "agents/a2c/a2c/a2c.py"
+      - "agents/a2c/a2c/distributions.py"
+      - "agents/a2c/a2c/rnd/rnd.py"
+      - "agents/a2c/env_utils.py"
+      - "agents/a2c/a2c/rollout.py"
+      - "agents_list.py"
+      - "config.py"
+      - "evaluation.py"
+      - "train_a2c.py"
+    exclude: 
+      dir: tutorial_code
+    dest: results/saved_models/a2c
+  params: 
+    default-gamma: 0.9
+    default-epsilon: 0.001
+    default-learning-rate: 0.0007
   operations: 
-    eval: 
-      description: Evaluation script for A2C agent
-      main: evaluation
-      sourcecode: 
-        include: 
-          dir: results/saved_models/a2c
-        exclude: 
-          dir: tutorial_code
-        dest: results/saved_models/a2c
-        select: 
-          - "agents/a2c/a2c_agent.py"
-          - "agents/a2c/a2c.py"
-          - "agents/a2c/distributions.py"
-          - "agents/a2c/rnd.py"
-          - "agents/a2c/env_utils.py"
-          - "agents/a2c/rollout.py"
-          - "agents_list.py"
-          - "config.py"
-          - "evaluation.py"
+    train: 
+      description: Challenge evaluation script using A2C agent
+      main: train_a2c
       flags: 
-        $include: shared-flags
-        gamma: 
-          description: See MF A2C agent docs...
-          default: 0.9
-          type: float
+        $include: 
+          - general-flags
+          - train-test-flags
+        gamma: '{{ default-gamma }}'
+        checkpoint-path: "results/saved_models/a2c"
         epsilon: 
           description: See MF A2C agent docs...
-          default: 1.0
+          default: '{{ default-epsilon }}'
           type: float
         learning-rate: 
           description: See MF A2C agent docs...
-          default: 0.005
+          default: '{{ default-learning-rate }}'
           type: float
         priority: 
           description: See MF A2C agent docs...
-          default: False
-          type: boolean
+          arg-switch: no
         exploring-steps:
           description: See MF A2C agent docs...
           default: 100
           type: int
         rnd: 
           description: See MF A2C agent docs...
-          default: False
-          type: boolean
+          arg-switch: no
         attention: 
           description: See MF A2C agent docs...
-          default: False
-          type: boolean
+          arg-switch: no
         pre-obs-norm:
           description: See MF A2C agent docs...
           default: 10
           type: int
+        action-space:
+          description: See MF A2C agent docs...
+          default: 54
+          type: int
+        obs-space:
+          description: See MF A2C agent docs...
+          default: 52
+          type: int
+        val-loss-coef:
+          description: See MF A2C agent docs...
+          default: 0.5
+          type: float
+        entropy-coef:
+          description: See MF A2C agent docs...
+          default: 0.0
+          type: float
+        max-grad-norm:
+          description: See MF A2C agent docs...
+          default: 0.5
+          type: float
+        alpha:
+          description: See MF A2C agent docs...
+          default: 0.99
+          type: float
+        update_prop:
+          description: See MF A2C agent docs...
+          default: 0.25
+          type: float
+        processes:
+          description: See MF A2C agent docs...
+          default: 4
+          type: int
+      output-scalars: 
+        - run_time: 'Total run time: \n(\value)'
+    eval: 
+      description: Challenge evaluation script using A2C agent
+      main: evaluation
+      flags: 
+        $include: 
+          - general-flags
+          - train-test-flags
+        gamma: '{{ default-gamma }}'
+        checkpoint-path: "results/saved_models/a2c/actor_critic.pt"
+        batch-size: 100
+        epsilon: 
+          description: See MF A2C agent docs...
+          default: '{{ default-epsilon }}'
+          type: float
+        learning-rate: 
+          description: See MF A2C agent docs...
+          default: '{{ default-learning-rate }}'
+          type: float
+        priority: 
+          description: See MF A2C agent docs...
+          arg-switch: no
+        exploring-steps:
+          description: See MF A2C agent docs...
+          default: 100
+          type: int
+        rnd: 
+          description: See MF A2C agent docs...
+          arg-switch: no
+        attention: 
+          description: See MF A2C agent docs...
+          arg-switch: no
+        pre-obs-norm:
+          description: See MF A2C agent docs...
+          default: 10
+          type: int
+        action-space:
+          description: See MF A2C agent docs...
+          default: 54
+          type: int
+        obs-space:
+          description: See MF A2C agent docs...
+          default: 52
+          type: int
+        val-loss-coef:
+          description: See MF A2C agent docs...
+          default: 0.5
+          type: float
+        entropy-coef:
+          description: See MF A2C agent docs...
+          default: 0.0
+          type: float
+        max-grad-norm:
+          description: See MF A2C agent docs...
+          default: 0.5
+          type: float
+        alpha:
+          description: See MF A2C agent docs...
+          default: 0.99
+          type: float
+        update_prop:
+          description: See MF A2C agent docs...
+          default: 0.25
+          type: float
+        processes:
+          description: See MF A2C agent docs...
+          default: 4
+          type: int
       output-scalars: 
         - run_time: 'Total run time: \n(\value)'
 - model: ppo
+  description: PPO Agent
+  sourcecode:
+    select: 
+      - "agents/ppo/PPO.py"
+      - "agents_list.py"
+      - "config.py"
+      - "evaluation.py"
+    exclude: 
+      dir: tutorial_code
+    dest: results/saved_models/a2c
+  params: 
+    default-gamma: 0.99
   operations: 
     eval: 
       description: Evaluation script for PPO agent
-      main: evalutation
-      sourcecode: 
-        include: 
-          dir: results/saved_models/a2c
-        exclude: 
-          dir: tutorial_code
-        dest: results/saved_models/a2c
-        select: 
-          - "agents/ppo/PPO.py"
-          - "agents_list.py"
-          - "config.py"
-          - "evaluation.py"
+      main: evaluation
       flags: 
-        $include: shared-flags
-        gamma: 
-          description: discount factor
-          default: 0.99
-          type: float
+        $include: 
+          - general-flags
+          - train-test-flags
+        gamma: '{{ default-gamma }}'
+        checkpoint-path: "results/saved_models/ppo/ppo_default.pt"
         action-std:
           description: starting std for action distribution (Multivariate Normal)
           default: 0.6
