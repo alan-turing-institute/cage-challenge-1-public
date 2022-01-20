@@ -21,6 +21,7 @@ from ray.rllib.models.tf.fcnet import FullyConnectedNetwork
 from ray.rllib.models.torch.torch_modelv2 import TorchModelV2
 from ray.rllib.models.torch.fcnet import FullyConnectedNetwork as TorchFC
 import ray.rllib.agents.ppo as ppo
+import ray.rllib.agents.impala as impala
 from ray.rllib.utils.framework import try_import_tf, try_import_torch
 from ray.rllib.utils.test_utils import check_learning_achieved
 
@@ -62,9 +63,9 @@ class CybORGAgent(gym.Env):
     def step(self, action=None):
         result = self.env.step(action=action)
         self.steps += 1
-        if self.steps == 20:
+        if self.steps == 100:
             return result[0], result[1], True, result[3]
-        assert(self.steps<=20)
+        assert(self.steps<=100)
         return result
     
     def seed(self, seed=None):
@@ -111,18 +112,22 @@ if __name__ == "__main__":
         "lr": grid_search([1e-4]),  
         #"momentum": tune.uniform(0, 1),
         "num_workers": 4,  # parallelism
-        "framework": "tf", # May also use "tf2", "tfe" or "torch" if supported
+        "framework": "tf2", # May also use "tf2", "tfe" or "torch" if supported
+        "eager_tracing": True, # In order to reach similar execution speed as with static-graph mode (tf default)
+        "vf_loss_coeff": 0.01  # Scales down the value function loss for better comvergence with PPO
     }
 
     stop = {
-        "training_iteration": 100,   # The number of times tune.report() has been called
-        "timesteps_total":1000000,   # Total number of timesteps
-        "episode_reward_mean": 0.1, # When to stop
+        "training_iteration": 1,   # The number of times tune.report() has been called
+        "timesteps_total": 1600000,   # Total number of timesteps
+        "episode_reward_mean": -8.5, # When to stop.. it would be great if we could define this in terms
+                                    # of a more complex expression which incorporates the episode reward min too
+                                    # There is a lot of variance in the episode reward min
     }
 
     log_dir = 'log_dir/'
 
-    analysis = tune.run(ppo.PPOTrainer, # Algo to use
+    analysis = tune.run(ppo.PPOTrainer, # Algo to use - alt: ppo.PPOTrainer, impala.ImpalaTrainer
                         config=config, 
                         local_dir=log_dir,
                         stop=stop,

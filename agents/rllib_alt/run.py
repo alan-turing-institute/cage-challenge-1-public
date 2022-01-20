@@ -27,7 +27,7 @@ if __name__ == "__main__":
             "vf_share_layers": True,
         },
         "num_workers": 4,  # parallelism
-        "framework": "tf",
+        "framework": "tf2",
     }
 
     # Restore the checkpointed model
@@ -50,13 +50,10 @@ if __name__ == "__main__":
         obs, reward, done, info = env.step(action)
         episode_reward += reward
 
-        print(76*'-')
-
         print('Blue Action: {}'.format(action))
         print('Reward: {}, Episode reward: {}'.format(reward, episode_reward))
         print('Network state:')
         true_state = env.cyborg.get_agent_state('True')
         true_table = true_obs_to_table(true_state,env.cyborg)
         print(true_table)
-        print(76*'-')
         print('.')
