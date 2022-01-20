@@ -5,7 +5,6 @@ from agents.a2c.env_utils import make_envs_as_vec
 from agents.a2c.a2c.a2c_agent import A2CAgent
 from agents.a2c.a2c.rollout import RolloutStorage
 from agents.a2c.a2c.rnd.rnd import RunningMeanStd
-from agents.a2c.a2c.config import Config
 import torch
 from CybORG import CybORG
 from CybORG.Agents import *
@@ -16,22 +15,6 @@ from config import configure
 # Main entry point
 if __name__ == "__main__":
     track = False
-    config_defaults ={'gamma'           : 0.9,
-                      'epsilon'         : 1.0,
-                      'batch_size'      : 100,
-                      'update_step'     : 50,
-                      'episode_length'  : 100,
-                      'learning_rate'   : 0.005,
-                      'training_length' : 4000,
-                      'priority'        : False,
-                      'exploring_steps' : 100,
-                      'rnd'             : False,
-                      'attention'       : False,
-                      'pre_obs_norm'    : 10,
-                      'alpha'           : 0.99}
-    config = Config(config_dict=config_defaults)
-
-
 
     show_train_curve = not track
 
@@ -39,7 +22,7 @@ if __name__ == "__main__":
     agents = {'Red': B_lineAgent}
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
-    cyborg = CybORG(path, 'sim')
+    cyborg = CybORG(path, 'sim', agents=agents)
     processes = 4
     environments = make_envs_as_vec(seed=0, processes=processes, gamma=0.95, env=cyborg)
 
@@ -63,11 +46,13 @@ if __name__ == "__main__":
     rolling_ep_len_avg = []
     total_successful_episodes = []
     print('Initialise observation standardisation...')
-    for step in range(config.pre_obs_norm * config.episode_length):
-        actions = np.array([np.random.randint(0, action_space) for i in range(processes)])
-        obs, _, _, _ = environments.step(actions)
+    for ep in range(args.pre_obs_norm):
+        obs = environments.reset()
+        for step in range(args.episode_length):
+            actions = np.array([np.random.randint(0, action_space) for i in range(processes)])
+            obs, _, _, _ = environments.step(actions)
 
-        obs_rms.update(obs)
+            obs_rms.update(obs)
     print('Finish observation standardisation')
 
 
@@ -79,18 +64,18 @@ if __name__ == "__main__":
 
     episode = 0
     start_time = time.time()
-    while any(succ_eps != 4 for succ_eps in total_successful_episodes[:50]):
+    while any(succ_eps != 4 for succ_eps in total_successful_episodes[:50]) or len(total_successful_episodes) < 50:
         ep_loss = []
         episode_rewards = []
         episode_disc_rewards = 0
         observations = environments.reset()
         agent.step = 0
-        for step in range(0, config.episode_length):
+        for step in range(0, args.episode_length):
             with torch.no_grad():
                 value, continuous_action, action_log_prob = agent.actor_critic.act(agent.rollouts.observations[step])
 
             observation, reward, done, infos = environments.step(continuous_action)
-            if config.rnd:
+            if args.rnd:
                 intrinsic_reward = agent.rnd.compute_intrinsic_reward((observation - obs_rms.mean) / np.sqrt(obs_rms.var)).detach().numpy()
                 mean, std, count = np.mean(intrinsic_reward), np.std(intrinsic_reward), len(intrinsic_reward)
                 r_mean.update_from_moments(mean, std ** 2, count)

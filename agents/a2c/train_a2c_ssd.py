@@ -2,11 +2,10 @@ import time
 from matplotlib import pyplot as plt
 import numpy as np
 from env_utils import make_envs_as_vec
-from a2c.a2c_agent import AgentA2C
 from a2c.a2c_agent_ssd import AgentA2CSSD
 from a2c.rollout import RolloutStorage
 from a2c.rnd.rnd import RunningMeanStd
-from config import Config
+from a2c.config import Config
 import torch
 from CybORG import CybORG
 from evaluation_a2c import *
@@ -33,18 +32,18 @@ if __name__ == "__main__":
                       'alpha'           : 0.99}
 
     config = Config(config_dict=config_defaults)
-    wandb.login()
-    wandb.init(project='cage-ssd', config=config_defaults)
-    config = wandb.config
+    #wandb.login()
+    #wandb.init(project='cage-ssd', config=config_defaults)
+    #config = wandb.config
 
 
     show_train_curve = not track
 
     agent_name = 'Blue'
-    agnets = {'Red': B_lineAgent}
+    agents = {'Red': B_lineAgent}
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
-    cyborg = CybORG(path, 'sim')
+    cyborg = CybORG(path, 'sim', agents=agents)
     processes = 4
     environments = make_envs_as_vec(seed=0, processes=processes, gamma=0.95, env=cyborg)
     state_space_decompositions = [1, 2823, 2823, 2823, 2823]
@@ -56,12 +55,12 @@ if __name__ == "__main__":
     action_space = environments.action_space.n
     obs_space    = environments.observation_space.shape[0]
     rollouts = RolloutStorage(steps=config.episode_length, processes=processes, output_dimensions=int(action_space), input_dimensions=obs_space)
-    agent = AgentA2CSSD(rnd=config.rnd, action_space=action_space, processes=processes, input_space=obs_space, epsilon=config.epsilon)
+    agent = AgentA2CSSD(rnd=config.rnd, action_space=action_space, processes=processes, input_space=state_space_decompositions, epsilon=config.epsilon, slices=slices)
     print('Agent Created...')
     observation = environments.reset()
     r_mean = RunningMeanStd()
     obs_rms = RunningMeanStd(shape=(processes, obs_space))
-    wandb.watch(agent.actor_critic, log=all, log_freq=1)
+    #wandb.watch(agent.actor_critic, log=all, log_freq=1)
     total_episodes = []
     total_losses = []
     total_rewards = []
@@ -90,12 +89,12 @@ if __name__ == "__main__":
         episode_rewards = []
         episode_disc_rewards = 0
         observations = environments.reset()
+        total_reward = np.zeros((processes))
+
 
         for step in range(0, config.episode_length):
             with torch.no_grad():
-                value, continuous_action, action_log_prob, rnn_states = agent.actor_critic.act(
-                    rollouts.observations[step], rollouts.rnn_states[step],
-                    rollouts.masks[step])
+                value, continuous_action, action_log_prob = agent.actor_critic.act(rollouts.observations[step])
 
             observation, reward, done, infos = environments.step(continuous_action)
 
@@ -110,21 +109,20 @@ if __name__ == "__main__":
                 obs_rms.update(observation)
                 total_reward = reward + intrinsic_reward
             else:
-                total_reward = reward
-            episode_rewards.append(reward)
+                total_reward += reward
+            #episode_rewards.append(total_reward)
 
             masks = torch.FloatTensor([[0.0] if done_ else [1.0] for done_ in done])
             bad_masks = torch.FloatTensor( [[0.0] if 'bad_transition' in info.keys() else [1.0] for info in infos])
-            rollouts.insert(observation, rnn_states, continuous_action, action_log_prob, value, total_reward, masks, bad_masks)
+            rollouts.insert(observation, continuous_action, action_log_prob, value, total_reward, masks, bad_masks)
         with torch.no_grad():
-            next_value = agent.actor_critic.get_value(rollouts.observations[-1],
-                                                      rollouts.rnn_states[-1],
-                                                      rollouts.masks[-1]).detach()
+            next_value = agent.actor_critic.get_value(rollouts.observations[-1]).detach()
         rollouts.compute_returns(next_value, gamma=0.99)
         value_loss, action_loss, dist_entropy = agent.update(rollouts)
         rollouts.after_update()
         ep_loss.append(value_loss)
         num_eps_this_form += 1
+        episode_rewards.append(total_reward)
 
 
         if 1:
@@ -134,14 +132,14 @@ if __name__ == "__main__":
                     str(episode),
                     'AGENT: ', i+1,
                     ' EP_LOSS_AV: ', float(np.mean(ep_loss)/(step+1)) if ep_loss else 0,
-                    ' EP_REWARD: ', float(sum(sum(episode_rewards))/processes),
+                    ' EP_REWARD: ', float(sum(episode_rewards)[i]),
                     ' REWARD MIN/MAX/MEAN/SD: ', float(min([list(episode_rewards)[j][i] for j in range(len(episode_rewards))])),
                     float(max([list(episode_rewards)[j][i] for j in range(len(episode_rewards))])), float(np.mean([float(list(episode_rewards)[j][i]) for j in range(len(episode_rewards))])),
                     float( np.std([list(episode_rewards)[j][i] for j in range(len(episode_rewards))])),
                                ' ACTION: ' + str(infos[i]['action'])
                 ))
             print('\n')
-            wandb.log({'Loss': sum(ep_loss)/step if ep_loss else 0, 'Reward': sum(sum(episode_rewards))/processes})
+            #wandb.log({'Loss': sum(ep_loss)/step if ep_loss else 0, 'Reward': sum(sum(episode_rewards))/processes})
             total_successful_episodes.append(processes - len(np.where(np.mean(episode_rewards, axis=0) < 0)[0]))
             total_losses.append(sum(ep_loss)/step if ep_loss else 0)
             total_episodes.append(episode)

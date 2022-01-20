@@ -1,13 +1,13 @@
 import torch
-from a2c.a2c import PolicyNetwork
+from a2c.a2c_ssd import PolicyNetwork
 import os
 from a2c.rnd.rnd import RNDAgentA2c
 
 class AgentA2CSSD:
-    def __init__(self, action_space, input_space=1, val_loss_coef=0.5,
+    def __init__(self, action_space, slices,input_space=1, val_loss_coef=0.5,
                  entropy_coef=0.01, lr=0.0001, epsilon=0.001, max_grad_norm=0.5, alpha=0.99,
                  rnd=False, update_prop=0.25, processes=1):
-        self.actor_critic       = PolicyNetwork(input_space, action_space)
+        self.actor_critic       = PolicyNetwork(input_space, action_space, slices)
         if torch.cuda.is_available():
             dev = 'cuda:0'
         else:
@@ -29,9 +29,8 @@ class AgentA2CSSD:
         action_shape = rollouts.actions.size()[-1]
         num_steps, num_processes, _ = rollouts.rewards.size()
 
-        values, action_log_probs, dist_entropy, _ = self.actor_critic.evaluate_actions(
+        values, action_log_probs, dist_entropy = self.actor_critic.evaluate_actions(
             rollouts.observations[:-1].view(-1, *obs_shape),
-            rollouts.rnn_states[0].view(-1, 1),
             rollouts.masks[:-1].view(-1, 1),
             rollouts.actions.view(-1, action_shape))
 
@@ -76,7 +75,7 @@ class AgentA2CSSD:
 
     def load_model(self):
         path = os.path.abspath(os.getcwd())
-        check_point = torch.load(path +'/saved_models/a2c/actor_critic.pt')
+        check_point = torch.load(path +'/agents/a2c/saved_models/a2c/actor_critic.pt')
         self.actor_critic.load_state_dict(check_point['ac_state_dict'])
         self.optimiser.load_state_dict(check_point['opt_state_dict'])
         if self.rnd:

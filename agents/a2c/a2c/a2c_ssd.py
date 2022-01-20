@@ -1,19 +1,19 @@
 import torch
 import numpy as np
-from a2c.a2c.distributions import Categorical
+from agents.a2c.a2c.distributions import Categorical
 
 
 
 class PolicyNetwork(torch.nn.Module):
-    def __init__(self, input_dimension, output_dimension):
+    def __init__(self, input_dimension, output_dimension, slices):
         super(PolicyNetwork, self).__init__()
         if torch.cuda.is_available():
             dev = 'cuda:0'
         else:
             dev = 'cpu'
         self.device = torch.device(dev)
-
-        self.network = NeuralNetwork(input_dimension, device=self.device)
+        self.input_slices = slices
+        self.network = NeuralNetwork(input_dimension, device=self.device, slices=slices)
         self.output_space = output_dimension
         self.dist = Categorical(self.network.output_size, self.output_space, device=self.device)
         dev = 'cpu'
@@ -30,17 +30,9 @@ class PolicyNetwork(torch.nn.Module):
     def forward(self, inputs, rnn_hxs, masks):
         raise NotImplementedError
 
-    def return_as_slices(self, input):
-        seps_state_tensor = []
-        for slice in self.input_slices:
-            if len(slice) == 2:
-                seps_state_tensor.append(input[:, slice[0]:slice[1]])
-            elif len(slice) == 1:
-                seps_state_tensor.append(input[:, slice[0]].unsqueeze(-1))
-
-    def act(self, inputs, rnn_hxs, masks, deterministic=False):
-        inputs = self.return_as_slices(inputs)
-        value, actor_features, rnn_hxs = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
+    def act(self, inputs, deterministic=False):
+        #inputs = self.return_as_slices(inputs)
+        value, actor_features = self.network(inputs)
         dist = self.dist(actor_features)
 
         if deterministic:
@@ -51,23 +43,20 @@ class PolicyNetwork(torch.nn.Module):
         action_log_probs = dist.log_probs(action)
         dist_entropy = dist.entropy().mean()
 
-        return value, action, action_log_probs, rnn_hxs
+        return value, action, action_log_probs
 
-    def get_value(self, inputs, rnn_hxs, masks):
-        inputs = self.return_as_slices(inputs)
-
-        value, _, _ = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
+    def get_value(self, inputs):
+        value, _= self.network(inputs)
         return value
 
-    def evaluate_actions(self, inputs, rnn_hxs, masks, action):
-        inputs = self.return_as_slices(inputs)
-        value, actor_features, rnn_hxs = self.network(inputs.to(self.device), rnn_hxs.to(self.device), masks.to(self.device))
+    def evaluate_actions(self, inputs, masks, action):
+        value, actor_features = self.network(inputs.to(self.device))
         dist = self.dist(actor_features.to(self.device))
 
         action_log_probs = dist.log_probs(action.to(self.device))
         dist_entropy = dist.entropy().mean()
 
-        return value, action_log_probs, dist_entropy, rnn_hxs
+        return value, action_log_probs, dist_entropy
 
 
 class MLPBase(torch.nn.Module):
@@ -101,43 +90,38 @@ class MLPBase(torch.nn.Module):
 
 
 # The NeuralNetwork class inherits the torch.nn.Module class, which represents a neural network.
-class SSDNeuralNetwork(torch.nn.Module):
+class SSDMLP(torch.nn.Module):
 
     # The class initialisation function. This takes as arguments the dimension of the network's input (i.e. the dimension of the state), and the dimension of the network's output (i.e. the dimension of the action).
     def __init__(self, layer_seps, device, output_dimension=64):
         # Call the initialisation function of the parent class.
-        super(SSDNeuralNetwork, self).__init__()
+        super(SSDMLP, self).__init__()
         # Define the network layers.
-        layers = []
-        for seperation in layer_seps:
-            layers.append(torch.nn.Linear(in_features=seperation, out_features=128))
 
-        self.sep_1_layer_1 = torch.nn.Linear(in_features=layer_seps[0], out_features=256).to(device)
+        self.sep_1_layer_1 = torch.nn.Linear(in_features=layer_seps[0], out_features=512).to(device)
         #self.sep_1_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.sep_2_layer_1 = torch.nn.Linear(in_features=layer_seps[1], out_features=256).to(device)
+        self.sep_2_layer_1 = torch.nn.Linear(in_features=layer_seps[1], out_features=512).to(device)
         #self.sep_2_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.sep_3_layer_1 = torch.nn.Linear(in_features=layer_seps[2], out_features=256).to(device)
+        self.sep_3_layer_1 = torch.nn.Linear(in_features=layer_seps[2], out_features=512).to(device)
         #self.sep_3_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.sep_4_layer_1 = torch.nn.Linear(in_features=layer_seps[3], out_features=256).to(device)
+        self.sep_4_layer_1 = torch.nn.Linear(in_features=layer_seps[3], out_features=512).to(device)
         #self.sep_4_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.sep_5_layer_1 = torch.nn.Linear(in_features=layer_seps[4], out_features=256).to(device)
+        self.sep_5_layer_1 = torch.nn.Linear(in_features=layer_seps[4], out_features=512).to(device)
         #self.sep_5_layer_2 = torch.nn.Linear(in_features=256, out_features=128)
 
-        self.comb_layer_1 = torch.nn.Linear(in_features=128*5, out_features=128).to(device)
+        self.comb_layer_1 = torch.nn.Linear(in_features=512*5, out_features=256).to(device)
         #torch.nn.init.xavier_normal_(self.layer_1.weight)
         #self.comb_layer_2 = torch.nn.Linear(in_features=128, out_features=96)
 
-        self.output_layer = torch.nn.Linear(in_features=96, out_features=output_dimension).to(device)
+        self.output_layer = torch.nn.Linear(in_features=256, out_features=output_dimension).to(device)
         #torch.nn.init.xavier_normal_(self.output_layer.weight)
-
 
     # Function which sends some input data through the network and returns the network's output. In this example, a ReLU activation function is used for both hidden layers, but the output layer has no activation function (it is just a linear layer).
     def forward(self, seps):
-
         sep_1_out = torch.tanh(self.sep_1_layer_1(seps[0]))
         sep_2_out = torch.tanh(self.sep_2_layer_1(seps[1]))
         sep_3_out = torch.tanh(self.sep_3_layer_1(seps[2]))
@@ -153,31 +137,40 @@ class SSDNeuralNetwork(torch.nn.Module):
 
 
 class NeuralNetwork(MLPBase):
-    def __init__(self, layer_seps, recurrent=False, hidden_size=64):
+    def __init__(self, layer_seps, device, slices, recurrent=False, hidden_size=64):
         super(NeuralNetwork, self).__init__(recurrent, layer_seps, hidden_size)
-
         if recurrent:
             num_inputs = hidden_size
 
+        self.input_slices = slices
         init_ = lambda m: init(m, torch.nn.init.orthogonal_, lambda x: torch.nn.init.
                                constant_(x, 0), np.sqrt(2))
 
-        self.actor = SSDNeuralNetwork(layer_seps=layer_seps, output_dimension=hidden_size)
+        self.actor = SSDMLP(layer_seps=layer_seps, output_dimension=hidden_size, device=device)
 
 
-        self.critic = SSDNeuralNetwork(layer_seps=layer_seps, output_dimension=hidden_size)
+        self.critic = SSDMLP(layer_seps=layer_seps, output_dimension=hidden_size, device=device)
 
         self.critic_linear = init_(torch.nn.Linear(hidden_size, 1))
 
         self.train()
 
-    def forward(self, inputs, rnn_hxs, masks):
-        x = inputs
+    def return_as_slices(self, input):
+        seps_state_tensor = []
+        for slice in self.input_slices:
+            if len(slice) == 2:
+                seps_state_tensor.append(input[:, slice[0]:slice[1]])
+            elif len(slice) == 1:
+                seps_state_tensor.append(input[:, slice[0]].unsqueeze(-1))
+        return seps_state_tensor
+
+    def forward(self, inputs):
+        x = self.return_as_slices(inputs)
 
         hidden_critic = self.critic(x)
         hidden_actor = self.actor(x)
 
-        return self.critic_linear(hidden_critic), hidden_actor, rnn_hxs
+        return self.critic_linear(hidden_critic), hidden_actor
 
 
 def init(module, weight_init, bias_init, gain=1):
