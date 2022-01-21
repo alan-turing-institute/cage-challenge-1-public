@@ -159,7 +159,12 @@
           default: 4
           type: int
       output-scalars: 
-        - run_time: 'Total run time: \n(\value)'
+        step: '^(\step)'
+        agent: 'AGENT:  (\value)'
+        ep_loss_av: 'EP_LOSS_AV:   (\value)'
+        ep_reward: 'EP_REWARD:    (\value)'
+        rewards: 'REWARD MIN/MAX/MEAN/SD: (?P<reward_min>\value) (?P<reward_max>\value) (?P<reward_mean>\value) (?P<reward_std>\value)'
+        action: 'ACTION: ([\w\s]+)   $'
     eval: 
       description: Challenge evaluation script using A2C agent
       main: evaluation
@@ -228,7 +233,12 @@
           default: 4
           type: int
       output-scalars: 
-        - run_time: 'Total run time: \n(\value)'
+        step: '^(\step)'
+        agent: 'AGENT:  (\value)'
+        ep_loss_av: 'EP_LOSS_AV:   (\value)'
+        ep_reward: 'EP_REWARD:    (\value)'
+        rewards: 'REWARD MIN/MAX/MEAN/SD: (?P<reward_min>\value) (?P<reward_max>\value) (?P<reward_mean>\value) (?P<reward_std>\value)'
+        action: 'ACTION: ([\w\s]+)   $'
 - model: ppo
   description: PPO Agent
   sourcecode:
