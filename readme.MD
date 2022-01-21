@@ -1,5 +1,5 @@
 
-![Banner](/images/bannernologo.PNG)
+![mindrake](https://user-images.githubusercontent.com/10000317/150498045-b712992c-b569-4654-a35e-65660df3f795.png)
 
 # Introduction
 
