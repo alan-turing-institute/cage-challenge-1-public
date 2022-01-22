@@ -42,6 +42,9 @@ python evalutation.py --name-of-agent <agent>
 This repository is setup to run trials via [Guild.AI](https://my.guild.ai/)
 
 ```
+# Run the training script with all defaults for model `a2c`
+guild run a2c:train
+
 # Run the evaluation script with all defaults and log into Guild.AI's template
 guild run evaluation.py
 
