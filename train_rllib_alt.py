@@ -114,13 +114,15 @@ if __name__ == "__main__":
         "num_workers": 4,  # parallelism
         "framework": "tf2", # May also use "tf2", "tfe" or "torch" if supported
         "eager_tracing": True, # In order to reach similar execution speed as with static-graph mode (tf default)
-        "vf_loss_coeff": 0.01  # Scales down the value function loss for better comvergence with PPO
+        #"vf_loss_coeff": 0.01  # Scales down the value function loss for better comvergence with PPO
+
+        "epsilon": 0.5,
         
     }
 
     stop = {
-        "training_iteration": 500,   # The number of times tune.report() has been called
-        "timesteps_total": 1000000,   # Total number of timesteps
+        "training_iteration": 1,   # The number of times tune.report() has been called
+        "timesteps_total": 4000000,   # Total number of timesteps
         "episode_reward_mean": -8.5, # When to stop.. it would be great if we could define this in terms
                                     # of a more complex expression which incorporates the episode reward min too
                                     # There is a lot of variance in the episode reward min
