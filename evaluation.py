@@ -93,7 +93,6 @@ if __name__ == "__main__":
                     r.append(rew)
                     # r.append(result.reward)
                     a.append((str(cyborg.get_last_action('Blue')), str(cyborg.get_last_action('Red'))))
-
                 
 
                 total_reward.append(sum(r))
