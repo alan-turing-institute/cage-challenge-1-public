@@ -40,8 +40,8 @@ class CybORGAgent(gym.Env):
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
     agents = {
-            'Red': B_lineAgent, #RedMeanderAgent,
-            'Green': GreenAgent
+            'Red': B_lineAgent#, #RedMeanderAgent,
+            #'Green': GreenAgent
     }
 
     """The CybORGAgent env"""
@@ -115,11 +115,12 @@ if __name__ == "__main__":
         "framework": "tf2", # May also use "tf2", "tfe" or "torch" if supported
         "eager_tracing": True, # In order to reach similar execution speed as with static-graph mode (tf default)
         "vf_loss_coeff": 0.01  # Scales down the value function loss for better comvergence with PPO
+        
     }
 
     stop = {
-        "training_iteration": 1,   # The number of times tune.report() has been called
-        "timesteps_total": 1600000,   # Total number of timesteps
+        "training_iteration": 500,   # The number of times tune.report() has been called
+        "timesteps_total": 1000000,   # Total number of timesteps
         "episode_reward_mean": -8.5, # When to stop.. it would be great if we could define this in terms
                                     # of a more complex expression which incorporates the episode reward min too
                                     # There is a lot of variance in the episode reward min
@@ -127,11 +128,13 @@ if __name__ == "__main__":
 
     log_dir = 'log_dir/'
 
-    analysis = tune.run(ppo.PPOTrainer, # Algo to use - alt: ppo.PPOTrainer, impala.ImpalaTrainer
+    analysis = tune.run(impala.ImpalaTrainer, # Algo to use - alt: ppo.PPOTrainer, impala.ImpalaTrainer
                         config=config, 
                         local_dir=log_dir,
                         stop=stop,
-                        checkpoint_at_end=True)
+                        checkpoint_at_end=True,
+                        checkpoint_freq=5,
+                        keep_checkpoints_num=2)
 
     last_checkpoint = analysis.get_last_checkpoint(
         metric="episode_reward_mean", mode="max"
@@ -148,3 +151,4 @@ if __name__ == "__main__":
     ray.shutdown()
 
     # You can run tensorboard --logdir=log_dir/PPO... to visualise the learning processs during and after training
+
