@@ -32,7 +32,25 @@ September/October 2021: Release of an additional version of the Challenge proble
 4 February 2022: Final results announced\.
 
 
+## How to run this code:
 
+```
+# List of agents to select from is maintained in agents_list.py
+python evalutation.py --name-of-agent <agent>
+```
+
+This repository is setup to run trials via [Guild.AI](https://my.guild.ai/)
+
+```
+# Run the evaluation script with all defaults and log into Guild.AI's template
+guild run evaluation.py
+
+# View results on TensorBoard (runs local webpage)
+guild view
+
+# See what options there are to run trials
+guild operations
+```
 
 
 

@@ -14,7 +14,7 @@ from CybORG.Agents.Wrappers.FixedFlatWrapper import FixedFlatWrapper
 from CybORG.Agents.Wrappers.OpenAIGymWrapper import OpenAIGymWrapper
 from CybORG.Agents.Wrappers.ReduceActionSpaceWrapper import ReduceActionSpaceWrapper
 from CybORG.Agents.Wrappers import ChallengeWrapper
-from a2c.a2c_agent import Agent
+from a2c.a2c_agent import AgentA2C
 from a2c.rollout import RolloutStorage
 from a2c.rnd.rnd import RunningMeanStd
 
@@ -121,7 +121,7 @@ def evaluate(r_mean, obs_rms, agent=BlueLoadAgent()):
                     data.write(f'actions: {act}, total reward: {sum_rew}\n')
 
 
-
+"""
 path = str(inspect.getfile(CybORG))
 path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 cyborg = CybORG(path, 'sim')
@@ -136,7 +136,7 @@ for step in range(10 * 100):
     obs, _, _, _ = wrapped_cyborg.step(actions)
 
     obs_rms.update(obs)
-agent = Agent(rnd=False, action_space=action_space, processes=1, input_space=obs_space)
+agent = AgentA2C(rnd=False, action_space=action_space, processes=1, input_space=obs_space)
 agent.load_model()
 
-evaluate(agent=agent, obs_rms=obs_rms, r_mean=r_mean)
+evaluate(agent=agent, obs_rms=obs_rms, r_mean=r_mean)"""

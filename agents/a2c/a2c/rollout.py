@@ -8,8 +8,8 @@ def _flatten_helper(T, N, _tensor):
 class RolloutStorage:
     def __init__(self, steps=10, input_dimensions=2, output_dimensions=27,
                  rnn_state_size=1, processes=2):
+
         self.observations       = torch.zeros(steps + 1, processes, input_dimensions)
-        self.rnn_states         = torch.zeros(steps + 1, processes, rnn_state_size)
         self.rewards            = torch.zeros(steps, processes, 1)
         self.value_preds        = torch.zeros(steps, processes, 1)
         self.action_log_probs   = torch.zeros(steps, processes, 1)
@@ -21,9 +21,8 @@ class RolloutStorage:
         self.step               = 0
 
 
-    def insert(self, observation, rnn_states, actions, action_log_probs, value_preds, rewards, masks, bad_masks):
+    def insert(self, observation, actions, action_log_probs, value_preds, rewards, masks, bad_masks):
         self.observations[self.step + 1].copy_(torch.tensor(observation))
-        self.rnn_states[self.step + 1].copy_(rnn_states)
         self.actions[self.step].copy_(actions)
         self.action_log_probs[self.step].copy_(action_log_probs)
         self.value_preds[self.step].copy_(value_preds)
@@ -37,7 +36,6 @@ class RolloutStorage:
 
     def after_update(self):
         self.observations[0].copy_(self.observations[-1])
-        self.rnn_states[0].copy_(self.rnn_states[-1])
         self.masks[0].copy_(self.masks[-1])
         self.bad_masks[0].copy_(self.bad_masks[-1])
 
@@ -65,7 +63,6 @@ class RolloutStorage:
 
         for indices in sampler:
             observation_batch           = self.observations[:-1].view(-1, *self.observations.size()[2:])[indices]
-            rnn_state_batch             = self.rnn_states[:-1].view(-1, self.rnn_states.size(-1))[indices]
             actions_batch               = self.actions.view(-1, self.actions.size(-1))[indices]
             val_pred_batch              = self.value_preds[:-1].view(-1, 1)[indices]
             return_batch                = self.returns[:-1].view(-1, 1)[indices]

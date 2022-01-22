@@ -1,12 +1,12 @@
 import torch
 
 class Categorical(torch.nn.Module):
-    def __init__(self, input_dimension, output_dimension):
+    def __init__(self, input_dimension, output_dimension, device):
         super(Categorical, self).__init__()
 
         init_ = lambda m: init(m, torch.nn.init.orthogonal_, lambda x: torch.nn.init.constant_(x, 0), gain=0.01)
 
-        self.linear = init_(torch.nn.Linear(input_dimension, output_dimension))
+        self.linear = init_(torch.nn.Linear(input_dimension, output_dimension).to(device))
 
     def forward(self, input):
         output = self.linear(input)

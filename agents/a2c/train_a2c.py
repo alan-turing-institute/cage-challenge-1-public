@@ -2,11 +2,13 @@ import time
 from matplotlib import pyplot as plt
 import numpy as np
 from env_utils import make_envs_as_vec
-from a2c.a2c_agent import Agent
+from a2c.a2c_agent import AgentA2C
 from a2c.rollout import RolloutStorage
 from a2c.rnd.rnd import RunningMeanStd
 from a2c.config import Config
 import torch
+import sys
+sys.path.append("cage-challenge-1/CybORG")
 from CybORG import CybORG
 from CybORG.Agents import *
 import inspect
@@ -47,7 +49,7 @@ if __name__ == "__main__":
     action_space = environments.action_space.n
     obs_space    = environments.observation_space.shape[0]
     rollouts = RolloutStorage(steps=config.episode_length, processes=processes, output_dimensions=int(action_space), input_dimensions=obs_space)
-    agent = Agent(rnd=config.rnd, action_space=action_space, processes=processes, input_space=obs_space)
+    agent = AgentA2C(rnd=config.rnd, action_space=action_space, processes=processes, input_space=obs_space)
     print('Agent Created...')
     observation = environments.reset()
     r_mean = RunningMeanStd()
