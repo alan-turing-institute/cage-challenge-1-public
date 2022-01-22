@@ -28,7 +28,7 @@ MAX_EPS = 10
 agent_name = 'Blue'
 
 def wrap(env):
-    return OpenAIGymWrapper(agent_name, 
+    return OpenAIGymWrapper(agent_name,
                             EnumActionWrapper(FixedFlatWrapper(ReduceActionSpaceWrapper(env))))
 
 
@@ -87,7 +87,7 @@ if __name__ == "__main__":
                 # cyborg.env.env.tracker.render()
                 for j in range(num_steps):
                     action = agent.get_action(observation, action_space)
-                    obs, rew, done, info = wrapped_cyborg.step(action)
+                    observation, rew, done, info = wrapped_cyborg.step(action)
 
                     # result = cyborg.step(agent_name, action)
                     r.append(rew)
