@@ -9,7 +9,7 @@ import ray.rllib.agents.ppo as ppo
 from CybORG import CybORG
 from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
 
-from train import CybORGAgent, CustomModel
+from train_rllib_alt import CybORGAgent, CustomModel
 
 class LoadBlueAgent:
 
