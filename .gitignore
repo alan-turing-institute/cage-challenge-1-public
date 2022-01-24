@@ -30,3 +30,6 @@ MANIFEST
 
 #Saved_Models
 agents/a2c/saved_models/
+
+#IDE
+.idea/

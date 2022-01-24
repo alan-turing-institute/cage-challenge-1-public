@@ -1,5 +1,6 @@
 - config: general-flags
-  flags: 
+  flags-dest: args
+  flags:
     name:
       description: Name of person running this
       default: ATI
@@ -29,7 +30,8 @@
       default: 0
       type: int
 - config: train-test-flags
-  flags: 
+  flags-dest: args
+  flags:
     continuous-action-space:
       description: continuous action space; else discrete
       arg-switch: no
@@ -95,6 +97,7 @@
     train: 
       description: Challenge evaluation script using A2C agent
       main: train_a2c
+      flags-dest: args
       flags: 
         $include: 
           - general-flags
@@ -168,6 +171,7 @@
     eval: 
       description: Challenge evaluation script using A2C agent
       main: evaluation
+      flags-dest: args
       flags: 
         $include: 
           - general-flags
@@ -256,6 +260,7 @@
     eval: 
       description: Evaluation script for PPO agent
       main: evaluation
+      flags-dest: args
       flags: 
         $include: 
           - general-flags
