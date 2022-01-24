@@ -1,0 +1,47 @@
+Failure # 1 (occurred at 2022-01-24_12-54-06)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/ray/tune/trial_runner.py", line 924, in _process_trial
+    results = self.trial_executor.fetch_result(trial)
+  File "/usr/local/lib/python3.9/site-packages/ray/tune/ray_trial_executor.py", line 787, in fetch_result
+    result = ray.get(trial_future[0], timeout=DEFAULT_GET_TIMEOUT)
+  File "/usr/local/lib/python3.9/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/ray/worker.py", line 1715, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::PPO.__init__()[39m (pid=6804, ip=127.0.0.1)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer_template.py", line 102, in __init__
+    Trainer.__init__(self, config, env, logger_creator,
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer.py", line 661, in __init__
+    super().__init__(config, logger_creator, remote_checkpoint_dir,
+  File "/usr/local/lib/python3.9/site-packages/ray/tune/trainable.py", line 121, in __init__
+    self.setup(copy.deepcopy(self.config))
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer_template.py", line 113, in setup
+    super().setup(config)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer.py", line 764, in setup
+    self._init(self.config, self.env_creator)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer_template.py", line 136, in _init
+    self.workers = self._make_workers(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer.py", line 1727, in _make_workers
+    return WorkerSet(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/worker_set.py", line 110, in __init__
+    self._local_worker = self._make_worker(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/worker_set.py", line 449, in _make_worker
+    worker = cls(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/rollout_worker.py", line 587, in __init__
+    self._build_policy_map(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/rollout_worker.py", line 1551, in _build_policy_map
+    self.policy_map.create_policy(name, orig_cls, obs_space, act_space,
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/policy/policy_map.py", line 133, in create_policy
+    self[policy_id] = class_(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/policy/tf_policy_template.py", line 238, in __init__
+    DynamicTFPolicy.__init__(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/policy/dynamic_tf_policy.py", line 325, in __init__
+    dist_inputs, self._state_out = self.model(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/models/modelv2.py", line 244, in __call__
+    res = self.forward(restored, state or [], seq_lens)
+  File "/Users/chicks/OneDrive - The Alan Turing Institute/Documents/Development/CybORG/cage-challenge-1/agents/rllib_alt/train_rllib_alt.py", line 87, in forward
+    return self.model.forward(input_dict, state, seq_lens)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/models/tf/recurrent_net.py", line 65, in forward
+    assert seq_lens is not None
+AssertionError
+
