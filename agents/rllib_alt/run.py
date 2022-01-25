@@ -84,10 +84,10 @@ if __name__ == "__main__":
             for move_idx, move in enumerate(zip(blue_moves, green_moves, red_moves)):
                 print('{}. Blue: {}, Green: {}, Red: {}'.format(move_idx, move[0], move[1], move[2]))
             
-            #print('Blue numerical moves ')
-            #for move in moves:
-            #    print(move, end=', ')
-            #print()
+            print('Blue numerical moves ')
+            for move in blue_move_numbers:
+                print(move, end=', ')
+            print()
             exit()
 
         episode_reward = 0

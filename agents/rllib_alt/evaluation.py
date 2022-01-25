@@ -88,6 +88,7 @@ if __name__ == "__main__":
                 actions.append(a)
                 # observation = cyborg.reset().observation
                 observation = wrapped_cyborg.reset()
+                #agent.reset()
             print(f'Average reward for red agent {red_agent.__name__} and steps {num_steps} is: {mean(total_reward)} with a standard deviation of {stdev(total_reward)}')
             with open(file_name, 'a+') as data:
                 data.write(f'steps: {num_steps}, adversary: {red_agent.__name__}, mean: {mean(total_reward)}, standard deviation {stdev(total_reward)}\n')

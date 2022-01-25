@@ -41,4 +41,4 @@ class LoadBlueAgent:
 
     """Compensate for the different method name"""
     def get_action(self, obs, action_space):
-        return self.agent.compute_action(obs)
+        return self.agent.compute_single_action(obs)
