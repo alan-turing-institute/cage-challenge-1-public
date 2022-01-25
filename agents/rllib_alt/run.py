@@ -37,6 +37,7 @@ if __name__ == "__main__":
     agent = dqn.ApexTrainer(config=config, env=CybORGAgent)
     agent.restore(checkpoint_pointer)
 
+
     # Run the model...
     env = CybORGAgent(EnvContext)
 
@@ -44,19 +45,56 @@ if __name__ == "__main__":
     done = False
     obs = env.reset()
 
+    print('Initial environment state: ')
     true_state = env.cyborg.get_agent_state('True')
     true_table = true_obs_to_table(true_state,env.cyborg)
     print(true_table)
-    
-    while not done:
-        action = agent.compute_action(obs)
-        obs, reward, done, info = env.step(action)
-        episode_reward += reward
 
-        print('Blue Action: {}'.format(action))
-        print('Reward: {}, Episode reward: {}'.format(reward, episode_reward))
-        print('Network state:')
+    while True:
+        blue_moves = []
+        blue_move_numbers = []
+        red_moves = []
+        green_moves = []
+        
+
+        while not done:
+            action = agent.compute_single_action(obs)
+            obs, reward, done, info = env.step(action)
+            episode_reward += reward
+
+            blue_moves += [info['action'].__str__()]
+            blue_move_numbers += [action]
+            red_moves += [env.env.get_last_action('Red').__str__()]
+
+            green_moves += [env.env.get_last_action('Green').__str__()]
+
+            #print('Blue Action: {}'.format(action))
+            #print('Reward: {}, Episode reward: {}'.format(reward, episode_reward))
+            #print('Network state:')
+
+            #true_state = env.cyborg.get_agent_state('True')
+            #true_table = true_obs_to_table(true_state,env.cyborg)
+            #print(true_table)
+            #print('.')
+        print('\n')
+        if episode_reward >= -1.3:
+            print('episode reward: {}'.format(episode_reward))
+            print('Gameplay step through:')
+            
+            for move_idx, move in enumerate(zip(blue_moves, green_moves, red_moves)):
+                print('{}. Blue: {}, Green: {}, Red: {}'.format(move_idx, move[0], move[1], move[2]))
+            
+            #print('Blue numerical moves ')
+            #for move in moves:
+            #    print(move, end=', ')
+            #print()
+            exit()
+
+        episode_reward = 0
+        done = False
+        obs = env.reset()
+
+        print('Initial environment state after reset: ')
         true_state = env.cyborg.get_agent_state('True')
         true_table = true_obs_to_table(true_state,env.cyborg)
         print(true_table)
-        print('.')

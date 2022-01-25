@@ -19,9 +19,10 @@ from ray.rllib.models import ModelCatalog
 from ray.rllib.models.tf.tf_modelv2 import TFModelV2
 from ray.rllib.models.tf.fcnet import FullyConnectedNetwork
 from ray.rllib.models.tf.recurrent_net import RecurrentNetwork
-from ray.rllib.models.torch.torch_modelv2 import TorchModelV2
-from ray.rllib.models.torch.fcnet import FullyConnectedNetwork as TorchFC
 import ray.rllib.agents.dqn as dqn
+from ray.rllib.agents.trainer import Trainer
+from ray.rllib.agents.dqn import DEFAULT_CONFIG as DQN_DEFAULT_CONFIG
+from ray.rllib.agents.dqn.apex import APEX_DEFAULT_CONFIG
 import ray.rllib.agents.ppo as ppo
 import ray.rllib.agents.impala as impala
 from ray.rllib.utils.framework import try_import_tf, try_import_torch
@@ -29,7 +30,7 @@ from ray.rllib.utils.test_utils import check_learning_achieved
 
 # CybORG imports
 from CybORG import CybORG
-from CybORG.Agents import B_lineAgent, GreenAgent, BaseAgent, RedMeanderAgent
+from CybORG.Agents import B_lineAgent, GreenAgent, BaseAgent, RedMeanderAgent, BlueMonitorAgent
 from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
 from CybORG.Agents.Wrappers import ChallengeWrapper
 
@@ -94,90 +95,53 @@ class CustomModel(TFModelV2):
 if __name__ == "__main__":
     ray.init()
 
-    # Can also register the env creator function explicitly with:
-    # register_env("env name", lambda config: EnvClass(config))
-    ModelCatalog.register_custom_model("my_model", CustomModel)
+    # Can also register the env creator function explicitly with register_env("env name", lambda config: EnvClass(config))
+    ModelCatalog.register_custom_model("CybORG_DQN_Model", CustomModel)
 
-    config = {
-        "env": CybORGAgent,  
-        # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
-        "num_gpus": int(os.environ.get("RLLIB_NUM_GPUS", "0")),
-        "model": {
-            "custom_model": "my_model",
-            "vf_share_layers": True,
-        },
-        "lr": grid_search([1e-4]),  
-        "num_workers": 4,  # parallelism
+    config = Trainer.merge_trainer_configs(
+        APEX_DEFAULT_CONFIG,
+        {
+            "env": CybORGAgent,  
+            
+            "num_gpus": int(os.environ.get("RLLIB_NUM_GPUS", "0")), # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
+            "model": {
+                "custom_model": "CybORG_DQN_Model",
+                "vf_share_layers": True,
+            },
 
-        "framework": "tf2", # May also use "tf2", "tfe" or "torch" if supported
-        "eager_tracing": True, # In order to reach similar execution speed as with static-graph mode (tf default)
-        #"vf_loss_coeff": 0.01,  # Scales down the value function loss for better comvergence with PPO       
+            "framework": "tf2", # May also use "tf2", "tfe" or "torch" if supported
+            "eager_tracing": True, # In order to reach similar execution speed as with static-graph mode (tf default)
 
-        # DQN/Rainbow config
-        # === Model ===
-        # Number of atoms for representing the distribution of return. When
-        # this is greater than 1, distributional Q-learning is used.
-        # the discrete supports are bounded by v_min and v_max
-        "num_atoms": 1,
-        "v_min": -1000.0,
-        "v_max": -0.1,  # Set to maximum score
-        # Whether to use noisy network
-        "noisy": False,
-        # control the initial value of noisy nets
-        "sigma0": 0.5,
-        # Whether to use dueling dqn
-        "dueling": True,
-        # Dense-layer setup for each the advantage branch and the value branch
-        # in a dueling architecture.
-        "hiddens": [256],
-        # Whether to use double dqn
-        "double_q": True,
-        # N-step Q learning
-        "n_step": 1,
+            # === Settings for Rollout Worker processes ===
+            "num_workers": 4,  # No. rollout workers for parallel sampling.
+            
+            # === Settings for the Trainer process ===  
+            "lr": 1e-4,     
 
-        # === Prioritized replay buffer ===
-        # If True prioritized replay buffer will be used.
-        "prioritized_replay": True,
-        # Alpha parameter for prioritized replay buffer.
-        "prioritized_replay_alpha": 0.6,
-        # Beta parameter for sampling from prioritized replay buffer.
-        "prioritized_replay_beta": 0.4,
-        # Final value of beta (by default, we use constant beta=0.4).
-        "final_prioritized_replay_beta": 0.4,
-        # Time steps over which the beta parameter is annealed.
-        "prioritized_replay_beta_annealing_timesteps": 20000,
-        # Epsilon to add to the TD errors when updating priorities.
-        "prioritized_replay_eps": 1e-6,
-
-        # Callback to run before learning on a multi-agent batch of
-        # experiences.
-        "before_learn_on_batch": None,
-
-        # The intensity with which to update the model (vs collecting samples
-        # from the env). If None, uses the "natural" value of:
-        # `train_batch_size` / (`rollout_fragment_length` x `num_workers` x
-        # `num_envs_per_worker`).
-        # If provided, will make sure that the ratio between ts inserted into
-        # and sampled from the buffer matches the given value.
-        # Example:
-        #   training_intensity=1000.0
-        #   train_batch_size=250 rollout_fragment_length=1
-        #   num_workers=1 (or 0) num_envs_per_worker=1
-        #   -> natural value = 250 / 1 = 250.0
-        #   -> will make sure that replay+train op will be executed 4x as
-        #      often as rollout+insert op (4 * 250 = 1000).
-        # See: rllib/agents/dqn/dqn.py::calculate_rr_weights for further
-        # details.
-        "training_intensity": None,
-
-        # === Parallelism ===
-        # Whether to compute priorities on workers.
-        "worker_side_prioritization": False,
+            # === Environment settings ===
+            #"preprocessor_pref": "deepmind",
         
-    }
+            # === DQN/Rainbow Model subset config ===
+            "num_atoms": 1,     # Number of atoms for representing the distribution of return. 
+                                # Use >1 for distributional Q-learning (Rainbow config)
+                                # 1 improves faster than 2
+            "v_min": -1000.0,   # Minimum Score
+            "v_max": -0.0,      # Set to maximum score
+            "noisy": True,      # Whether to use noisy network (Set True for Rainbow)
+            "sigma0": 0.5,      # control the initial value of noisy nets
+            "dueling": True,    # Whether to use dueling dqn
+            "hiddens": [256],   # Dense-layer setup for each the advantage branch and the value
+                                # branch in a dueling architecture.
+            "double_q": True,   # Whether to use double dqn
+            "n_step": 3,        # N-step Q learning (Out of 1, 3 and 6, 3 seems to do learn most quickly)
+
+            "learning_starts": 100, # Number of steps of the evvironment to collect before learing starts
+            
+        }
+    )
 
     stop = {
-        "training_iteration": 1000,   # The number of times tune.report() has been called
+        "training_iteration": 400,   # The number of times tune.report() has been called
         "timesteps_total": 8000000,   # Total number of timesteps
         "episode_reward_mean": -0.1, # When to stop.. it would be great if we could define this in terms
                                     # of a more complex expression which incorporates the episode reward min too
@@ -191,9 +155,9 @@ if __name__ == "__main__":
                         local_dir=log_dir,
                         stop=stop,
                         checkpoint_at_end=True,
-                        checkpoint_freq=2,
+                        checkpoint_freq=1,
                         keep_checkpoints_num=2,
-                        checkpoint_score_attr="reward")
+                        checkpoint_score_attr="episode_reward_mean")
 
     checkpoint_pointer = open("checkpoint_pointer.txt", "w")
     last_checkpoint = analysis.get_last_checkpoint(
