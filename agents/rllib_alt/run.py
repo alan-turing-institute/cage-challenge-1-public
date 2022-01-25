@@ -5,11 +5,12 @@ import ray
 from ray.rllib.models import ModelCatalog
 from ray.rllib.env.env_context import EnvContext
 import ray.rllib.agents.ppo as ppo
+import ray.rllib.agents.dqn as dqn
 
 from CybORG import CybORG
 from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
 
-from train import CybORGAgent, CustomModel
+from train_rllib_alt import CybORGAgent, CustomModel
 
 if __name__ == "__main__":
 
@@ -26,12 +27,14 @@ if __name__ == "__main__":
             "custom_model": "my_model",
             "vf_share_layers": True,
         },
+        "eager_tracing": True,
         "num_workers": 4,  # parallelism
         "framework": "tf2",
+        "lr": 0.0001
     }
 
     # Restore the checkpointed model
-    agent = ppo.PPOTrainer(config=config, env=CybORGAgent)
+    agent = dqn.ApexTrainer(config=config, env=CybORGAgent)
     agent.restore(checkpoint_pointer)
 
     # Run the model...

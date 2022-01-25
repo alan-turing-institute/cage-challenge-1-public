@@ -5,11 +5,12 @@ import ray
 from ray.rllib.models import ModelCatalog
 from ray.rllib.env.env_context import EnvContext
 import ray.rllib.agents.ppo as ppo
+import ray.rllib.agents.dqn as dqn
 
 from CybORG import CybORG
 from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
 
-from train import CybORGAgent, CustomModel
+from train_rllib_alt import CybORGAgent, CustomModel
 
 class LoadBlueAgent:
 
@@ -35,7 +36,7 @@ class LoadBlueAgent:
         }
 
         # Restore the checkpointed model
-        self.agent = ppo.PPOTrainer(config=config, env=CybORGAgent)
+        self.agent = dqn.ApexTrainer(config=config, env=CybORGAgent)
         self.agent.restore(self.checkpoint_pointer)
 
     """Compensate for the different method name"""

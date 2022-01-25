@@ -16,6 +16,7 @@
         - a2c-rnd
         - a2c
         - ppo
+        - rllib-alt
       type: string
     scenario:
       description: Selected scenario
@@ -296,3 +297,42 @@
           type: float
       output-scalars: 
         - run_time: 'Total run time: \n(\value)'
+- model: rllib-alt
+  description: RLLib Baseline Agent
+  sourcecode:
+    select: 
+      - "train_rllib_alt.py"
+      - "agents_list.py"
+      - "config.py"
+      - "evaluation.py"
+    exclude: 
+      dir: tutorial_code
+    dest: agents/rllib_alt/log_dir
+  params: 
+    default-epsilon: 0.1
+    default-learning-rate: 0.0001
+  operations:
+    train: 
+      description: Train agent
+      main: train_rllib_alt
+      flags: 
+        $include: 
+          - general-flags
+        checkpoint-path: "agents/rllib_alt/log_dir"
+        epsilon: 
+          description: Exploration probability
+          default: 0.1
+          type: float
+        learning-rate: 
+          description: Step-size parameter
+          default: 0.0001
+          type: float
+    eval: 
+      description: Evaluation script for agent
+      main: evaluation
+      flags: 
+        $include: 
+          - general-flags
+          - train-test-flags
+        gamma: '{{ default-gamma }}'
+        checkpoint-path: "agents/rllib_alt/log_dir/IMPALA_2022-01-22_14-26-59/IMPALA_CybORGAgent_5be72_00000_0_lr=0.0001_2022-01-22_14-26-59/checkpoint_000612/checkpoint-612"

@@ -1,0 +1,72 @@
+Failure # 1 (occurred at 2022-01-22_21-21-16)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/ray/tune/trial_runner.py", line 924, in _process_trial
+    results = self.trial_executor.fetch_result(trial)
+  File "/usr/local/lib/python3.9/site-packages/ray/tune/ray_trial_executor.py", line 787, in fetch_result
+    result = ray.get(trial_future[0], timeout=DEFAULT_GET_TIMEOUT)
+  File "/usr/local/lib/python3.9/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/ray/worker.py", line 1713, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ValueError): [36mray::IMPALA.train()[39m (pid=54794, ip=127.0.0.1, repr=IMPALA)
+  File "/usr/local/lib/python3.9/site-packages/tree/__init__.py", line 510, in map_structure
+    [func(*args) for args in zip(*map(flatten, structures))])
+  File "/usr/local/lib/python3.9/site-packages/tree/__init__.py", line 510, in <listcomp>
+    [func(*args) for args in zip(*map(flatten, structures))])
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/policy/sample_batch.py", line 212, in concat_key
+    return concat_aligned(values, time_major)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/utils/numpy.py", line 78, in concat_aligned
+    flat = aligned_array(sum(s.size for s in items), dtype)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/utils/numpy.py", line 78, in <genexpr>
+    flat = aligned_array(sum(s.size for s in items), dtype)
+  File "/usr/local/lib/python3.9/site-packages/tensorflow/python/framework/ops.py", line 396, in __getattr__
+    raise AttributeError("""
+AttributeError: 
+        'EagerTensor' object has no attribute 'size'.
+        If you are looking for numpy-related methods, please run the following:
+        import tensorflow.python.ops.numpy_ops.np_config
+        np_config.enable_numpy_behavior()
+
+During handling of the above exception, another exception occurred:
+
+[36mray::IMPALA.train()[39m (pid=54794, ip=127.0.0.1, repr=IMPALA)
+  File "/usr/local/lib/python3.9/site-packages/ray/tune/trainable.py", line 314, in train
+    result = self.step()
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer.py", line 885, in step
+    raise e
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer.py", line 867, in step
+    result = self.step_attempt()
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer.py", line 920, in step_attempt
+    step_results = next(self.train_exec_impl)
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 756, in __next__
+    return next(self.built_iterator)
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 843, in apply_filter
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 843, in apply_filter
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 843, in apply_filter
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 1075, in build_union
+    item = next(it)
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 756, in __next__
+    return next(self.built_iterator)
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 876, in apply_flatten
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 791, in apply_foreach
+    result = fn(item)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/execution/rollout_ops.py", line 194, in __call__
+    out = SampleBatch.concat_samples(self.buffer)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/policy/sample_batch.py", line 223, in concat_samples
+    raise ValueError(f"Cannot concat data under key '{k}', b/c "
+ValueError: Cannot concat data under key 'rewards', b/c sub-structures under that key don't match. `samples`=[SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs']), SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs']), SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs']), SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs']), SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs']), SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs']), SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs']), SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs']), SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs']), SampleBatch(50: ['obs', 'new_obs', 'actions', 'rewards', 'dones', 'infos', 'eps_id', 'unroll_id', 'agent_index', 'action_logp', 'action_dist_inputs'])]
+

@@ -29,7 +29,7 @@ if __name__ == "__main__":
     cyborg_version = '1.2'
     scenario = 'Scenario1b'
     # ask for a name
-    name = 'Chris ' #input('Name: ')
+    name = 'Mindrake ' #input('Name: ')
     # ask for a team
     team = 'Mindrake' #input("Team: ")
     # ask for a name for the agent
@@ -73,7 +73,7 @@ if __name__ == "__main__":
                 # cyborg.env.env.tracker.render()
                 for j in range(num_steps):
                     action = agent.get_action(observation, action_space)
-                    obs, rew, done, info = wrapped_cyborg.step(action)
+                    observation, rew, done, info = wrapped_cyborg.step(action)
                     # result = cyborg.step(agent_name, action)
 
                     # Print true table on each step
