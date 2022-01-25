@@ -32,7 +32,7 @@
 - config: train-test-flags
   flags-dest: args
   flags:
-    continuous-action-space:
+    has-continuous-action-space:
       description: continuous action space; else discrete
       arg-switch: no
     batch-size: 

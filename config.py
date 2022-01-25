@@ -17,8 +17,6 @@ def configure():
     parser.add_argument('--has_continuous_action_space', action='store_false', help='continuous action space; else discrete')
 
     # Training/Testing flags
-    parser.add_argument('--test', action='store_true', help='Test benchmarks')
-    parser.add_argument('--train', action='store_true', help='Train benchmarks')
     parser.add_argument('--batch-size', type=int, default=100, metavar='B', help='Batch size')
     parser.add_argument('--update-step', type=int, default=50, help='See MF A2C agent docs...')
     parser.add_argument('--episode-length', type=int, default=100, help='See MF A2C agent docs...')
