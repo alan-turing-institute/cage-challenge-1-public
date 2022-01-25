@@ -15,14 +15,15 @@ def configure():
     parser.add_argument('--scenario', type=str, default='Scenario1b', choices=['Scenario1', 'Scenario1b'], metavar='s', help='Selected Scenario')
     parser.add_argument('--seed', type=int, default=1, metavar='S', help='Random seed')
     parser.add_argument('--has_continuous_action_space', action='store_false', help='continuous action space; else discrete')
-  
+
     # Training/Testing flags
-    parser.add_argument('--test', action='store_true', help='Test benchmarks')
-    parser.add_argument('--train', action='store_true', help='Train benchmarks')
     parser.add_argument('--batch-size', type=int, default=100, metavar='B', help='Batch size')
     parser.add_argument('--update-step', type=int, default=50, help='See MF A2C agent docs...')
     parser.add_argument('--episode-length', type=int, default=100, help='See MF A2C agent docs...')
     parser.add_argument('--training-length', type=int, default=4000, help='See MF A2C agent docs...')
+    parser.add_argument('--checkpoint-path', type=str, help='Path to checkpoint of trained agent.')
+    parser.add_argument('--red-agent', type=str, help='Red agent strategy')
+
 
     # Agent flags
     parser.add_argument('--gamma', type=float, default=0.9, help='See MF A2C agent docs...')
@@ -42,6 +43,7 @@ def configure():
     parser.add_argument('--alpha', type=float, default=0.99,help='See MF A2C agent docs...')
     parser.add_argument('--update_prop', type=float, default=0.25,help='See MF A2C agent docs...')
     parser.add_argument('--processes', type=int, default=4,help='See MF A2C agent docs...')
+    parser.add_argument('--max-eps', type=int, default=10,help='See MF A2C agent docs...')
 
     # # PPO Agent
     parser.add_argument('--action-std', type=float, default=0.6, help='starting std for action distribution (Multivariate Normal)')

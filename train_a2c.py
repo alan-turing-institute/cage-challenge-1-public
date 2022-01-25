@@ -10,16 +10,20 @@ from CybORG import CybORG
 from CybORG.Agents import *
 import inspect
 from config import configure
+from agents_list import RED_AGENTS
 
 
 # Main entry point
 if __name__ == "__main__":
+    args = configure()
+
     track = False
 
     show_train_curve = not track
 
     agent_name = 'Blue'
-    agents = {'Red': B_lineAgent}
+    agents = {'Red': RED_AGENTS[args.red_agent]}
+    print(agents)
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
     cyborg = CybORG(path, 'sim', agents=agents)
@@ -29,7 +33,6 @@ if __name__ == "__main__":
     print('Environment Initalised...')
 
     #initalise the state and agent
-    args = configure()
     action_space = environments.action_space.n
     obs_space    = environments.observation_space.shape[0]
     agent = A2CAgent(args)
