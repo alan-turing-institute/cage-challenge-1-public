@@ -61,7 +61,7 @@ if __name__ == "__main__":
             #print(true_table)
             #print('.')
         print('\n')
-        if episode_reward >= -1.3:
+        if episode_reward >= -20:
             print('episode reward: {}'.format(episode_reward))
             print('Gameplay step through:')
             

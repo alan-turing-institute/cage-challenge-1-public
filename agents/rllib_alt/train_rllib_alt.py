@@ -135,13 +135,13 @@ if __name__ == "__main__":
             "double_q": True,   # Whether to use double dqn
             "n_step": 3,        # N-step Q learning (Out of 1, 3 and 6, 3 seems to do learn most quickly)
 
-            "learning_starts": 100, # Number of steps of the evvironment to collect before learing starts
+            "learning_starts": 512, # Number of steps of the evvironment to collect before learing starts
             
         }
     )
 
     stop = {
-        "training_iteration": 400,   # The number of times tune.report() has been called
+        "training_iteration": 800,   # The number of times tune.report() has been called
         "timesteps_total": 8000000,   # Total number of timesteps
         "episode_reward_mean": -0.1, # When to stop.. it would be great if we could define this in terms
                                     # of a more complex expression which incorporates the episode reward min too
@@ -157,7 +157,7 @@ if __name__ == "__main__":
                         checkpoint_at_end=True,
                         checkpoint_freq=1,
                         keep_checkpoints_num=2,
-                        checkpoint_score_attr="episode_reward_mean")
+                        checkpoint_score_attr="episode_reward_max")
 
     checkpoint_pointer = open("checkpoint_pointer.txt", "w")
     last_checkpoint = analysis.get_last_checkpoint(
