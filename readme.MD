@@ -31,8 +31,27 @@ September/October 2021: Release of an additional version of the Challenge proble
 
 4 February 2022: Final results announced\.
 
+## Setup and Installation
 
-## How to run this code:
+```
+pip install -r requirements.txt
+```
+
+### Install [CAGE Challenge](https://github.com/cage-challenge/cage-challenge-1)
+
+```
+# Grab the repo
+git clone https://github.com/cage-challenge/cage-challenge-1.git
+
+# from the cage-challenge-1/CybORG directory
+pip install -e .
+```
+
+
+
+## How to run this code
+
+
 
 ```
 # List of agents to select from is maintained in agents_list.py
