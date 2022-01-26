@@ -11,17 +11,22 @@ path = str(inspect.getfile(CybORG))
 path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
 cyborg = CybORG(path, 'sim',agents={'Red':B_lineAgent})
-env = FixedFlatWrapper(env=cyborg, output_mode='table')
-
+env = BlueTableWrapper(env=cyborg, output_mode='table')
 
 agent = KeyboardAgent()
 
 results = env.reset('Blue')
 obs = results.observation
 action_space = results.action_space
+episode_reward = 0
 
-for i in range(3):
+for i in range(10):
     print(obs)
+    #print(env.get_table())
+    print(env.get_rewards())
     action = agent.get_action(obs,action_space)
-    results = env.step(action=action,agent='Red')
+    results = env.step(action=action, agent='Blue')
     obs = results.observation
+    episode_reward+=results.reward
+
+print('Episode reward: {}'.format(episode_reward))
