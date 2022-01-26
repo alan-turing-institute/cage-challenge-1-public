@@ -14,11 +14,16 @@ This repository contains agents for winning the CybORG-CAGE [Challenge(s)](https
 - 1 February 2022: Challenge closed\.
 - 4 February 2022: Final results announced\.
 
-## Setup and Installation
+## Current Models:
 
-```
-pip install -r requirements.txt
-```
+- Advantage Actor-Critic (A2C, A2C+Curiosity)
+- Proximal Policy Optimization (PPO, PPO+Curiosity)
+- Importance Weighted Actor-Learner Architecture (IMPALA)
+- Deep Q Networks (DQN, Rainbow)
+- Distributed Prioritized Experience Replay (Ape-X DQN)
+- **Not working yet -** Soft Actor Critic (SAC)
+
+## Setup and Installation
 
 ### Install [CAGE Challenge](https://github.com/cage-challenge/cage-challenge-1)
 
@@ -29,6 +34,14 @@ git clone https://github.com/cage-challenge/cage-challenge-1.git
 # from the cage-challenge-1/CybORG directory
 pip install -e .
 ```
+
+### Install our requirements
+
+```
+pip install -r requirements.txt
+```
+
+
 
 
 ## What's in this Repo?
