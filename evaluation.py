@@ -18,6 +18,7 @@ from CybORG.Agents.Wrappers.FixedFlatWrapper import FixedFlatWrapper
 from CybORG.Agents.Wrappers.OpenAIGymWrapper import OpenAIGymWrapper
 from CybORG.Agents.Wrappers.ReduceActionSpaceWrapper import ReduceActionSpaceWrapper
 from CybORG.Agents.Wrappers import ChallengeWrapper
+from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
 
 from agents_list import AGENTS
 from agents.helloworld_agent import TorchCustomModel as BasicAgent # Example
@@ -40,8 +41,8 @@ if __name__ == "__main__":
     wrap_line = lines.split('\n')[1].split('return ')[1]
 
     # # Change this line to load your agent
-    agent = AGENTS[args.name_of_agent](args)
-    agent.load(os.path.abspath(os.getcwd())+'/agents/a2c/saved_models/a2c/actor_critic.pt') # BlueLoadAgent()
+    agent = AGENTS[args.name_of_agent]()
+    #agent.load(os.path.abspath(os.getcwd())+'/agents/a2c/saved_models/a2c/actor_critic.pt') # BlueLoadAgent()
 
     print(f'Using agent {args.name_of_agent}, if this is incorrect please update the code to load in your agent')
 
@@ -57,9 +58,6 @@ if __name__ == "__main__":
 
     agent_args = args
     name_of_agent = args.name_of_agent
-    del agent_args.name
-    del agent_args.team
-    del agent_args.name_of_agent
 
     print("agent_args", agent_args)
 
@@ -68,15 +66,16 @@ if __name__ == "__main__":
         for red_agent in [B_lineAgent, RedMeanderAgent, SleepAgent]:
 
             cyborg = CybORG(path, 'sim', agents={'Red': red_agent})
-            wrapped_cyborg = wrap(cyborg)
+            wrapped_cyborg = ChallengeWrapper(env=cyborg, agent_name='Blue') #wrap(cyborg)
 
             observation = wrapped_cyborg.reset()
             # observation = cyborg.reset().observation
 
             action_space = wrapped_cyborg.get_action_space(agent_name)
             # action_space = cyborg.get_action_space(agent_name)
-            
 
+            if args.show_table:
+                print('Adversary: {}'.format(red_agent.__str__()))
             #agent = AGENTS[args.name_of_agent](args).load(os.path.abspath(os.getcwd())+'/agents/a2c/saved_models/a2c/actor_critic.pt')
 
             total_reward = []
@@ -84,12 +83,22 @@ if __name__ == "__main__":
             for i in range(MAX_EPS):
                 r = []
                 a = []
+                if args.show_table:
+                    print('Episode: {}'.format(i))
                 # cyborg.env.env.tracker.render()
                 for j in range(num_steps):
                     action = agent.get_action(observation, action_space)
                     observation, rew, done, info = wrapped_cyborg.step(action)
 
-                    # result = cyborg.step(agent_name, action)
+                    if args.show_table:
+                        print('Step: {}'.format(j))
+                        red_move = wrapped_cyborg.get_last_action('Red').__str__()
+                        blue_move = wrapped_cyborg.get_last_action('Blue').__str__()
+                        green_move = wrapped_cyborg.get_last_action('Green').__str__()
+                        print('{}. Blue: {}, Green: {}, Red: {}'.format(blue_move, green_move, red_move))
+                        true_state = cyborg.get_agent_state('True')
+                        true_table = true_obs_to_table(true_state,cyborg)
+                        print(true_table)
                     r.append(rew)
                     # r.append(result.reward)
                     a.append((str(cyborg.get_last_action('Blue')), str(cyborg.get_last_action('Red'))))

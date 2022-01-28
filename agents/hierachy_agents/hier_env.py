@@ -1,18 +1,6 @@
-import os
-import random
-import inspect
-import gym
-import ray
-import re
-from ray import tune
 
-from CybORG import CybORG
-from CybORG.Agents import B_lineAgent, GreenAgent, BaseAgent, RedMeanderAgent, BlueMonitorAgent
-from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
-from CybORG.Agents.Wrappers import ChallengeWrapper
-from ray.rllib.env.env_context import EnvContext
 from gym import spaces
-from scaffold_env import CybORGScaffBL, CybORGScaffRM
+from agents.hierachy_agents.scaffold_env import *
 import ray.rllib.agents.ppo as ppo
 import numpy as np
 from ray.rllib.models import ModelCatalog
@@ -55,8 +43,9 @@ class HierEnv(gym.Env):
         self.BLenv  = ChallengeWrapper(env=self.cyborg, agent_name='Blue')
 
         relative_path = os.path.abspath(os.getcwd())
-        self.BLcheckpoint_pointer = relative_path + '/log_dir/PPO_2022-01-26_13-44-08/PPO_CybORGScaff_09167_00000_0_2022-01-26_13-44-08/checkpoint_000400/checkpoint-400'
-        self.RMcheckpoint_pointer = relative_path + '/log_dir/PPO_2022-01-27_09-13-37/PPO_CybORGScaff_69289_00000_0_2022-01-27_09-13-38/checkpoint_000333/checkpoint-333'
+        print(relative_path)
+        self.BLcheckpoint_pointer = relative_path[:62] + '/log_dir/PPO_2022-01-26_13-44-08/PPO_CybORGScaff_09167_00000_0_2022-01-26_13-44-08/checkpoint_000400/checkpoint-400'
+        self.RMcheckpoint_pointer = relative_path[:62] + '/log_dir/PPO_2022-01-27_09-13-37/PPO_CybORGScaff_69289_00000_0_2022-01-27_09-13-38/checkpoint_000333/checkpoint-333'
         sub_config = {
             "env": CybORGScaffBL,
             "env_config": {

@@ -14,8 +14,8 @@ from CybORG import CybORG
 from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
 
 from train_hier import CustomModel, TorchModel
-from scaffold_env import CybORGScaffRM, CybORGScaffBL
-from hier_env import HierEnv
+from agents.hierachy_agents.scaffold_env import CybORGScaffRM, CybORGScaffBL
+from agents.hierachy_agents.hier_env import HierEnv
 import os
 class LoadBlueAgent:
 
