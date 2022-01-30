@@ -42,10 +42,10 @@ class HierEnv(gym.Env):
         self.cyborg = CybORG(self.path, 'sim', agents={'Red':B_lineAgent})
         self.BLenv  = ChallengeWrapper(env=self.cyborg, agent_name='Blue')
 
-        relative_path = os.path.abspath(os.getcwd())
-        print(relative_path)
-        self.BLcheckpoint_pointer = relative_path[:62] + sub_agents['B_line_trained']
-        self.RMcheckpoint_pointer = relative_path[:62] + sub_agents['RedMeander_trained']
+        relative_path = os.path.abspath(os.getcwd())[:62] + '/cage-challenge-1'
+        #print(relative_path)
+        self.BLcheckpoint_pointer = relative_path + sub_agents['B_line_trained']
+        self.RMcheckpoint_pointer = relative_path + sub_agents['RedMeander_trained']
         sub_config = {
             "env": CybORGScaffBL,
             "env_config": {

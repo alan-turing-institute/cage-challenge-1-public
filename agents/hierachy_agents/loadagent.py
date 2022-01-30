@@ -26,16 +26,20 @@ class LoadBlueAgent:
     """
     def __init__(self) -> None:
         ModelCatalog.register_custom_model("CybORG_PPO_Model", TorchModel)
-        relative_path = os.path.abspath(os.getcwd())
-        print(relative_path)
-        # load checkpoint locations of ech agent
-        self.checkpoint = relative_path + '/log_dir/rl_controller_scaff/PPO_HierEnv_1e996_00000_0_2022-01-27_13-43-33/checkpoint_000212/checkpoint-212'
-        self.BLcheckpoint_pointer = relative_path[:62] + sub_agents['B_line_trained']
-        self.RMcheckpoint_pointer = relative_path[:62] + sub_agents['RedMeander_trained']
+        relative_path = os.path.abspath(os.getcwd())[:62] + '/cage-challenge-1'
+        print("Relative path:", relative_path)
+
+        # Load checkpoint locations of each agent
+        self.CTRLcheckpoint_pointer = relative_path + '/log_dir/rl_controller_scaff/PPO_HierEnv_1e996_00000_0_2022-01-27_13-43-33/checkpoint_000212/checkpoint-212'
+        self.BLcheckpoint_pointer = relative_path + sub_agents['B_line_trained']
+        self.RMcheckpoint_pointer = relative_path + sub_agents['RedMeander_trained']
 
         #with open ("checkpoint_pointer.txt", "r") as chkpopfile:
         #    self.checkpoint_pointer = chkpopfile.readlines()[0]
-        print("Using checkpoint file: {}".format(self.checkpoint))
+        print("Using checkpoint file (Controller): {}".format(self.CTRLcheckpoint_pointer))
+        print("Using checkpoint file (B-line): {}".format(self.BLcheckpoint_pointer))
+        print("Using checkpoint file (Red Meander): {}".format(self.RMcheckpoint_pointer))
+
         config = {
             "env": HierEnv,
             "env_config": {
@@ -59,7 +63,7 @@ class LoadBlueAgent:
 
         # Restore the controller model
         self.controller_agent = ppo.PPOTrainer(config=config, env=HierEnv)
-        self.controller_agent.restore(self.checkpoint)
+        self.controller_agent.restore(self.CTRLcheckpoint_pointer)
         self.observation = np.zeros((52*4))
 
         config["exploration_config"] ={
@@ -107,4 +111,4 @@ class LoadBlueAgent:
         elif agent_to_select == 1:
             # get action from agent trained against the RedMeanderAgent
             agent_action = self.RM_def.compute_single_action(self.observation[-52:])
-        return agent_action
+        return agent_action, agent_to_select
