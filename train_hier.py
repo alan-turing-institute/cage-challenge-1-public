@@ -19,6 +19,9 @@ from ray.rllib.models import ModelCatalog
 from ray.rllib.models.tf.tf_modelv2 import TFModelV2
 from ray.rllib.models.tf.fcnet import FullyConnectedNetwork
 from ray.rllib.models.torch.fcnet import FullyConnectedNetwork as TorchFC
+from ray.rllib.agents.trainer import Trainer
+from ray.rllib.agents.ppo.ppo import DEFAULT_CONFIG
+
 import ray.rllib.agents.ppo as ppo
 from ray.rllib.utils.framework import try_import_tf, try_import_torch
 
@@ -80,7 +83,9 @@ if __name__ == "__main__":
     ModelCatalog.register_custom_model("CybORG_hier_Model", TorchModel)
 
 
-    config = {
+    config = Trainer.merge_trainer_configs(
+        DEFAULT_CONFIG,
+        {
         "env": HierEnv,
         "env_config": {
             "null": 0,
@@ -97,7 +102,7 @@ if __name__ == "__main__":
         "framework": "torch", # May also use "tf2", "tfe" or "torch" if supported
         "eager_tracing": True, # In order to reach similar execution speed as with static-graph mode (tf default)
         "vf_loss_coeff": 0.01,  # Scales down the value function loss for better comvergence with PPO
-    }
+    })
 
     stop = {
         "training_iteration": 400,   # The number of times tune.report() has been called

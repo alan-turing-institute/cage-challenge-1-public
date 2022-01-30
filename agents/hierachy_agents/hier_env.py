@@ -7,7 +7,7 @@ from ray.rllib.models import ModelCatalog
 from ray.rllib.models.torch.fcnet import FullyConnectedNetwork as TorchFC
 import torch
 from ray.rllib.models.torch.torch_modelv2 import TorchModelV2
-
+from agents.hierachy_agents.sub_agents import sub_agents
 
 class TorchModel(TorchModelV2, torch.nn.Module):
     def __init__(self, obs_space, action_space, num_outputs, model_config,
@@ -44,8 +44,8 @@ class HierEnv(gym.Env):
 
         relative_path = os.path.abspath(os.getcwd())
         print(relative_path)
-        self.BLcheckpoint_pointer = relative_path[:62] + '/log_dir/PPO_2022-01-26_13-44-08/PPO_CybORGScaff_09167_00000_0_2022-01-26_13-44-08/checkpoint_000400/checkpoint-400'
-        self.RMcheckpoint_pointer = relative_path[:62] + '/log_dir/PPO_2022-01-27_09-13-37/PPO_CybORGScaff_69289_00000_0_2022-01-27_09-13-38/checkpoint_000333/checkpoint-333'
+        self.BLcheckpoint_pointer = relative_path[:62] + sub_agents['B_line_trained']
+        self.RMcheckpoint_pointer = relative_path[:62] + sub_agents['RedMeander_trained']
         sub_config = {
             "env": CybORGScaffBL,
             "env_config": {

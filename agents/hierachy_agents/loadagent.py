@@ -17,6 +17,8 @@ from train_hier import CustomModel, TorchModel
 from agents.hierachy_agents.scaffold_env import CybORGScaffRM, CybORGScaffBL
 from agents.hierachy_agents.hier_env import HierEnv
 import os
+from agents.hierachy_agents.sub_agents import sub_agents
+
 class LoadBlueAgent:
 
     """
@@ -27,9 +29,9 @@ class LoadBlueAgent:
         relative_path = os.path.abspath(os.getcwd())
         print(relative_path)
         # load checkpoint locations of ech agent
-        self.checkpoint = relative_path + '/log_dir/PPO_2022-01-27_13-43-33/PPO_HierEnv_1e996_00000_0_2022-01-27_13-43-33/checkpoint_000212/checkpoint-212'
-        self.BLcheckpoint_pointer = relative_path + '/log_dir/PPO_2022-01-26_13-44-08/PPO_CybORGScaff_09167_00000_0_2022-01-26_13-44-08/checkpoint_000400/checkpoint-400'
-        self.RMcheckpoint_pointer = relative_path + '/log_dir/PPO_2022-01-27_09-13-37/PPO_CybORGScaff_69289_00000_0_2022-01-27_09-13-38/checkpoint_000333/checkpoint-333'
+        self.checkpoint = relative_path + '/log_dir/rl_controller_scaff/PPO_HierEnv_1e996_00000_0_2022-01-27_13-43-33/checkpoint_000212/checkpoint-212'
+        self.BLcheckpoint_pointer = relative_path[:62] + sub_agents['B_line_trained']
+        self.RMcheckpoint_pointer = relative_path[:62] + sub_agents['RedMeander_trained']
 
         #with open ("checkpoint_pointer.txt", "r") as chkpopfile:
         #    self.checkpoint_pointer = chkpopfile.readlines()[0]

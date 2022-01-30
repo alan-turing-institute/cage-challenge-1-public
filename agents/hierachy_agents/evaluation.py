@@ -72,7 +72,7 @@ if __name__ == "__main__":
                 a = []
                 # cyborg.env.env.tracker.render()
                 for j in range(num_steps):
-                    action = agent.get_action(observation, action_space)
+                    action, agent_selected = agent.get_action(observation, action_space)
                     observation, rew, done, info = wrapped_cyborg.step(action)
                     # result = cyborg.step(agent_name, action)
 
@@ -83,7 +83,8 @@ if __name__ == "__main__":
 
                     r.append(rew)
                     # r.append(result.reward)
-                    a.append((str(cyborg.get_last_action('Blue')), str(cyborg.get_last_action('Red'))))
+                    agent_selected = 'BLine' if agent_selected == 0 else 'RedMeander'
+                    a.append((str(cyborg.get_last_action('Blue')), str(cyborg.get_last_action('Red')), agent_selected))
                 total_reward.append(sum(r))
                 actions.append(a)
                 # observation = cyborg.reset().observation

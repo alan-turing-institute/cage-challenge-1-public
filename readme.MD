@@ -39,7 +39,7 @@ September/October 2021: Release of an additional version of the Challenge proble
 python evalutation.py --name-of-agent <agent>
 ```
 
-This repository is setup to run trials via [Guild.AI](https://my.guild.ai/)
+This repository is setup to run trials via [Guild.AI](https://my.guild.ai/) and [Ray](https://ray.io/)
 
 ```
 # Run the training script with all defaults for model `a2c`
@@ -55,7 +55,20 @@ guild view
 guild operations
 ```
 
+Running hierachical agents
+```
+# Train sub-agents on agianst the B_linAgent and the RedMeander Agent
+# can use either the reward_scaffolded agent or the rllib_alt directories
+python train_ppo_cur.py
 
+# add path to weights in the agents/hierachy_agents/sub_agents.py 
+
+#train the rl controller  
+train_hier.py
+
+# Run the evaluation script
+python evaluation.py
+```
 
 
 

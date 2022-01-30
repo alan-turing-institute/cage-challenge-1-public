@@ -26,6 +26,7 @@ from ray.rllib.agents.trainer import Trainer
 from ray.rllib.agents.dqn import DEFAULT_CONFIG as DQN_DEFAULT_CONFIG
 from ray.rllib.agents.dqn.apex import APEX_DEFAULT_CONFIG
 import ray.rllib.agents.ppo as ppo
+from ray.rllib.agents.ppo import DEFAULT_CONFIG
 import ray.rllib.agents.impala as impala
 from ray.rllib.utils.framework import try_import_tf, try_import_torch
 from ray.rllib.utils.test_utils import check_learning_achieved
@@ -137,7 +138,8 @@ if __name__ == "__main__":
     ModelCatalog.register_custom_model("CybORG_PPO_Model", TorchModel)
 
 
-    config = {
+    config = Trainer.merge_trainer_configs(
+        DEFAULT_CONFIG,{
         "env": CybORGAgent,
         "env_config": {
             "null": 0,
@@ -146,14 +148,16 @@ if __name__ == "__main__":
         "num_gpus": int(os.environ.get("RLLIB_NUM_GPUS", "0")),
         "model": {
             "custom_model": "CybORG_PPO_Model",
-            "vf_share_layers": True,
+            "vf_share_layers": False,
         },
-        "lr": 0.0001,
+        "lr": 0.0005,
         #"momentum": tune.uniform(0, 1),
         "num_workers": 0,  # parallelism
         "framework": "torch", # May also use "tf2", "tfe" or "torch" if supported
         "eager_tracing": True, # In order to reach similar execution speed as with static-graph mode (tf default)
-        "vf_loss_coeff": 0.01,  # Scales down the value function loss for better comvergence with PPO
+        "vf_loss_coeff": 1,  # Scales down the value function loss for better comvergence with PPO
+        "clip_param": 0.5,
+        "vf_clip_param": 5.0,
         "exploration_config": {
             "type": "Curiosity",  # <- Use the Curiosity module for exploring.
             "eta": 1.0,  # Weight for intrinsic rewards before being added to extrinsic ones.
@@ -175,18 +179,20 @@ if __name__ == "__main__":
                 "type": "StochasticSampling",
             }
         }
-    }
+    })
 
     stop = {
-        "training_iteration": 400,   # The number of times tune.report() has been called
-        "timesteps_total": 8000000,   # Total number of timesteps
+        "training_iteration": 1000000,   # The number of times tune.report() has been called
+        "timesteps_total": 10000000,   # Total number of timesteps
         "episode_reward_mean": -0.1, # When to stop.. it would be great if we could define this in terms
                                     # of a more complex expression which incorporates the episode reward min too
                                     # There is a lot of variance in the episode reward min
     }
-    checkpoint = '/Users/mylesfoley/Desktop/Imperial/git/turing/cage-challenge-1/agents/rllib_alt/log_dir/PPO_2022-01-25_16-03-17/PPO_CybORGAgent_4f0e4_00000_0_lr=0.0001_2022-01-25_16-03-17/checkpoint_000400/checkpoint-400'
-    agent = ppo.PPOTrainer(config=config, env=CybORGAgent)
-    agent.restore(checkpoint)
+    relative_path = os.path.abspath(os.getcwd())
+
+    checkpoint = relative_path+ '/log_dir/ppo/PPO_CybORGAgent_d716e_00045_45_clip_param=0.3,lr=5e-05,vf_clip_param=5.0,vf_loss_coeff=1_2022-01-28_23-54-51/checkpoint_000250/checkpoint-250'
+    #agent = ppo.PPOTrainer(config=config, env=CybORGAgent)
+    #agent.restore(checkpoint)
     log_dir = 'log_dir/'
 
     analysis = tune.run(ppo.PPOTrainer, # Algo to use - alt: ppo.PPOTrainer, impala.ImpalaTrainer
@@ -194,7 +200,7 @@ if __name__ == "__main__":
                         local_dir=log_dir,
                         stop=stop,
                         checkpoint_at_end=True,
-                        checkpoint_freq=1,
+                        checkpoint_freq=10000,
                         keep_checkpoints_num=2,
                         checkpoint_score_attr="episode_reward_mean")
 
