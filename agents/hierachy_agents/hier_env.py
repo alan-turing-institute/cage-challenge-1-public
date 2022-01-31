@@ -9,7 +9,7 @@ import torch
 from ray.rllib.models.torch.torch_modelv2 import TorchModelV2
 from agents.hierachy_agents.sub_agents import sub_agents
 
-from agents.rllib_alt.train_ppo_cur import CybORGAgent
+from CybORGAgent import CybORGAgent
 
 class TorchModel(TorchModelV2, torch.nn.Module):
     def __init__(self, obs_space, action_space, num_outputs, model_config,
