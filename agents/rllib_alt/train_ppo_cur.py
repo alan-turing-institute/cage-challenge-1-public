@@ -52,6 +52,7 @@ tf1, tf, tfv = try_import_tf()
 
 
 class CybORGAgent(gym.Env):
+    max_steps = 100
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
@@ -67,7 +68,7 @@ class CybORGAgent(gym.Env):
         #self.env = OpenAIGymWrapper('Blue',
         #                            EnumActionWrapper(FixedFlatWrapper(ReduceActionSpaceWrapper(self.cyborg))))
         self.env  = ChallengeWrapper(env=self.cyborg, agent_name='Blue')
-        self.steps = 1
+        self.steps = 0
         self.agent_name = self.env.agent_name
         self.action_space = self.env.action_space
         self.observation_space = self.env.observation_space
@@ -80,14 +81,13 @@ class CybORGAgent(gym.Env):
     def step(self, action=None):
         result = self.env.step(action=action)
         self.steps += 1
-        if self.steps == 100:
+        if self.steps == self.max_steps:
             return result[0], result[1], True, result[3]
-        assert (self.steps <= 100)
+        assert (self.steps <= self.max_steps)
         return result
 
     def seed(self, seed=None):
         random.seed(seed)
-
 
 class CustomModel(TFModelV2):
     """Example of a keras custom model that just delegates to an fc-net."""

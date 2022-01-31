@@ -105,14 +105,14 @@ if __name__ == "__main__":
     })
 
     stop = {
-        "training_iteration": 400,   # The number of times tune.report() has been called
+        "training_iteration": 1200,   # The number of times tune.report() has been called
         "timesteps_total": 8000000,   # Total number of timesteps
         "episode_reward_mean": -0.1, # When to stop.. it would be great if we could define this in terms
                                     # of a more complex expression which incorporates the episode reward min too
                                     # There is a lot of variance in the episode reward min
     }
 
-    #checkpoint = relative_path+ '/log_dir/ppo/PPO_CybORGAgent_d716e_00045_45_clip_param=0.3,lr=5e-05,vf_clip_param=5.0,vf_loss_coeff=1_2022-01-28_23-54-51/checkpoint_000250/checkpoint-250'
+    checkpoint = 'log_dir/PPO_3_step/PPO_HierEnv_ff1e1_00000_0_2022-01-31_16-08-15/checkpoint_000396/checkpoint-396'
    
     log_dir = 'log_dir/'
 
@@ -122,6 +122,7 @@ if __name__ == "__main__":
                         stop=stop,
                         checkpoint_at_end=True,
                         checkpoint_freq=1,
+                        restore=checkpoint,
                         keep_checkpoints_num=3,
                         checkpoint_score_attr="episode_reward_mean")
 

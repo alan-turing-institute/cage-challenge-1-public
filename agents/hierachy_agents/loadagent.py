@@ -1,6 +1,6 @@
 import os
 from pprint import pprint
-
+import os.path as path
 import numpy as np
 import ray
 from ray.rllib.agents.dqn.apex import APEX_DEFAULT_CONFIG
@@ -26,19 +26,21 @@ class LoadBlueAgent:
     """
     def __init__(self) -> None:
         ModelCatalog.register_custom_model("CybORG_PPO_Model", TorchModel)
-        relative_path = os.path.abspath(os.getcwd())[:62] + '/cage-challenge-1'
-        print("Relative path:", relative_path)
+        #relative_path = os.path.abspath(os.getcwd())[:62] + '/cage-challenge-1'
+        #print("Relative path:", relative_path)
 
         # Load checkpoint locations of each agent
-        self.CTRLcheckpoint_pointer = relative_path + '/log_dir/rl_controller_scaff/PPO_HierEnv_1e996_00000_0_2022-01-27_13-43-33/checkpoint_000212/checkpoint-212'
-        self.BLcheckpoint_pointer = relative_path + sub_agents['B_line_trained']
-        self.RMcheckpoint_pointer = relative_path + sub_agents['RedMeander_trained']
+        two_up = path.abspath(path.join(__file__, "../../../"))
+        #self.CTRL_checkpoint_pointer = two_up + '/log_dir/rl_controller_scaff/PPO_HierEnv_1e996_00000_0_2022-01-27_13-43-33/checkpoint_000212/checkpoint-212'
+        self.CTRL_checkpoint_pointer = two_up + '/log_dir/rl_controller_scaff/PPO_HierEnv_36e5d_00000_0_2022-01-31_14-43-55/checkpoint_000001/checkpoint-1'
+        self.BL_checkpoint_pointer = two_up + sub_agents['B_line_trained']
+        self.RM_checkpoint_pointer = two_up + sub_agents['RedMeander_trained']
 
         #with open ("checkpoint_pointer.txt", "r") as chkpopfile:
         #    self.checkpoint_pointer = chkpopfile.readlines()[0]
-        print("Using checkpoint file (Controller): {}".format(self.CTRLcheckpoint_pointer))
-        print("Using checkpoint file (B-line): {}".format(self.BLcheckpoint_pointer))
-        print("Using checkpoint file (Red Meander): {}".format(self.RMcheckpoint_pointer))
+        print("Using checkpoint file (Controller): {}".format(self.CTRL_checkpoint_pointer))
+        print("Using checkpoint file (B-line): {}".format(self.BL_checkpoint_pointer))
+        print("Using checkpoint file (Red Meander): {}".format(self.RM_checkpoint_pointer))
 
         config = {
             "env": HierEnv,
@@ -63,8 +65,8 @@ class LoadBlueAgent:
 
         # Restore the controller model
         self.controller_agent = ppo.PPOTrainer(config=config, env=HierEnv)
-        self.controller_agent.restore(self.CTRLcheckpoint_pointer)
-        self.observation = np.zeros((52*4))
+        self.controller_agent.restore(self.CTRL_checkpoint_pointer)
+        self.observation = np.zeros((HierEnv.mem_len,52))
 
         config["exploration_config"] ={
                 "type": "Curiosity",  # <- Use the Curiosity module for exploring.
@@ -90,25 +92,26 @@ class LoadBlueAgent:
         #load agent trained against RedMeanderAgent
         config['env'] = CybORGScaffRM
         self.RM_def = ppo.PPOTrainer(config=config, env=CybORGScaffRM)
-        self.RM_def.restore(self.RMcheckpoint_pointer)
+        self.RM_def.restore(self.RM_checkpoint_pointer)
         #load agent trained against B_lineAgent
         config['env'] = CybORGScaffBL
         self.BL_def = ppo.PPOTrainer(config=config, env=CybORGScaffBL)
-        self.BL_def.restore(self.BLcheckpoint_pointer)
+        self.BL_def.restore(self.BL_checkpoint_pointer)
 
 
 
     """Compensate for the different method name"""
     def get_action(self, obs, action_space):
         #update sliding window
-        obs = np.append(self.observation[52:], obs)
-        self.observation = obs
+        self.observation = np.roll(self.observation, -1, 0) # Shift left by one to bring the oldest timestep on the rightmost position
+        self.observation[HierEnv.mem_len-1] = obs           # Replace what's on the rightmost position
+
         #select agent to compute action
         agent_to_select = self.controller_agent.compute_single_action(obs)
         if agent_to_select == 0:
             # get action from agent trained against the B_lineAgent
-            agent_action = self.BL_def.compute_single_action(self.observation[-52:])
+            agent_action = self.BL_def.compute_single_action(self.observation[-1:])
         elif agent_to_select == 1:
             # get action from agent trained against the RedMeanderAgent
-            agent_action = self.RM_def.compute_single_action(self.observation[-52:])
+            agent_action = self.RM_def.compute_single_action(self.observation[-1:])
         return agent_action, agent_to_select

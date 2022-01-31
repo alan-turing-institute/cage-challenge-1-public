@@ -1,4 +1,4 @@
-
+import os.path as path
 from gym import spaces
 from agents.hierachy_agents.scaffold_env import *
 import ray.rllib.agents.ppo as ppo
@@ -9,7 +9,7 @@ import torch
 from ray.rllib.models.torch.torch_modelv2 import TorchModelV2
 from agents.hierachy_agents.sub_agents import sub_agents
 
-from agents.rllib_alt.train_ppo_cur import CybORGAgent
+from CybORGAgent import CybORGAgent
 
 class TorchModel(TorchModelV2, torch.nn.Module):
     def __init__(self, obs_space, action_space, num_outputs, model_config,
@@ -29,6 +29,10 @@ class TorchModel(TorchModelV2, torch.nn.Module):
 
 
 class HierEnv(gym.Env):
+    # Env parameters
+    max_steps = 100 # Careful! There are two other envs!
+    mem_len = 4
+
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
@@ -47,9 +51,9 @@ class HierEnv(gym.Env):
 
         #relative_path = #'cage-challenge-1' #[:62], os.path.abspath(os.getcwd()) +
         #print(relative_path)
-        relative_path = '/Users/chicks/OneDrive - The Alan Turing Institute/Documents/Development/CybORG/cage-challenge-1'
-        self.BLcheckpoint_pointer = relative_path + '/log_dir/b_line_trained/PPO_CybORGAgent_e81fb_00000_0_2022-01-29_11-23-39/checkpoint_002500/checkpoint-2500'#relative_path + sub_agents['B_line_trained']
-        self.RMcheckpoint_pointer = relative_path + '/log_dir/meander_trained/PPO_CybORGAgent_3c456_00000_0_2022-01-27_20-39-34/checkpoint_001882/checkpoint-1882'#relative_path + sub_agents['RedMeander_trained']
+        two_up = path.abspath(path.join(__file__, "../../.."))
+        self.BL_checkpoint_pointer = two_up + '/log_dir/b_line_trained/PPO_CybORGAgent_e81fb_00000_0_2022-01-29_11-23-39/checkpoint_002500/checkpoint-2500'#relative_path + sub_agents['B_line_trained']
+        self.RM_checkpoint_pointer = two_up + '/log_dir/meander_trained/PPO_CybORGAgent_3c456_00000_0_2022-01-27_20-39-34/checkpoint_001882/checkpoint-1882'#relative_path + sub_agents['RedMeander_trained']
     
         
         sub_config_BL = {
@@ -142,20 +146,20 @@ class HierEnv(gym.Env):
         self.RM_def = ppo.PPOTrainer(config=sub_config_M, env=CybORGAgent)
         #sub_config['env'] = CybORGAgent
         self.BL_def = ppo.PPOTrainer(config=sub_config_BL, env=CybORGAgent)
-        self.BL_def.restore(self.BLcheckpoint_pointer)
-        self.RM_def.restore(self.RMcheckpoint_pointer)
+        self.BL_def.restore(self.BL_checkpoint_pointer)
+        self.RM_def.restore(self.RM_checkpoint_pointer)
 
-        self.steps = 1
+        self.steps = 0
         self.agent_name = 'BlueHier'
 
         #action space is 2 for each trained agent to select from
         self.action_space = spaces.Discrete(2)
 
         # observations for controller is a sliding window of 4 observations
-        self.observation_space = spaces.Box(-1.0,1.0,(52*3,), dtype=float)
+        self.observation_space = spaces.Box(-1.0,1.0,(self.mem_len,52), dtype=float)
 
         #defuault observation is 4 lots of nothing
-        self.observation = np.zeros((52*3))
+        self.observation = np.zeros((self.mem_len,52))
 
         self.action = None
         self.env = self.BLenv
@@ -163,7 +167,7 @@ class HierEnv(gym.Env):
     # reset doesnt reset the sliding window of the agent so it can differentiate between
     # agents across episode boundaries
     def reset(self):
-        self.steps = 1
+        self.steps = 0
         #rest the environments of each attacker
         self.BLenv.reset()
         self.RMenv.reset()
@@ -171,29 +175,29 @@ class HierEnv(gym.Env):
             self.env = self.BLenv
         else:
             self.env = self.RMenv
-        return np.zeros((52*3))
+        return np.zeros((self.mem_len,52))
 
     def step(self, action=None):
         # select agent
         if action == 0:
             # get action from agent trained against the B_lineAgent
-            agent_action = self.BL_def.compute_single_action(self.observation[-52:])
+            agent_action = self.BL_def.compute_single_action(self.observation[-1:])
         elif action == 1:
             # get action from agent trained against the RedMeanderAgent
-            agent_action = self.RM_def.compute_single_action(self.observation[-52:])
+            agent_action = self.RM_def.compute_single_action(self.observation[-1:])
         else:
             print('something went terribly wrong, old sport')
         observation, reward, done, info = self.env.step(agent_action)
 
         # update sliding window
-        observation = np.append(self.observation[52:], observation)
-        self.observation = observation
+        self.observation = np.roll(self.observation, -1, 0) # Shift left by one to bring the oldest timestep on the rightmost position
+        self.observation[self.mem_len-1] = observation      # Replace what's on the rightmost position
 
         self.steps += 1
-        if self.steps == 100:
-            return observation, reward, True, info
-        assert(self.steps <= 100)
-        result = observation, reward, done, info
+        if self.steps == self.max_steps:
+            return self.observation, reward, True, info
+        assert(self.steps <= self.max_steps)
+        result = self.observation, reward, done, info
         return result
 
     def seed(self, seed=None):
