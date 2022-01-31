@@ -47,6 +47,7 @@ if __name__ == "__main__":
     print(f'Using agent {args.name_of_agent}, if this is incorrect please update the code to load in your agent')
 
     file_name = str(inspect.getfile(CybORG))[:-10] + '/Evaluation/' + time.strftime("%Y%m%d_%H%M%S") + f'_{args.name_of_agent}.txt'
+    table_file = time.strftime("%Y%m%d_%H%M%S") + f'_table_file.txt'
     print(f'Saving evaluation results to {file_name}')
     with open(file_name, 'a+') as data:
         data.write(f'CybORG v{1.0}, {args.scenario}\n')
@@ -75,7 +76,7 @@ if __name__ == "__main__":
             # action_space = cyborg.get_action_space(agent_name)
 
             if args.show_table:
-                print('Adversary: {}'.format(red_agent.__str__()))
+                print('Adversary: {}'.format(red_agent))
             #agent = AGENTS[args.name_of_agent](args).load(os.path.abspath(os.getcwd())+'/agents/a2c/saved_models/a2c/actor_critic.pt')
 
             total_reward = []
@@ -86,23 +87,44 @@ if __name__ == "__main__":
                 if args.show_table:
                     print('Episode: {}'.format(i))
                 # cyborg.env.env.tracker.render()
+                moves = []
+                successes = []
+                tables = []
                 for j in range(num_steps):
                     action = agent.get_action(observation, action_space)
                     observation, rew, done, info = wrapped_cyborg.step(action)
 
                     if args.show_table:
-                        print('Step: {}'.format(j))
+                        #print('Step: {}'.format(j))
                         red_move = wrapped_cyborg.get_last_action('Red').__str__()
                         blue_move = wrapped_cyborg.get_last_action('Blue').__str__()
                         green_move = wrapped_cyborg.get_last_action('Green').__str__()
-                        print('{}. Blue: {}, Green: {}, Red: {}'.format(blue_move, green_move, red_move))
+                        #print('Blue: {}, Green: {}, Red: {}'.format(blue_move, green_move, red_move))
+                        #print('Blue: {}, Green: {}, Red: {}'.format(blue_move, green_move, red_move))
                         true_state = cyborg.get_agent_state('True')
                         true_table = true_obs_to_table(true_state,cyborg)
-                        print(true_table)
+                        #print(true_table)
+                        success_observation = wrapped_cyborg.get_attr('environment_controller').observation
+                        blue_success = success_observation['Blue'].action_succeeded
+                        red_success = success_observation['Red'].action_succeeded
+                        green_success = success_observation['Green'].action_succeeded
+                        moves.append((blue_move, green_move, red_move))
+                        successes.append((blue_success, green_success, red_success))
+                        tables.append(true_table)
                     r.append(rew)
+
+
                     # r.append(result.reward)
                     a.append((str(cyborg.get_last_action('Blue')), str(cyborg.get_last_action('Red'))))
-                
+
+                if i == 0 and args.show_table == True:
+                    with open(table_file, 'a+') as table_out:
+                        table_out.write('\nRed Agent: {}, Num_steps: {}'.format(red_agent.__name__, num_steps.__str__()))
+                        for move in range(len(moves)):
+                            table_out.write('\nStep: {}, Blue: {}, Green: {}, Red: {}\n'.format(move, moves[move][0], moves[move][1], moves[move][2]))
+                            table_out.write('Success Blue: {}, Success Green: {}, Success Red: {}\n'.format(successes[move][0], successes[move][1], successes[move][2]))
+                            table_out.write('Blue Reward: {}\n'.format(r[move]))
+                            table_out.write(str(tables[move]))
 
                 total_reward.append(sum(r))
                 actions.append(a)
