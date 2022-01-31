@@ -94,7 +94,7 @@ if __name__ == "__main__":
         "num_gpus": int(os.environ.get("RLLIB_NUM_GPUS", "0")),
         "model": {
             "custom_model": "CybORG_hier_Model",
-            "vf_share_layers": True,
+            #"vf_share_layers": False,
         },
         "lr": 0.0001,
         #"momentum": tune.uniform(0, 1),
@@ -111,6 +111,9 @@ if __name__ == "__main__":
                                     # of a more complex expression which incorporates the episode reward min too
                                     # There is a lot of variance in the episode reward min
     }
+
+    #checkpoint = relative_path+ '/log_dir/ppo/PPO_CybORGAgent_d716e_00045_45_clip_param=0.3,lr=5e-05,vf_clip_param=5.0,vf_loss_coeff=1_2022-01-28_23-54-51/checkpoint_000250/checkpoint-250'
+   
     log_dir = 'log_dir/'
 
     analysis = tune.run(ppo.PPOTrainer, # Algo to use - alt: ppo.PPOTrainer, impala.ImpalaTrainer
