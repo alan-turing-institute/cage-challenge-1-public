@@ -19,7 +19,7 @@ class CybORGScaffBL(gym.Env):
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
     agents = {
-        'Red': B_lineAgent  #B_lineAgent , #RedMeanderAgent, 'Green': GreenAgent
+        'Red': B_lineAgent
     }
 
     """The CybORGAgent env"""
@@ -30,14 +30,14 @@ class CybORGScaffBL(gym.Env):
         #self.env = OpenAIGymWrapper('Blue',
         #                            EnumActionWrapper(FixedFlatWrapper(ReduceActionSpaceWrapper(self.cyborg))))
         self.env  = ChallengeWrapper(env=self.cyborg, agent_name='Blue')
-        self.steps = 1
+        self.steps = 0
         self.agent_name = self.env.agent_name
         self.action_space = self.env.action_space
         self.observation_space = self.env.observation_space
         self.action = None
 
     def reset(self):
-        self.steps = 1
+        self.steps = 0
         return self.env.reset()
 
     def step(self, action=None):
@@ -71,7 +71,7 @@ class CybORGScaffRM(gym.Env):
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
     agents = {
-        'Red': RedMeanderAgent  #B_lineAgent , #RedMeanderAgent, 'Green': GreenAgent
+        'Red': RedMeanderAgent
     }
 
     """The CybORGAgent env"""
