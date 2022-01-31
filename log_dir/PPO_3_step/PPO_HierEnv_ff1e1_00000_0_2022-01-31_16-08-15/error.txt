@@ -1,0 +1,81 @@
+Failure # 1 (occurred at 2022-01-31_19-33-34)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/ray/tune/trial_runner.py", line 924, in _process_trial
+    results = self.trial_executor.fetch_result(trial)
+  File "/usr/local/lib/python3.9/site-packages/ray/tune/ray_trial_executor.py", line 787, in fetch_result
+    result = ray.get(trial_future[0], timeout=DEFAULT_GET_TIMEOUT)
+  File "/usr/local/lib/python3.9/site-packages/ray/_private/client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/ray/worker.py", line 1713, in get
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError: [36mray::PPO.train()[39m (pid=29697, ip=127.0.0.1, repr=PPO)
+  File "/usr/local/lib/python3.9/site-packages/ray/tune/trainable.py", line 314, in train
+    result = self.step()
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer.py", line 880, in step
+    raise e
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer.py", line 867, in step
+    result = self.step_attempt()
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/trainer.py", line 920, in step_attempt
+    step_results = next(self.train_exec_impl)
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 756, in __next__
+    return next(self.built_iterator)
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 843, in apply_filter
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 843, in apply_filter
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  [Previous line repeated 1 more time]
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 876, in apply_flatten
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 783, in apply_foreach
+    for item in it:
+  [Previous line repeated 1 more time]
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 471, in base_iterator
+    yield ray.get(futures, timeout=timeout)
+ray.exceptions.RayTaskError: [36mray::RolloutWorker.par_iter_next()[39m (pid=29694, ip=127.0.0.1, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x29aaa4730>)
+  File "/usr/local/lib/python3.9/site-packages/ray/util/iter.py", line 1151, in par_iter_next
+    return next(self.local_it)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/rollout_worker.py", line 381, in gen_rollouts
+    yield self.sample()
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/rollout_worker.py", line 757, in sample
+    batches = [self.input_reader.next()]
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/sampler.py", line 103, in next
+    batches = [self.get_data()]
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/sampler.py", line 265, in get_data
+    item = next(self._env_runner)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/sampler.py", line 656, in _env_runner
+    eval_results = _do_policy_eval(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/evaluation/sampler.py", line 1070, in _do_policy_eval
+    policy.compute_actions_from_input_dict(
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/policy/torch_policy.py", line 294, in compute_actions_from_input_dict
+    return self._compute_action_helper(input_dict, state_batches,
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/utils/threading.py", line 21, in wrapper
+    return func(self, *a, **k)
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/policy/torch_policy.py", line 956, in _compute_action_helper
+    extra_fetches = self.extra_action_out(input_dict, state_batches,
+  File "/usr/local/lib/python3.9/site-packages/ray/rllib/agents/ppo/ppo_torch_policy.py", line 188, in extra_action_out
+    SampleBatch.VF_PREDS: model.value_function(),
+  File "/Users/chicks/OneDrive - The Alan Turing Institute/Documents/Development/CybORG/cage-challenge-1/train_hier.py", line 76, in value_function
+    return self.model.value_function()
+  File "/usr/local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1164, in __getattr__
+    def __getattr__(self, name: str) -> Union[Tensor, 'Module']:
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+[36mray::RolloutWorker.par_iter_next()[39m (pid=29694, ip=127.0.0.1, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x29aaa4730>)
+ray.exceptions.TaskCancelledError: Task: TaskID(a10d000fcdb0bc6c88634cf7899348dda8d29eef01000000) was cancelled
+

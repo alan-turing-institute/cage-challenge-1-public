@@ -98,7 +98,7 @@ if __name__ == "__main__":
         },
         "lr": 0.0001,
         #"momentum": tune.uniform(0, 1),
-        "num_workers": 0,  # parallelism
+        "num_workers": 4,  # parallelism
         "framework": "torch", # May also use "tf2", "tfe" or "torch" if supported
         "eager_tracing": True, # In order to reach similar execution speed as with static-graph mode (tf default)
         "vf_loss_coeff": 0.01,  # Scales down the value function loss for better comvergence with PPO
@@ -122,7 +122,7 @@ if __name__ == "__main__":
                         stop=stop,
                         checkpoint_at_end=True,
                         checkpoint_freq=1,
-                        keep_checkpoints_num=2,
+                        keep_checkpoints_num=3,
                         checkpoint_score_attr="episode_reward_mean")
 
     checkpoint_pointer = open("checkpoint_pointer.txt", "w")

@@ -152,10 +152,10 @@ class HierEnv(gym.Env):
         self.action_space = spaces.Discrete(2)
 
         # observations for controller is a sliding window of 4 observations
-        self.observation_space = spaces.Box(-1.0,1.0,(52*4,), dtype=float)
+        self.observation_space = spaces.Box(-1.0,1.0,(52*3,), dtype=float)
 
         #defuault observation is 4 lots of nothing
-        self.observation = np.zeros((52*4))
+        self.observation = np.zeros((52*3))
 
         self.action = None
         self.env = self.BLenv
@@ -171,7 +171,7 @@ class HierEnv(gym.Env):
             self.env = self.BLenv
         else:
             self.env = self.RMenv
-        return np.zeros((52*4))
+        return np.zeros((52*3))
 
     def step(self, action=None):
         # select agent
