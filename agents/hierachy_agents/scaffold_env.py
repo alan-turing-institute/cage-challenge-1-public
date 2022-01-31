@@ -14,6 +14,7 @@ from ray.rllib.env.env_context import EnvContext
 
 
 class CybORGScaffBL(gym.Env):
+    max_steps = 100 # Careful! There are two other envs!
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
@@ -56,15 +57,16 @@ class CybORGScaffBL(gym.Env):
                         reward += -0.05
             result = observation, reward, done, info
         self.steps += 1
-        if self.steps == 100:
+        if self.steps == self.max_steps:
             return result[0], result[1], True, result[3]
-        assert (self.steps <= 100)
+        assert (self.steps <= self.max_steps)
         return result
 
     def seed(self, seed=None):
         random.seed(seed)
 
 class CybORGScaffRM(gym.Env):
+    max_steps = 100 # Careful! There are two other envs!
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
@@ -109,9 +111,9 @@ class CybORGScaffRM(gym.Env):
                         reward += -0.05
             result = observation, reward, done, info
         self.steps += 1
-        if self.steps == 100:
+        if self.steps == self.max_steps:
             return result[0], result[1], True, result[3]
-        assert (self.steps <= 100)
+        assert (self.steps <= self.max_steps)
         return result
 
     def seed(self, seed=None):

@@ -29,6 +29,7 @@ class TorchModel(TorchModelV2, torch.nn.Module):
 
 
 class HierEnv(gym.Env):
+    max_steps = 100 # Careful! There are two other envs!
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
@@ -191,9 +192,9 @@ class HierEnv(gym.Env):
         self.observation = observation
 
         self.steps += 1
-        if self.steps == 100:
+        if self.steps == self.max_steps:
             return observation, reward, True, info
-        assert(self.steps <= 100)
+        assert(self.steps <= self.max_steps)
         result = observation, reward, done, info
         return result
 
