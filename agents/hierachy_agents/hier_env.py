@@ -47,9 +47,10 @@ class HierEnv(gym.Env):
 
         #relative_path = #'cage-challenge-1' #[:62], os.path.abspath(os.getcwd()) +
         #print(relative_path)
-        relative_path = '/Users/chicks/OneDrive - The Alan Turing Institute/Documents/Development/CybORG/cage-challenge-1'
-        self.BLcheckpoint_pointer = relative_path + '/log_dir/b_line_trained/PPO_CybORGAgent_e81fb_00000_0_2022-01-29_11-23-39/checkpoint_002500/checkpoint-2500'#relative_path + sub_agents['B_line_trained']
-        self.RMcheckpoint_pointer = relative_path + '/log_dir/meander_trained/PPO_CybORGAgent_3c456_00000_0_2022-01-27_20-39-34/checkpoint_001882/checkpoint-1882'#relative_path + sub_agents['RedMeander_trained']
+        import os.path as path
+        two_up = path.abspath(path.join(__file__, "../../.."))
+        self.BL_checkpoint_pointer = two_up + '/log_dir/b_line_trained/PPO_CybORGAgent_e81fb_00000_0_2022-01-29_11-23-39/checkpoint_002500/checkpoint-2500'#relative_path + sub_agents['B_line_trained']
+        self.RM_checkpoint_pointer = two_up + '/log_dir/meander_trained/PPO_CybORGAgent_3c456_00000_0_2022-01-27_20-39-34/checkpoint_001882/checkpoint-1882'#relative_path + sub_agents['RedMeander_trained']
     
         
         sub_config_BL = {
@@ -142,8 +143,8 @@ class HierEnv(gym.Env):
         self.RM_def = ppo.PPOTrainer(config=sub_config_M, env=CybORGAgent)
         #sub_config['env'] = CybORGAgent
         self.BL_def = ppo.PPOTrainer(config=sub_config_BL, env=CybORGAgent)
-        self.BL_def.restore(self.BLcheckpoint_pointer)
-        self.RM_def.restore(self.RMcheckpoint_pointer)
+        self.BL_def.restore(self.BL_checkpoint_pointer)
+        self.RM_def.restore(self.RM_checkpoint_pointer)
 
         self.steps = 1
         self.agent_name = 'BlueHier'
