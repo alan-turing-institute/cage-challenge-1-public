@@ -66,6 +66,7 @@ if __name__ == "__main__":
     tables = []
     total_reward = 0
     actions = []
+    rewards = []
     for j in range(100):
         action = agent.get_action(observation, action_space)
         observation, rew, done, info = wrapped_cyborg.step(action)
@@ -89,15 +90,18 @@ if __name__ == "__main__":
         successes.append((blue_success, green_success, red_success))
         tables.append(true_table)
         total_reward += rew
+        rewards.append(rew)
 
 
 
 
     with open(table_file, 'a+') as table_out:
-        table_out.write('\nRed Agent: B_lineAgent, Num_steps: 100')
         for move in range(len(moves)):
-            table_out.write('\nBlue Action: {}\n'.format(moves[move][0]))
-            table_out.write('Reward: {}, Episode reward: {}\n'.format(rew, total_reward))
+            table_out.write('\n----------------------------------------------------------------------------\n')
+            table_out.write('Blue Action: {}\n'.format(moves[move][0]))
+            table_out.write('Reward: {}, Episode reward: {}\n'.format(rewards[move], total_reward))
             table_out.write('Network state:\n')
+            table_out.write('Scanned column likely inaccurate.\n')
             table_out.write(str(tables[move]))
             table_out.write('\n.\n\n')
+
