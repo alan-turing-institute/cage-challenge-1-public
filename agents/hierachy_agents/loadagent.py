@@ -34,7 +34,7 @@ class LoadBlueAgent:
         # Load checkpoint locations of each agent
         two_up = path.abspath(path.join(__file__, "../../../"))
         #self.CTRL_checkpoint_pointer = two_up + '/log_dir/rl_controller_scaff/PPO_HierEnv_1e996_00000_0_2022-01-27_13-43-33/checkpoint_000212/checkpoint-212'
-        self.CTRL_checkpoint_pointer = two_up + '/log_dir/PPO_3_step_cont/PPO_HierEnv_d1d03_00000_0_2022-02-01_08-13-21/checkpoint_000413/checkpoint-413'
+        self.CTRL_checkpoint_pointer = two_up + '/log_dir/controller_1_step/PPO_HierEnv_ebf84_00000_0_2022-02-01_10-30-05/checkpoint_000251/checkpoint-251'
         self.BL_checkpoint_pointer = two_up + sub_agents['B_line_trained']
         self.RM_checkpoint_pointer = two_up + sub_agents['RedMeander_trained']
 
@@ -55,7 +55,7 @@ class LoadBlueAgent:
             "num_gpus": int(os.environ.get("RLLIB_NUM_GPUS", "0")),
             "model": {
                 "custom_model": "CybORG_hier_Model",
-                #"vf_share_layers": False,
+                "vf_share_layers": True,
             },
             "lr": 0.0001,
             #"momentum": tune.uniform(0, 1),

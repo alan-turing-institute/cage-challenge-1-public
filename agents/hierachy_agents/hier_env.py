@@ -31,7 +31,7 @@ class TorchModel(TorchModelV2, torch.nn.Module):
 class HierEnv(gym.Env):
     # Env parameters
     max_steps = 100 # Careful! There are two other envs!
-    mem_len = 3
+    mem_len = 1
 
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'

@@ -18,7 +18,7 @@ from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
 
 from agents.hierachy_agents.loadagent import LoadBlueAgent
 
-MAX_EPS = 100
+MAX_EPS = 10
 agent_name = 'Blue'
 
 def wrap(env):
