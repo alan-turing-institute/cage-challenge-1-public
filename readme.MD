@@ -3,56 +3,20 @@
 
 # Introduction
 
+
 This repository contains agents for winning the CybORG-CAGE [Challenge(s)](https://github\.com/cage\-challenge/cage\-challenge\-1/tree/main/CybORG).
 
-# Results
+Our blue agent is developed using a hierarchical reinforcement learning approach which comprises two specialised defensive blue agents and a selection agent that decides the best 'agent for the job' based on a given observation. Our two specialists are trained to defend against the red meander and red b_line agents using the Proximal Policy Optimization (PPO) algorithm.
 
-Results are summarised in the [results table](results.MD).
+An important factor in the performance of our specialised agents is that we have allowed them to learn an intrinsic internal reward using curiosity. Curiosity allows our agents to build an internal reward signal which improves performance where rewards from the environment are sparse. Our testing revealed substantial improvements over vanilla PPO where curiosity was applied and also improved upon our attempts to create a more dense reward function manually.
 
-# Instructions for submitting responses
-
-Successful blue agents and any queries re the challenge can be submitted via email to: cage\.aco\.challenge@gmail\.com
-
-When submitting a blue agent, teams should include:
-
-- A team name and contact details\.
-- The code implementing the agent, with a list of dependencies\.
-- A description of your approach in developing a blue agent\.
-- The files and terminal output of the evaluation function\.
-
-
-## Important dates
-
-20 August 2021: Challenge announced at ACD 2021 and open for submissions\.
-
-September/October 2021: Release of an additional version of the Challenge problem with a Misinform action available to the blue agent\.
-
-1 February 2022: Challenge closed\.
-
-4 February 2022: Final results announced\.
-
+The second important contribution of our solution is a hierarchical approach in which we trained, also using PPO but without curiosity, a selection agent to choose between our specialised agents. We experimented with several different approaches but found best performance using an observation space of one step of the underlying CybORG environment. 
 
 ## How to run this code:
 
 ```
 # List of agents to select from is maintained in agents_list.py
 python evalutation.py --name-of-agent <agent>
-```
-
-This repository is setup to run trials via [Guild.AI](https://my.guild.ai/) and [Ray](https://ray.io/)
-
-```
-# Run the training script with all defaults for model `a2c`
-guild run a2c:train
-
-# Run the evaluation script with all defaults and log into Guild.AI's template
-guild run evaluation.py
-
-# View results on TensorBoard (runs local webpage)
-guild view
-
-# See what options there are to run trials
-guild operations
 ```
 
 Running hierachical agents
@@ -68,6 +32,22 @@ train_hier.py
 
 # Run the evaluation script
 python evaluation.py
+```
+
+Running to create gif of a single episode
+
+```
+# create output from an evaluation of a single episode
+# alter the config to change the number of steps and the adversary
+python get_vis_output.py
+
+cd visualisation
+
+# create gif
+python git_maker.py
+
+
+
 ```
 
 
