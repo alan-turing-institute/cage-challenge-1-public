@@ -178,4 +178,4 @@ class LoadBlueAgent:
         elif agent_to_select == 1:
             # get action from agent trained against the RedMeanderAgent
             agent_action = self.RM_def.compute_single_action(self.observation[-1:])
-        return agent_action
+        return agent_action, agent_to_select

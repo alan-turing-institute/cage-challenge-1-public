@@ -18,7 +18,7 @@ from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
 
 from agents.hierachy_agents.loadagent import LoadBlueAgent
 
-MAX_EPS = 100
+MAX_EPS = 10
 agent_name = 'Blue'
 
 def wrap(env):
@@ -52,6 +52,8 @@ if __name__ == "__main__":
 
     path = str(inspect.getfile(CybORG))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
+
+    rew_total = 0
 
     print(f'using CybORG v{cyborg_version}, {scenario}\n')
     for num_steps in [30, 50, 100]:
@@ -95,3 +97,5 @@ if __name__ == "__main__":
                 data.write(f'steps: {num_steps}, adversary: {red_agent.__name__}, mean: {mean(total_reward)}, standard deviation {stdev(total_reward)}\n')
                 for act, sum_rew in zip(actions, total_reward):
                     data.write(f'actions: {act}, total reward: {sum_rew}\n')
+            rew_total += mean(total_reward)
+    print('Total final score: {:.2f}'.format(rew_total))
