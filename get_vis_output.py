@@ -49,7 +49,9 @@ if __name__ == "__main__":
     blue_move_numbers = []
     red_moves = []
     green_moves = []
-    table_file = time.strftime("%Y%m%d_%H%M%S") + f'_table_file.txt'
+    table_file = 'visualisation/logs_to_vis/results.txt'
+    with open(table_file, 'w+') as table_out:
+        table_out.write('\n')
     redAgent = B_lineAgent
 
 

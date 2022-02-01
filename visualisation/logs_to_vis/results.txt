@@ -1,0 +1,2302 @@
+
+
+Red Agent: B_lineAgent, Num_steps: 100
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |   True  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |   True  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Restore User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |   True  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Restore User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host0
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Analyse Enterprise2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Analyse Op_Host1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Analyse Op_Host1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |   True  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Restore User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |   True  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Restore User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Analyse Enterprise2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    User    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform Op_Host2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Misinform User2
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |   True  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Restore User1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    User    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
+
+Blue Action: Remove Enterprise1
+Reward: 0.0, Episode reward: -6.1
+Network state:
++-----------------+--------------+-------------+-------+---------+------------+
+|      Subnet     |  IP Address  |   Hostname  | Known | Scanned |   Access   |
++-----------------+--------------+-------------+-------+---------+------------+
+|  10.0.48.224/28 | 10.0.48.229  |   Defender  | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.233  | Enterprise0 | False |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.235  | Enterprise1 |  True |  False  |    None    |
+|  10.0.48.224/28 | 10.0.48.236  | Enterprise2 | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.236  |   Op_Host0  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.235  |   Op_Host1  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.225  |   Op_Host2  | False |  False  |    None    |
+|  10.0.32.224/28 | 10.0.32.234  |  Op_Server0 | False |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.243 |    User0    |  True |  False  | Privileged |
+| 10.0.215.240/28 | 10.0.215.244 |    User1    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.241 |    User2    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.249 |    User3    |  True |  False  |    None    |
+| 10.0.215.240/28 | 10.0.215.242 |    User4    |  True |  False  |    None    |
++-----------------+--------------+-------------+-------+---------+------------+
+.
+
