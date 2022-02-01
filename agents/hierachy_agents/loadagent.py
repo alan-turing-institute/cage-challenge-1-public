@@ -34,7 +34,7 @@ class LoadBlueAgent:
         # Load checkpoint locations of each agent
         two_up = path.abspath(path.join(__file__, "../../../"))
         #self.CTRL_checkpoint_pointer = two_up + '/log_dir/rl_controller_scaff/PPO_HierEnv_1e996_00000_0_2022-01-27_13-43-33/checkpoint_000212/checkpoint-212'
-        self.CTRL_checkpoint_pointer = two_up + '/log_dir/PPO_4_step_2/PPO_HierEnv_0d139_00000_0_2022-01-31_21-52-14/checkpoint_000436/checkpoint-436'
+        self.CTRL_checkpoint_pointer = two_up + '/log_dir/PPO_3_step_cont/PPO_HierEnv_d1d03_00000_0_2022-02-01_08-13-21/checkpoint_000413/checkpoint-413'
         self.BL_checkpoint_pointer = two_up + sub_agents['B_line_trained']
         self.RM_checkpoint_pointer = two_up + sub_agents['RedMeander_trained']
 
@@ -178,4 +178,4 @@ class LoadBlueAgent:
         elif agent_to_select == 1:
             # get action from agent trained against the RedMeanderAgent
             agent_action = self.RM_def.compute_single_action(self.observation[-1:])
-        return agent_action, agent_to_select
+        return agent_action#, agent_to_select

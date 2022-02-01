@@ -18,7 +18,7 @@ from CybORG.Agents.Wrappers.TrueTableWrapper import true_obs_to_table
 
 from agents.hierachy_agents.loadagent import LoadBlueAgent
 
-MAX_EPS = 10
+MAX_EPS = 100
 agent_name = 'Blue'
 
 def wrap(env):
@@ -74,7 +74,7 @@ if __name__ == "__main__":
                 a = []
                 # cyborg.env.env.tracker.render()
                 for j in range(num_steps):
-                    action, agent_selected = agent.get_action(observation, action_space)
+                    action = agent.get_action(observation, action_space)
                     observation, rew, done, info = wrapped_cyborg.step(action)
                     # result = cyborg.step(agent_name, action)
 
@@ -85,8 +85,8 @@ if __name__ == "__main__":
 
                     r.append(rew)
                     # r.append(result.reward)
-                    agent_selected = 'BLine' if agent_selected == 0 else 'RedMeander'
-                    a.append((str(cyborg.get_last_action('Blue')), str(cyborg.get_last_action('Red')), agent_selected))
+                    #agent_selected = 'BLine' if agent_selected == 0 else 'RedMeander'
+                    a.append((str(cyborg.get_last_action('Blue')), str(cyborg.get_last_action('Red'))))
                 total_reward.append(sum(r))
                 actions.append(a)
                 # observation = cyborg.reset().observation
