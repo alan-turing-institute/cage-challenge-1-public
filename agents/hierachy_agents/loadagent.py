@@ -171,11 +171,11 @@ class LoadBlueAgent:
         self.observation[HierEnv.mem_len-1] = obs           # Replace what's on the rightmost position
 
         #select agent to compute action
-        agent_to_select = self.controller_agent.compute_single_action(obs)
+        agent_to_select = self.controller_agent.compute_single_action(self.observation)
         if agent_to_select == 0:
             # get action from agent trained against the B_lineAgent
             agent_action = self.BL_def.compute_single_action(self.observation[-1:])
         elif agent_to_select == 1:
             # get action from agent trained against the RedMeanderAgent
             agent_action = self.RM_def.compute_single_action(self.observation[-1:])
-        return agent_action, agent_to_select
+        return agent_action
