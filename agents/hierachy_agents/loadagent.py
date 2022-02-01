@@ -18,6 +18,8 @@ from agents.hierachy_agents.scaffold_env import CybORGScaffRM, CybORGScaffBL
 from agents.hierachy_agents.hier_env import HierEnv
 import os
 from agents.hierachy_agents.sub_agents import sub_agents
+from agents.hierachy_agents.CybORGAgent import CybORGAgent
+from ray.rllib.agents.ppo.ppo import DEFAULT_CONFIG
 
 class LoadBlueAgent:
 
@@ -25,14 +27,14 @@ class LoadBlueAgent:
     Load the agent model using the latest checkpoint and return it for evaluation
     """
     def __init__(self) -> None:
-        ModelCatalog.register_custom_model("CybORG_PPO_Model", TorchModel)
+        ModelCatalog.register_custom_model("CybORG_hier_Model", TorchModel)
         #relative_path = os.path.abspath(os.getcwd())[:62] + '/cage-challenge-1'
         #print("Relative path:", relative_path)
 
         # Load checkpoint locations of each agent
         two_up = path.abspath(path.join(__file__, "../../../"))
         #self.CTRL_checkpoint_pointer = two_up + '/log_dir/rl_controller_scaff/PPO_HierEnv_1e996_00000_0_2022-01-27_13-43-33/checkpoint_000212/checkpoint-212'
-        self.CTRL_checkpoint_pointer = two_up + '/log_dir/rl_controller_scaff/PPO_HierEnv_36e5d_00000_0_2022-01-31_14-43-55/checkpoint_000001/checkpoint-1'
+        self.CTRL_checkpoint_pointer = two_up + '/log_dir/PPO_4_step_2/PPO_HierEnv_0d139_00000_0_2022-01-31_21-52-14/checkpoint_000436/checkpoint-436'
         self.BL_checkpoint_pointer = two_up + sub_agents['B_line_trained']
         self.RM_checkpoint_pointer = two_up + sub_agents['RedMeander_trained']
 
@@ -42,8 +44,36 @@ class LoadBlueAgent:
         print("Using checkpoint file (B-line): {}".format(self.BL_checkpoint_pointer))
         print("Using checkpoint file (Red Meander): {}".format(self.RM_checkpoint_pointer))
 
-        config = {
+        config = Trainer.merge_trainer_configs(
+            DEFAULT_CONFIG,
+            {
             "env": HierEnv,
+            "env_config": {
+                "null": 0,
+            },
+            # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
+            "num_gpus": int(os.environ.get("RLLIB_NUM_GPUS", "0")),
+            "model": {
+                "custom_model": "CybORG_hier_Model",
+                #"vf_share_layers": False,
+            },
+            "lr": 0.0001,
+            #"momentum": tune.uniform(0, 1),
+            "num_workers": 4,  # parallelism
+            "framework": "torch", # May also use "tf2", "tfe" or "torch" if supported
+            "eager_tracing": True, # In order to reach similar execution speed as with static-graph mode (tf default)
+            "vf_loss_coeff": 0.01,  # Scales down the value function loss for better comvergence with PPO
+             "in_evaluation": True,
+            'explore': False
+        })
+
+        # Restore the controller model
+        self.controller_agent = ppo.PPOTrainer(config=config, env=HierEnv)
+        self.controller_agent.restore(self.CTRL_checkpoint_pointer)
+        self.observation = np.zeros((HierEnv.mem_len,52))
+
+        sub_config_BL = {
+            "env": CybORGAgent,
             "env_config": {
                 "null": 0,
             },
@@ -61,14 +91,7 @@ class LoadBlueAgent:
             "vf_loss_coeff": 0.01,  # Scales down the value function loss for better comvergence with PPO
             "in_evaluation": True,
             'explore': False,
-        }
-
-        # Restore the controller model
-        self.controller_agent = ppo.PPOTrainer(config=config, env=HierEnv)
-        self.controller_agent.restore(self.CTRL_checkpoint_pointer)
-        self.observation = np.zeros((HierEnv.mem_len,52))
-
-        config["exploration_config"] ={
+            "exploration_config": {
                 "type": "Curiosity",  # <- Use the Curiosity module for exploring.
                 "eta": 1.0,  # Weight for intrinsic rewards before being added to extrinsic ones.
                 "lr": 0.001,  # Learning rate of the curiosity (ICM) module.
@@ -89,15 +112,56 @@ class LoadBlueAgent:
                     "type": "StochasticSampling",
                 }
             }
+        }
+
+        sub_config_M = {
+            "env": CybORGAgent,
+            "env_config": {
+                "null": 0,
+            },
+            # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
+            "num_gpus": int(os.environ.get("RLLIB_NUM_GPUS", "0")),
+            "model": {
+                "custom_model": "CybORG_PPO_Model",
+                #"vf_share_layers": True,
+            },
+            "lr": 0.0001,
+            # "momentum": tune.uniform(0, 1),
+            "num_workers": 0,  # parallelism
+            "framework": "torch",  # May also use "tf2", "tfe" or "torch" if supported
+            "eager_tracing": True,  # In order to reach similar execution speed as with static-graph mode (tf default)
+            "vf_loss_coeff": 0.01,  # Scales down the value function loss for better comvergence with PPO
+            "in_evaluation": True,
+            'explore': False,
+            "exploration_config": {
+                "type": "Curiosity",  # <- Use the Curiosity module for exploring.
+                "eta": 1.0,  # Weight for intrinsic rewards before being added to extrinsic ones.
+                "lr": 0.001,  # Learning rate of the curiosity (ICM) module.
+                "feature_dim": 288,  # Dimensionality of the generated feature vectors.
+                # Setup of the feature net (used to encode observations into feature (latent) vectors).
+                "feature_net_config": {
+                    "fcnet_hiddens": [],
+                    "fcnet_activation": "relu",
+                },
+                "inverse_net_hiddens": [256],  # Hidden layers of the "inverse" model.
+                "inverse_net_activation": "relu",  # Activation of the "inverse" model.
+                "forward_net_hiddens": [256],  # Hidden layers of the "forward" model.
+                "forward_net_activation": "relu",  # Activation of the "forward" model.
+                "beta": 0.2,  # Weight for the "forward" loss (beta) over the "inverse" loss (1.0 - beta).
+                # Specify, which exploration sub-type to use (usually, the algo's "default"
+                # exploration, e.g. EpsilonGreedy for DQN, StochasticSampling for PG/SAC).
+                "sub_exploration": {
+                    "type": "StochasticSampling",
+                }
+            }
+        }
+
         #load agent trained against RedMeanderAgent
-        config['env'] = CybORGScaffRM
-        self.RM_def = ppo.PPOTrainer(config=config, env=CybORGScaffRM)
+        self.RM_def = ppo.PPOTrainer(config=sub_config_M, env=CybORGAgent)
         self.RM_def.restore(self.RM_checkpoint_pointer)
         #load agent trained against B_lineAgent
-        config['env'] = CybORGScaffBL
-        self.BL_def = ppo.PPOTrainer(config=config, env=CybORGScaffBL)
+        self.BL_def = ppo.PPOTrainer(config=sub_config_BL, env=CybORGAgent)
         self.BL_def.restore(self.BL_checkpoint_pointer)
-
 
 
     """Compensate for the different method name"""

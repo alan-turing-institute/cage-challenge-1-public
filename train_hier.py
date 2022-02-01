@@ -105,8 +105,8 @@ if __name__ == "__main__":
     })
 
     stop = {
-        "training_iteration": 1200,   # The number of times tune.report() has been called
-        "timesteps_total": 8000000,   # Total number of timesteps
+        "training_iteration": 5000,   # The number of times tune.report() has been called
+        "timesteps_total": 10000000,   # Total number of timesteps
         "episode_reward_mean": -0.1, # When to stop.. it would be great if we could define this in terms
                                     # of a more complex expression which incorporates the episode reward min too
                                     # There is a lot of variance in the episode reward min
