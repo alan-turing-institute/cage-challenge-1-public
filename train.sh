@@ -1,14 +1,14 @@
 #!/bin/bash
 
-log_dir="{pwd}/logs/"
-agents_dir="{pwd}/agents/"
+log_dir="$(pwd)/logs/"
+agents_dir="$(pwd)/agents/"
 
 
 case $1 in
 
   a2c)
 	cd $agents_dir
-    python agents/ppo/train_ppo.py $log_dir
+    python agents/ppo/train_a2c.py $log_dir
     ;;
 
   ppo)
@@ -18,7 +18,7 @@ case $1 in
 
   dqn)
 	cd $agents_dir
-    python agents/ppo/train_ppo.py $log_dir
+    python agents/ppo/train_dqn.py $log_dir
     ;;
 
   *)
