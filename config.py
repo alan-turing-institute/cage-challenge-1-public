@@ -23,6 +23,7 @@ def configure():
     parser.add_argument('--training-length', type=int, default=4000, help='See MF A2C agent docs...')
     parser.add_argument('--checkpoint-path', type=str, help='Path to checkpoint of trained agent.')
     parser.add_argument('--red-agent', type=str, help='Red agent strategy')
+    parser.add_argument('--show-table', action='store_true', help='print out additional info in evaluation')
 
 
     # Agent flags

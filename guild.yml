@@ -63,6 +63,11 @@
         - 'B_lineAgent'
         - 'RedMeanderAgent'
         - 'SleepAgent'
+    show-table:
+      description: 'print out additional info in evaluation'
+      arg-switch: no
+
+
 
 - config: agent-flags
   flags:
