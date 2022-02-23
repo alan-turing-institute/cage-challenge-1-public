@@ -3,7 +3,7 @@ import time
 from statistics import mean, stdev
 
 from CybORG import CybORG
-from CybORG.Agents import B_lineAgent, SleepAgent
+from CybORG.Agents import B_lineAgent, SleepAgent, RedMeanderAgent
 from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
 from CybORG.Agents.SimpleAgents.BlueLoadAgent import BlueLoadAgent
 from CybORG.Agents.SimpleAgents.BlueReactAgent import BlueReactRemoveAgent
@@ -61,6 +61,9 @@ if __name__ == "__main__":
     observation = wrapped_cyborg.reset()
 
     action_space = wrapped_cyborg.get_action_space(agent_name)
+    specialist_agent_names = {0: 'b_lineAgent', 1: 'meanderAgent'}
+    count_agent_dist = [0,0]
+    controller_moves = []
     moves = []
     successes = []
     tables = []
@@ -69,6 +72,16 @@ if __name__ == "__main__":
     rewards = []
     for j in range(100):
         action = agent.get_action(observation, action_space)
+
+        # Sample the agent selected by our hierarchy controller
+        agent_selected = agent.controller_agent.compute_single_action(observation)
+        try:
+            agent_selected_name = specialist_agent_names[agent.controller_agent.compute_single_action(observation)]
+            count_agent_dist[agent_selected] += 1
+        except KeyError:
+            print('Hierarchy controller selected unknown agent: {}'.format(agent_selected))
+            agent_selected_name = str(agent_selected)
+
         observation, rew, done, info = wrapped_cyborg.step(action)
 
         blue_moves += [info['action'].__str__()]
@@ -86,6 +99,7 @@ if __name__ == "__main__":
         blue_success = success_observation['Blue'].action_succeeded
         red_success = success_observation['Red'].action_succeeded
         green_success = success_observation['Green'].action_succeeded
+        controller_moves.append(agent_selected_name)
         moves.append((blue_move, green_move, red_move))
         successes.append((blue_success, green_success, red_success))
         tables.append(true_table)
@@ -98,6 +112,7 @@ if __name__ == "__main__":
     with open(table_file, 'a+') as table_out:
         for move in range(len(moves)):
             table_out.write('\n----------------------------------------------------------------------------\n')
+            table_out.write('Agent Selected: {}\n'.format(controller_moves[move]))
             table_out.write('Blue Action: {}\n'.format(moves[move][0]))
             table_out.write('Reward: {}, Episode reward: {}\n'.format(rewards[move], total_reward))
             table_out.write('Network state:\n')
@@ -105,3 +120,4 @@ if __name__ == "__main__":
             table_out.write(str(tables[move]))
             table_out.write('\n.\n\n')
 
+    print('Controller distribution: {} b_lineAgent, {}, RedMeanderAgent'.format(count_agent_dist[0], count_agent_dist[1]))
