@@ -17,6 +17,7 @@ from train_hier import CustomModel, TorchModel
 from agents.hierachy_agents.scaffold_env import CybORGScaffRM, CybORGScaffBL
 from agents.hierachy_agents.hier_env import HierEnv
 import os
+from CybORG.Agents import B_lineAgent, SleepAgent, RedMeanderAgent
 from agents.hierachy_agents.sub_agents import sub_agents
 from agents.hierachy_agents.CybORGAgent import CybORGAgent
 from ray.rllib.agents.ppo.ppo import DEFAULT_CONFIG
@@ -163,6 +164,11 @@ class LoadBlueAgent:
         self.BL_def = ppo.PPOTrainer(config=sub_config_BL, env=CybORGAgent)
         self.BL_def.restore(self.BL_checkpoint_pointer)
 
+        self.red_agent=-1
+
+
+    def set_red_agent(self, red_agent):
+        self.red_agent = red_agent
 
     """Compensate for the different method name"""
     def get_action(self, obs, action_space):
@@ -171,7 +177,13 @@ class LoadBlueAgent:
         self.observation[HierEnv.mem_len-1] = obs           # Replace what's on the rightmost position
 
         #select agent to compute action
-        agent_to_select = self.controller_agent.compute_single_action(self.observation)
+        if self.red_agent == B_lineAgent or self.red_agent == SleepAgent:
+            agent_to_select = 0
+        else: #RedMeanderAgent
+            agent_to_select = 1
+
+        #self.controller_agent.compute_single_action(self.observation)
+        #agent_to_select = 1#np.random.choice([0,1]) # hard-coded meander agent only
         if agent_to_select == 0:
             # get action from agent trained against the B_lineAgent
             agent_action = self.BL_def.compute_single_action(self.observation[-1:])
